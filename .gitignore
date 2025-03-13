@@ -164,7 +164,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/.angular/cache
+/.angular
 .sass-cache/
 /connect.lock
 /coverage
@@ -176,4 +176,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.nx/
+/.nx/
