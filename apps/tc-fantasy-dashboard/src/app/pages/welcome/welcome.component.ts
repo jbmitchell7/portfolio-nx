@@ -4,7 +4,7 @@ import { leagueEntryRequest } from '../../store/global.actions';
 import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { ColorModeBtnComponent } from '@shared-global/ui';
     ButtonModule,
     InputTextModule,
     ReactiveFormsModule,
-    MessagesModule,
+    MessageModule,
     FormsModule,
     IconAttributionComponent,
     ColorModeBtnComponent
