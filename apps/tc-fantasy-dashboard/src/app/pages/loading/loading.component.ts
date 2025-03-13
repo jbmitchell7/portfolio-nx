@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
-  selector: 'app-loading',
+  selector: 'fd-loading',
   imports: [ProgressSpinnerModule],
   template:
   `

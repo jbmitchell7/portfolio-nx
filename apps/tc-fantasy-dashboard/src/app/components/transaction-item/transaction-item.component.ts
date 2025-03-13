@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'ui-transaction-item',
+    selector: 'fd-transaction-item',
     imports: [],
     templateUrl: './transaction-item.component.html',
     styleUrl: './transaction-item.component.scss'

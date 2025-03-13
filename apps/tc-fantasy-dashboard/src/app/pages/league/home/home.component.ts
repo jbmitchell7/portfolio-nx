@@ -18,7 +18,7 @@ import { getCurrentTransactionsWeek } from '../../../utils/transactions';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
-  selector: 'app-home',
+  selector: 'fd-home',
   imports: [CommonModule, GraphComponent, PanelModule, WeeklyTransactionsComponent, ProgressSpinnerModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'

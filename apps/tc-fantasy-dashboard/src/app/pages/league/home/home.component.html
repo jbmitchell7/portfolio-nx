@@ -12,12 +12,12 @@
       </p-card> -->
       <div class="h-[70vh] sm:h-full lg:flex-auto lg:max-w-1/2" [ngClass]="{'h-auto': league.status !== 'in_season'}">
         <p-panel [header]="graphHeader">
-          <ui-graph [standingsData]="standingsData" />
+          <fd-graph [standingsData]="standingsData" />
         </p-panel>
       </div>
       <div class="w-full lg:w-96">
         <p-panel header="Weekly Transactions">
-          <ui-weekly-transactions class="pt-3" [transactions]="transactions" [isLoading]="transactionsLoading" />
+          <fd-weekly-transactions class="pt-3" [transactions]="transactions" [isLoading]="transactionsLoading" />
         </p-panel>
       </div>
     </div>

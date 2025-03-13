@@ -5,7 +5,7 @@ import { ChartModule } from 'primeng/chart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { GRAPH_COLORS, SUBTITLE_TEXT } from '../../data/constants/graph.constants';
 @Component({
-    selector: 'ui-graph',
+    selector: 'fd-graph',
     templateUrl: './graph.component.html',
     imports: [CommonModule, ChartModule, ProgressSpinnerModule]
 })

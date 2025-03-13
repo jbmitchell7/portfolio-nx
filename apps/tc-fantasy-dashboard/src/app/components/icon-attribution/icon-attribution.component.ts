@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'icon-attribution',
+  selector: 'fd-icon-attribution',
   imports: [],
   templateUrl: './icon-attribution.component.html'
 })

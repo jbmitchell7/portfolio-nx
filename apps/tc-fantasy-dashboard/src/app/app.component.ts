@@ -5,7 +5,7 @@ import { leagueEntryRequest } from './store/global.actions';
 import Bowser from "bowser";
 
 @Component({
-  selector: 'app-root',
+  selector: 'fd-root',
   templateUrl: './app.component.html',
   imports: [RouterOutlet]
 })
@@ -16,7 +16,7 @@ export class AppComponent {
   constructor() {
     this.#setMobile();
     const id = localStorage.getItem('LEAGUE_ID');
-    if (!!id) {
+    if (id) {
       this.#store.dispatch(leagueEntryRequest({ leagueId: id }));
       if (!this.#router.url.includes('league')) {
         this.#router.navigateByUrl('/league');

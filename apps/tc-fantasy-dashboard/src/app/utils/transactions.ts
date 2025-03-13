@@ -27,7 +27,7 @@ export const getRosterMoves = (t: Transaction, state: AppState) => {
 };
 
 const getMoveData = (state: PlayersState, transaction: Transaction, id: number, manager: LeagueUser | undefined): RosterMove => {
-  let result = {
+  const result = {
     adds: [] as Partial<Player>[],
     drops: [] as Partial<Player>[],
     manager,

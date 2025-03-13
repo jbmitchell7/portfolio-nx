@@ -44,7 +44,7 @@ const STANDINGS_COLUMNS: Column[] = [
 ];
 
 @Component({
-    selector: 'app-standings',
+    selector: 'fd-standings',
     templateUrl: './standings.component.html',
     imports: [CommonModule, TableModule, TagModule]
 })
@@ -56,7 +56,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
   columnDefs = STANDINGS_COLUMNS;
   leagueYear!: string;
   leagueName!: string;
-  dataLoaded: boolean = false;
+  dataLoaded = false;
   maxGridWidth = 690;
   seasonStarted = false;
   mobileDevice = JSON.parse(localStorage.getItem('MOBILE') as string);
