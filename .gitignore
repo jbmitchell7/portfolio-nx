@@ -177,3 +177,5 @@ testem.log
 Thumbs.db
 
 /.nx/
+
+.angular
