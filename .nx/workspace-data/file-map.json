@@ -1,0 +1,186 @@
+{
+  "version": "6.0",
+  "nxVersion": "20.5.0",
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": "tsconfig.base.json",
+        "hash": "16936441711144470533"
+      },
+      {
+        "file": ".editorconfig",
+        "hash": "5443105041930014821"
+      },
+      {
+        "file": ".angular/cache/19.2.2/portfolio/vite/deps_ssr/_metadata.json",
+        "hash": "15533792264679578233"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "11626757110911850827"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "13125744229463403708"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": "README.md",
+        "hash": "11976240475713106777"
+      },
+      {
+        "file": ".angular/cache/19.2.2/portfolio/vite/deps_temp_cff37419/package.json",
+        "hash": "8630294688235076505"
+      },
+      {
+        "file": "nx.json",
+        "hash": "6480412100479659410"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "9430166341120122740"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "5407418692668764289"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "4637156562308165301"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "6870352021923392442"
+      },
+      {
+        "file": ".angular/cache/19.2.2/portfolio/.tsbuildinfo",
+        "hash": "15347149616715229470"
+      },
+      {
+        "file": "package.json",
+        "hash": "15074892973578215483"
+      },
+      {
+        "file": "eslint.config.mjs",
+        "hash": "3462096019013144053"
+      },
+      {
+        "file": ".angular/cache/19.2.2/portfolio/vite/deps_ssr/package.json",
+        "hash": "8630294688235076505"
+      }
+    ],
+    "projectFileMap": {
+      "portfolio": [
+        {
+          "file": "apps/portfolio/eslint.config.mjs",
+          "hash": "16756400681144203361",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "apps/portfolio/jest.config.ts",
+          "hash": "6163167796486769705"
+        },
+        {
+          "file": "apps/portfolio/project.json",
+          "hash": "215829571025200189"
+        },
+        {
+          "file": "apps/portfolio/public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "apps/portfolio/src/app/app.component.html",
+          "hash": "11987652264972370457"
+        },
+        {
+          "file": "apps/portfolio/src/app/app.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/portfolio/src/app/app.component.spec.ts",
+          "hash": "13495433353070055950",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/portfolio/src/app/app.component.ts",
+          "hash": "13031628501940204428",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/portfolio/src/app/app.config.ts",
+          "hash": "6137170128205633588",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/portfolio/src/app/app.routes.ts",
+          "hash": "6185150965714414910",
+          "deps": [
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/portfolio/src/app/nx-welcome.component.ts",
+          "hash": "17109931626850499778",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "apps/portfolio/src/index.html",
+          "hash": "15011731979055711980"
+        },
+        {
+          "file": "apps/portfolio/src/main.ts",
+          "hash": "16635586463787978962",
+          "deps": [
+            "npm:@angular/platform-browser"
+          ]
+        },
+        {
+          "file": "apps/portfolio/src/styles.scss",
+          "hash": "5195668842064076916"
+        },
+        {
+          "file": "apps/portfolio/src/test-setup.ts",
+          "hash": "1917999429567095215",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "apps/portfolio/tsconfig.app.json",
+          "hash": "8365644956319658761"
+        },
+        {
+          "file": "apps/portfolio/tsconfig.editor.json",
+          "hash": "1055794200401717100"
+        },
+        {
+          "file": "apps/portfolio/tsconfig.json",
+          "hash": "6424220500541951295"
+        },
+        {
+          "file": "apps/portfolio/tsconfig.spec.json",
+          "hash": "2927375835638640771"
+        }
+      ]
+    }
+  }
+}
