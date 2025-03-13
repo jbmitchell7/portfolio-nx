@@ -1,16 +1,8 @@
-<div class="fixed w-full z-50">
-  <p-menubar [model]="menuItems">
-    <ng-template #end>
-      <p-button (onClick)="toggleDarkMode()">
-        <i class="fa-regular" [class.fa-sun]="!darkMode" [class.fa-moon]="darkMode"></i>
-      </p-button>
-    </ng-template>
-  </p-menubar>
-</div>
+<shared-ui-navbar [menuItems]="menuItems" />
 <div class="p-2 md:p-5">
-  <home />
-  <about />
-  <experience />
-  <projects-list />
-  <contact />
+  <portfolio-home />
+  <portfolio-about />
+  <portfolio-experience />
+  <portfolio-projects-list />
+  <portfolio-contact />
 </div>

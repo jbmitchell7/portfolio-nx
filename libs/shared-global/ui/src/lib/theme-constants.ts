@@ -1,0 +1,1 @@
+export const darkModeSelector = '.dark-mode';

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
-  selector: 'section-wrapper',
+  selector: 'portfolio-section-wrapper',
   imports: [PanelModule],
   templateUrl: './section-wrapper.component.html'
 })

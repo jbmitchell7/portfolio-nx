@@ -4,7 +4,7 @@ interface Skill {
   link: string
 }
 
-export const about: string = "I am a full stack software developer in the Minneapolis area looking to join your development team. I feel passionately about the importance of a clean, responsive, and easy-to-use application. I'll help you by bringing that passion to your next big project!"
+export const about = "I am a full stack software developer in the Minneapolis area looking to join your development team. I feel passionately about the importance of a clean, responsive, and easy-to-use application. I'll help you by bringing that passion to your next big project!"
 
 export const skills: Skill[] = [
   {

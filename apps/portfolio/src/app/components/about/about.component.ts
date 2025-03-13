@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { about, skills } from '../../data/skills';
+import { about, skills } from './skills';
 import { SectionWrapperComponent } from '../section-wrapper/section-wrapper.component';
 
 @Component({
-  selector: 'about',
+  selector: 'portfolio-about',
   imports: [SectionWrapperComponent],
   templateUrl: './about.component.html'
 })
