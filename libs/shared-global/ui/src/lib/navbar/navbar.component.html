@@ -1,9 +1,10 @@
-<div class="fixed w-full z-50">
-  <p-menubar [model]="menuItems">
-    <ng-template #end>
-      <p-button (onClick)="toggleDarkMode()">
-        <i class="fa-regular" [class.fa-sun]="!darkMode" [class.fa-moon]="darkMode"></i>
-      </p-button>
+<p-menubar [model]="menuItems">
+  @if (logoPath) {
+    <ng-template #start>
+      <img [src]="logoPath" alt="logo" class="h-8" />
     </ng-template>
-  </p-menubar>
-</div>
+  }
+  <ng-template #end>
+    <shared-ui-color-mode-btn />
+  </ng-template>
+</p-menubar>

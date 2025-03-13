@@ -8,8 +8,8 @@ import { MessagesModule } from 'primeng/messages';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
-import { ColorModeBtnComponent } from '../../components/color-mode-btn/color-mode-btn.component';
 import { IconAttributionComponent } from '../../components/icon-attribution/icon-attribution.component';
+import { ColorModeBtnComponent } from '@shared-global/ui';
 
 @Component({
   imports: [
@@ -19,11 +19,11 @@ import { IconAttributionComponent } from '../../components/icon-attribution/icon
     ReactiveFormsModule,
     MessagesModule,
     FormsModule,
-    ColorModeBtnComponent,
-    IconAttributionComponent
+    IconAttributionComponent,
+    ColorModeBtnComponent
   ],
   providers: [MessageService],
-  selector: 'app-welcome',
+  selector: 'fd-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })

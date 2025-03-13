@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'ui-color-mode-btn',
-  imports: [ButtonModule],
-  templateUrl: './color-mode-btn.component.html'
+  selector: 'shared-ui-color-mode-btn',
+  imports: [CommonModule, ButtonModule],
+  templateUrl: './color-mode-btn.component.html',
 })
 export class ColorModeBtnComponent {
   darkMode = false;
@@ -13,11 +14,11 @@ export class ColorModeBtnComponent {
     this.#setDarkMode();
   }
 
-  darkModeBtnClick(): void  {
-      this.darkMode = !this.darkMode;
-      this.#toggleDarkMode();
-      localStorage.setItem('darkModePreferred', this.darkMode.toString())
-    }
+  darkModeBtnClick(): void {
+    this.darkMode = !this.darkMode;
+    this.#toggleDarkMode();
+    localStorage.setItem('darkModePreferred', this.darkMode.toString());
+  }
 
   #setDarkMode(): void {
     const darkModePreference = localStorage.getItem('darkModePreferred');
