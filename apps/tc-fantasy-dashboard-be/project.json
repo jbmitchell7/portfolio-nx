@@ -1,0 +1,26 @@
+{
+  "name": "tc-fantasy-dashboard-be",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/tc-fantasy-dashboard-be/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "tc-fantasy-dashboard-be:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "tc-fantasy-dashboard-be:build:development"
+        },
+        "production": {
+          "buildTarget": "tc-fantasy-dashboard-be:build:production"
+        }
+      }
+    }
+  }
+}

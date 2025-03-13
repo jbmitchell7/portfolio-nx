@@ -3,8 +3,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, catchError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const apiUrl = 'https://sleeperfantasyfocus-be.onrender.com/api';
+// const apiUrl = 'http://localhost:3000/api';
 // const apiUrl = 'https://fantasy-dashboard.thundercloud.dev';
+const apiUrl = 'https://sleeperfantasyfocus-be.onrender.com/api';
 
 @Injectable({
   providedIn: 'root'
