@@ -1,0 +1,33 @@
+<section-wrapper id="experience" header="Experience">
+  <div class="flex flex-col md:flex-row justify-center gap-4">
+    <div class="flex flex-col gap-3">
+      <h3>Education</h3>
+      @for (item of education; track $index) {
+      <div>
+        <h5>{{item.location}}</h5>
+        <p>{{item.dates}}</p>
+        <p>{{item.diploma}}</p>
+      </div>
+      }
+    </div>
+
+    <div class="hidden md:inline">
+      <p-divider layout="vertical" />
+    </div>
+    <div class="md:hidden">
+      <p-divider />
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <h3>Work</h3>
+      @for (job of work; track $index) {
+      <div>
+        <h5>{{job.title}}</h5>
+        <p>{{job.dates}}</p>
+        <p>{{job.description}}</p>
+      </div>
+      }
+    </div>
+  </div>
+
+</section-wrapper>

@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+@layer base {
+  h1 {
+    font-size: var(--text-4xl);
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+  }
+
+  h3 {
+    font-size: var(--text-2xl);
+  }
+
+  h4 {
+    font-size: var(--text-xl);
+  }
+
+  h5 {
+    font-size: var(--text-lg);
+  }
+
+  p {
+    font-size: var(--text-sm);
+  }
+}
+
+.section {
+  padding-top: 8rem;
+  display: grid;
+  grid-template: 
+    ". content ."
+    / 1fr 3fr 1fr
+}
+
+@media (width < 48rem) {
+  .section {
+    grid-template:
+      "content"
+      / auto
+  }
+
+  h1 {
+    font-size: var(--text-3xl);
+  }
+
+  h2 {
+    font-size: var(--text-2xl);
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+  }
+
+  h4 {
+    font-size: var(--text-lg);
+  }
+
+  h5 {
+    font-size: var(--text-md);
+  }
+}
+
+.section-content {
+  grid-area: content;
+}
+
+.p-panel-title {
+  font-size: var(--text-3xl);
+}
