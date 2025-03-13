@@ -1,0 +1,26 @@
+{
+	"name": "Portfolio",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint",
+				"eamodio.gitlens",
+				"bradlc.vscode-tailwindcss",
+        "angular.ng-template",
+        "christian-kohler.npm-intellisense",
+        "pmneo.tsimporter",
+        "nrwl.angular-console",
+        "firsttris.vscode-jest-runner",
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-rename-tag",
+        "github.vscode-pull-request-github"
+			]
+		}
+	}
+}
