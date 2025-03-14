@@ -2,9 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { leagueEntryRequest } from '../../store/global.actions';
 import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
@@ -17,12 +15,10 @@ import { ColorModeBtnComponent } from '@shared-global/ui';
     ButtonModule,
     InputTextModule,
     ReactiveFormsModule,
-    MessageModule,
     FormsModule,
     IconAttributionComponent,
     ColorModeBtnComponent
   ],
-  providers: [MessageService],
   selector: 'fd-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']

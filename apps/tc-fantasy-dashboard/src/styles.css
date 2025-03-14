@@ -31,10 +31,6 @@ body {
   }
 }
 
-p-messages {
-  position: absolute;
-}
-
 .p-panel-title {
   font-size: var(--text-xl);
 }

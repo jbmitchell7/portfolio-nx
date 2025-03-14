@@ -3,11 +3,12 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { leagueEntryRequest } from './store/global.actions';
 import Bowser from "bowser";
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'fd-root',
   templateUrl: './app.component.html',
-  imports: [RouterOutlet]
+  imports: [RouterOutlet, ToastModule]
 })
 export class AppComponent {
   readonly #store = inject(Store);

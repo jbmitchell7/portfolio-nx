@@ -1,40 +1,36 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, catchError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MessageService } from 'primeng/api';
 
 // const apiUrl = 'http://localhost:3000/api';
-// const apiUrl = 'https://fantasy-dashboard.thundercloud.dev';
-const apiUrl = 'https://sleeperfantasyfocus-be.onrender.com/api';
+const apiUrl = 'https://fd-api.thundercloud.dev/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FantasyFocusApiService {
   readonly http = inject(HttpClient);
+  readonly #messageService = inject(MessageService);
 
-  #handleError(error: HttpErrorResponse): any {
-    if (error.error instanceof ErrorEvent) {
-      console.error('Some error occurred:', error.error.message);
-    } else {
-      console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`);
-    }
-    return throwError(
-      'Something bad happened; please try again later.');
-  }
-
-  #extractResponseData(res: any): any {
-    const body = res;
-    return body || {};
-  }
-
-  fantasyFocusGet(sport: string, ids: string[]): Observable<any> {
+  fantasyFocusGet(sport: string, ids: string[]): Observable<unknown> {
     return this.http.post(`${apiUrl}/${sport}`, {players: ids})
       .pipe(
         map(this.#extractResponseData),
-        catchError(this.#handleError)
+        catchError(() => {
+          this.#messageService.add({
+            severity: 'warn',
+            summary: 'Error',
+            detail: 'Cannot retrieve players. Try again later.'
+          })
+          return of(null);
+        })
       )
+  }
+
+  #extractResponseData(res: unknown): unknown {
+    const body = res;
+    return body || {};
   }
 }

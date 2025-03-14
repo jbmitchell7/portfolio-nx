@@ -26,7 +26,7 @@ router.get('/:sport/:id', async (req, res) => {
       return res.status(404).json({ error: 'Player not found' });
     }
     res.json(player);
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -40,7 +40,7 @@ router.post('/:sport', async (req, res) => {
       return res.status(404).json({ error: 'Players not found' });
     }
     res.json(players);
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: 'Internal server error' });
   }
 });

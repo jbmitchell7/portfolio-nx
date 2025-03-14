@@ -15,9 +15,11 @@ import { transactionsReducer } from './store/transactions/transactions.reducer';
 import { routes } from './app.routes';
 import { myTheme } from './app.theme';
 import { darkModeSelector } from '@shared-global/ui';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    MessageService,
     provideHttpClient(),
     provideAnimationsAsync(),
     provideRouter(routes),
