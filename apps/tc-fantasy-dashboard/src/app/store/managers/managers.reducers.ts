@@ -1,14 +1,11 @@
-import { DataInterface, initialDataInterfaceState } from '../global.selectors';
 import { createReducer, on } from '@ngrx/store';
 import {
   clearManagersData,
   getManagersFailure,
   getManagersSuccess,
 } from './managers.actions';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { LeagueUser } from '@tc-fantasy-dashboard/shared/interfaces';
-
-export interface ManagerState extends DataInterface, EntityState<LeagueUser> {}
+import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
+import { initialDataInterfaceState, LeagueUser, ManagerState } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export const managerAdapter: EntityAdapter<LeagueUser> = createEntityAdapter<LeagueUser>();
 

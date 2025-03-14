@@ -1,11 +1,6 @@
-import { DataInterface, initialDataInterfaceState } from "../global.selectors";
 import { createReducer, on } from "@ngrx/store";
 import { getTransactionsSuccess } from "./transactions.actions";
-import { Transaction } from "@tc-fantasy-dashboard/shared/interfaces";
-
-export interface TransactionsState extends DataInterface {
-  transactions: {[key: number]: Transaction[]}
-}
+import { TransactionsState, initialDataInterfaceState } from "@tc-fantasy-dashboard/shared/interfaces";
 
 export const initialTransactionsState: TransactionsState = {
   ...initialDataInterfaceState,

@@ -21,6 +21,9 @@
       ],
       "@tc-fantasy-dashboard/shared/services": [
         "libs/tc-fantasy-dashboard/shared/services/src/index.ts"
+      ],
+      "@tc-fantasy-dashboard/shared/utils": [
+        "libs/tc-fantasy-dashboard/shared/utils/src/index.ts"
       ]
     }
   },

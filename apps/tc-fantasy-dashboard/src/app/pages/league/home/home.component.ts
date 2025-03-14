@@ -1,24 +1,48 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { GraphComponent } from '../../../components/graph/graph.component';
 import { Store } from '@ngrx/store';
-import { combineLatest, distinctUntilChanged, filter, Observable, Subscription, switchMap, tap } from 'rxjs';
-import { selectAllPlayers, selectApp, selectCurrentWeekTransactions, selectStandingsData } from '../../../store/global.selectors';
+import {
+  combineLatest,
+  distinctUntilChanged,
+  filter,
+  Observable,
+  Subscription,
+  switchMap,
+  tap,
+} from 'rxjs';
+import {
+  selectAllPlayers,
+  selectApp,
+  selectCurrentWeekTransactions,
+  selectStandingsData,
+} from '../../../store/global.selectors';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
 import { getTransactionsRequest } from '../../../store/transactions/transactions.actions';
-import { WeeklyTransactionsComponent } from "../../../components/weekly-transactions/weekly-transactions.component";
-import { RosterState } from '../../../store/rosters/rosters.reducers';
+import { WeeklyTransactionsComponent } from '../../../components/weekly-transactions/weekly-transactions.component';
 import { getPlayersRequest } from '../../../store/players/players.actions';
 import { TITLE_TEXT } from '../../../components/graph/graph.constants';
-import { getCurrentTransactionsWeek } from '../../../utils/transactions';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { StandingsData, SportState, League, Transaction } from '@tc-fantasy-dashboard/shared/interfaces';
+import {
+  StandingsData,
+  SportState,
+  League,
+  Transaction,
+  RosterState,
+} from '@tc-fantasy-dashboard/shared/interfaces';
+import { getCurrentTransactionsWeek } from '@tc-fantasy-dashboard/shared/utils';
 
 @Component({
   selector: 'fd-home',
-  imports: [CommonModule, GraphComponent, PanelModule, WeeklyTransactionsComponent, ProgressSpinnerModule],
+  imports: [
+    CommonModule,
+    GraphComponent,
+    PanelModule,
+    WeeklyTransactionsComponent,
+    ProgressSpinnerModule,
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnDestroy {
   readonly #store = inject(Store);
@@ -39,7 +63,7 @@ export class HomeComponent implements OnDestroy {
   constructor() {
     this.#standingSub = this.#store
       .select(selectStandingsData)
-      .subscribe(sd => this.standingsData = sd);
+      .subscribe((sd) => (this.standingsData = sd));
 
     this.#initLeagueSub();
   }
@@ -50,10 +74,10 @@ export class HomeComponent implements OnDestroy {
   }
 
   #initLeagueSub(): void {
-    this.#leagueSub =  this.#store
+    this.#leagueSub = this.#store
       .select(selectApp)
       .pipe(
-        filter(app => !!app.leagueData.league?.sportState?.season),
+        filter((app) => !!app.leagueData.league?.sportState?.season),
         tap(({ leagueData, rosterData }) => {
           this.rosters = rosterData;
           this.league = leagueData.league;
@@ -63,10 +87,12 @@ export class HomeComponent implements OnDestroy {
         }),
         tap(({ transactionsData }) => {
           if (!transactionsData.transactions[this.weekNumber]) {
-            this.#store.dispatch(getTransactionsRequest({
-              leagueId: this.league.league_id,
-              week: this.weekNumber
-            }));
+            this.#store.dispatch(
+              getTransactionsRequest({
+                leagueId: this.league.league_id,
+                week: this.weekNumber,
+              })
+            );
           }
         }),
         switchMap(() => this.#subWeeklyTransactions())
@@ -76,42 +102,56 @@ export class HomeComponent implements OnDestroy {
 
   #getPageHeader(): string {
     const opening = `${this.league.sport.toUpperCase()} ${this.league.season}`;
-    if (this.league.status === 'complete' || this.league.status === 'pre_draft') {
-      return `${opening} Offseason`
+    if (
+      this.league.status === 'complete' ||
+      this.league.status === 'pre_draft'
+    ) {
+      return `${opening} Offseason`;
     } else {
       return `${opening} Week ${this.weekNumber}`;
     }
   }
 
   #subWeeklyTransactions(): Observable<any> {
-    return combineLatest([this.#store.select(selectCurrentWeekTransactions), this.#store.select(selectAllPlayers)])
-      .pipe(
-        filter(([t, players]) => !!t.length && !!players.ids.length && !players.isLoading),
-        //necessary to prevent infinite refreshing
-        distinctUntilChanged(([t, p], [tb, pb]) => JSON.stringify(t) === JSON.stringify(tb) && p.ids.length === pb.ids.length),
-        tap(([transactions]) => {
-          const missingPlayers: any[] = [];
-          transactions.forEach(t => {
-            t.rosterMoves?.forEach((m: any) => {
-              m.adds?.forEach((a: any) => {
-                if (!a.full_name) {
-                  missingPlayers.push(a.player_id);
-                }
-              });
-              m.drops?.forEach((a: any) => {
-                if (!a.full_name) {
-                  missingPlayers.push(a.player_id);
-                }
-              });
+    return combineLatest([
+      this.#store.select(selectCurrentWeekTransactions),
+      this.#store.select(selectAllPlayers),
+    ]).pipe(
+      filter(
+        ([t, players]) =>
+          !!t.length && !!players.ids.length && !players.isLoading
+      ),
+      //necessary to prevent infinite refreshing
+      distinctUntilChanged(
+        ([t, p], [tb, pb]) =>
+          JSON.stringify(t) === JSON.stringify(tb) &&
+          p.ids.length === pb.ids.length
+      ),
+      tap(([transactions]) => {
+        const missingPlayers: any[] = [];
+        transactions.forEach((t) => {
+          t.rosterMoves?.forEach((m: any) => {
+            m.adds?.forEach((a: any) => {
+              if (!a.full_name) {
+                missingPlayers.push(a.player_id);
+              }
+            });
+            m.drops?.forEach((a: any) => {
+              if (!a.full_name) {
+                missingPlayers.push(a.player_id);
+              }
             });
           });
-          if (missingPlayers.length) {
-            this.#store.dispatch(getPlayersRequest({ sport: this.league.sport, ids: missingPlayers }));
-          } else {
-            this.transactionsLoading = false;
-            this.transactions = transactions;
-          }
-        }),
-      )
+        });
+        if (missingPlayers.length) {
+          this.#store.dispatch(
+            getPlayersRequest({ sport: this.league.sport, ids: missingPlayers })
+          );
+        } else {
+          this.transactionsLoading = false;
+          this.transactions = transactions;
+        }
+      })
+    );
   }
 }

@@ -1,5 +1,8 @@
 {
   "name": "@tc-fantasy-dashboard/shared/interfaces",
   "version": "0.0.1",
+  "peerDependencies": {
+    "@ngrx/entity": "^19.0.1"
+  },
   "sideEffects": false
 }

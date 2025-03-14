@@ -4,13 +4,8 @@ import {
   getLeagueFailure,
   getLeagueSuccess,
 } from './league.actions';
-import { DataInterface, initialDataInterfaceState } from '../global.selectors';
 import { getSportStateSuccess, leagueEntryRequest } from '../global.actions';
-import { League } from '@tc-fantasy-dashboard/shared/interfaces';
-
-export interface LeagueState extends DataInterface {
-  league: League;
-}
+import { initialDataInterfaceState, League, LeagueState } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export const initialLeagueState: LeagueState = {
   league: {} as League,
