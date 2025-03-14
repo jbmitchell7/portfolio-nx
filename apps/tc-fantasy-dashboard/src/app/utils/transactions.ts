@@ -1,9 +1,6 @@
-import { League } from "../data/interfaces/league";
-import { LeagueUser } from "../data/interfaces/leagueuser";
-import { Player } from "../data/interfaces/roster";
-import { Transaction, RosterMove } from "../data/interfaces/Transactions";
 import { AppState } from "../store/global.selectors";
 import { PlayersState } from "../store/players/players.reducer";
+import { League, LeagueUser, Player, RosterMove, Transaction } from '@tc-fantasy-dashboard/shared/interfaces'
 
 export const getCurrentTransactionsWeek = (l: League): number => {
   const status = l.status;

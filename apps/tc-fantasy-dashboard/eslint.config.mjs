@@ -24,6 +24,27 @@ export default [
           style: 'kebab-case',
         },
       ],
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          enforceBuildableLibDependency: true,
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
+          depConstraints: [
+            {
+              sourceTag: 'fd-app',
+              onlyDependOnLibsWithTags: ['shared-global', 'fd-shared', 'fd-feature'],
+            },
+            {
+              sourceTag: 'fd-shared',
+              onlyDependOnLibsWithTags: ['shared-global', 'fd-shared'],
+            },
+            {
+              sourceTag: 'fd-feature',
+              onlyDependOnLibsWithTags: ['shared-global', 'fd-shared'],
+            },
+          ],
+        },
+      ],
     },
   },
   {

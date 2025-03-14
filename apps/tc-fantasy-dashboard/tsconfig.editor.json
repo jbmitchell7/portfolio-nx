@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../../libs/tc-fantasy-dashboard/shared/interfaces/src/lib/league.ts", "../../libs/tc-fantasy-dashboard/shared/services/src/lib/fantasy-dashboard-api/fantasy-dashboard-api.service.ts"],
   "compilerOptions": {},
   "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }

@@ -3,19 +3,16 @@ import { GraphComponent } from '../../../components/graph/graph.component';
 import { Store } from '@ngrx/store';
 import { combineLatest, distinctUntilChanged, filter, Observable, Subscription, switchMap, tap } from 'rxjs';
 import { selectAllPlayers, selectApp, selectCurrentWeekTransactions, selectStandingsData } from '../../../store/global.selectors';
-import { StandingsData } from '../../../data/interfaces/standingsData';
 import { CommonModule } from '@angular/common';
-import { SportState } from '../../../data/interfaces/sportstate';
 import { PanelModule } from 'primeng/panel';
-import { League } from '../../../data/interfaces/league';
-import { Transaction } from '../../../data/interfaces/Transactions';
 import { getTransactionsRequest } from '../../../store/transactions/transactions.actions';
 import { WeeklyTransactionsComponent } from "../../../components/weekly-transactions/weekly-transactions.component";
 import { RosterState } from '../../../store/rosters/rosters.reducers';
 import { getPlayersRequest } from '../../../store/players/players.actions';
-import { TITLE_TEXT } from '../../../data/constants/graph.constants';
+import { TITLE_TEXT } from '../../../components/graph/graph.constants';
 import { getCurrentTransactionsWeek } from '../../../utils/transactions';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { StandingsData, SportState, League, Transaction } from '@tc-fantasy-dashboard/shared/interfaces';
 
 @Component({
   selector: 'fd-home',

@@ -1,4 +1,4 @@
-import { SportState } from "./sportstate";
+import { SportState } from './sportstate';
 
 export interface League {
     status: string;

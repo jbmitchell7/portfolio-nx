@@ -1,8 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { SleeperApiService } from '../api/sleeper-api.service';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { Roster } from '../data/interfaces/roster';
 import { getLeagueSuccess, getLeagueFailure } from './league/league.actions';
 import {
   getRostersSuccess,
@@ -10,20 +8,18 @@ import {
 } from './rosters/rosters.actions';
 import { getSportStateFailure, getSportStateSuccess, leagueEntryRequest } from './global.actions';
 import { getManagersSuccess } from './managers/managers.actions';
-import { LeagueUser } from '../data/interfaces/leagueuser';
-import { League } from '../data/interfaces/league';
-import { FantasyFocusApiService } from '../api/fantasy-focus-api.service';
-import { SportState } from '../data/interfaces/sportstate';
 import { Router } from '@angular/router';
 import { getTransactionsFailure, getTransactionsRequest, getTransactionsSuccess } from './transactions/transactions.actions';
 import { getPlayersRequest, getPlayersSuccess, getPlayersFailure } from './players/players.actions';
+import { FantasyDashboardApiService, SleeperApiService } from '@tc-fantasy-dashboard/shared/services';
+import { League, LeagueUser, Roster, SportState } from '@tc-fantasy-dashboard/shared/interfaces';
 
 @Injectable()
 export class GlobalEffects {
   readonly #actions$ = inject(Actions);
   readonly #sleeperApi = inject(SleeperApiService);
   readonly #router = inject(Router);
-  readonly #fantasyFocusApi = inject(FantasyFocusApiService);
+  readonly #fantasyFocusApi = inject(FantasyDashboardApiService);
 
   getLeague$ = createEffect(() =>
     this.#actions$.pipe(

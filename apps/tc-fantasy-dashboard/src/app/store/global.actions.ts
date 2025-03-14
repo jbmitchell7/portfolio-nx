@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { SportState } from '../data/interfaces/sportstate';
+import { SportState } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export const leagueEntryRequest = createAction(
   '[Login] leagueEntryRequest',
@@ -13,5 +13,5 @@ export const getSportStateSuccess = createAction(
 
 export const getSportStateFailure = createAction(
   '[Login] getSportStateFailure',
-  props<{error: any}>()
+  props<{error: unknown}>()
 )

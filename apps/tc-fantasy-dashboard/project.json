@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "fd",
   "sourceRoot": "apps/tc-fantasy-dashboard/src",
-  "tags": [],
+  "tags": ["fd-app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",

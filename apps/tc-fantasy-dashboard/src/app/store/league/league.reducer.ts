@@ -4,9 +4,9 @@ import {
   getLeagueFailure,
   getLeagueSuccess,
 } from './league.actions';
-import { League } from '../../data/interfaces/league';
 import { DataInterface, initialDataInterfaceState } from '../global.selectors';
 import { getSportStateSuccess, leagueEntryRequest } from '../global.actions';
+import { League } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export interface LeagueState extends DataInterface {
   league: League;

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { League } from '../../data/interfaces/league';
+import { League } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export const getLeagueSuccess = createAction(
   '[League] getLeagueSuccess',

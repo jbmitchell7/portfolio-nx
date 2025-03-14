@@ -6,13 +6,13 @@ import { NavbarComponent } from '@shared-global/ui';
 import { MenuItem } from 'primeng/api';
 import { Store } from '@ngrx/store';
 import { Subscription, filter, tap } from 'rxjs';
-import { MENU_ROUTES } from '../../data/constants/navigation.constants';
-import { League } from '../../data/interfaces/league';
+import { MENU_ROUTES } from './navigation.constants';
 import { leagueEntryRequest } from '../../store/global.actions';
 import { selectLeague } from '../../store/global.selectors';
 import { clearLeagueData } from '../../store/league/league.actions';
 import { clearManagersData } from '../../store/managers/managers.actions';
 import { clearRosterData } from '../../store/rosters/rosters.actions';
+import { League } from '@tc-fantasy-dashboard/shared/interfaces';
 
 @Component({
   selector: 'fd-league',

@@ -10,7 +10,7 @@ const apiUrl = 'https://fd-api.thundercloud.dev/api';
 @Injectable({
   providedIn: 'root'
 })
-export class FantasyFocusApiService {
+export class FantasyDashboardApiService {
   readonly http = inject(HttpClient);
   readonly #messageService = inject(MessageService);
 

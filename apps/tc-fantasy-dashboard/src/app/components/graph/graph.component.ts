@@ -3,7 +3,7 @@ import { StandingsData } from '../../data/interfaces/standingsData';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { GRAPH_COLORS, SUBTITLE_TEXT } from '../../data/constants/graph.constants';
+import { GRAPH_COLORS, SUBTITLE_TEXT } from './graph.constants';
 @Component({
     selector: 'fd-graph',
     templateUrl: './graph.component.html',

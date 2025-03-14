@@ -1,18 +1,10 @@
 import nx from '@nx/eslint-plugin';
-import baseConfig from '../../../eslint.config.mjs';
+import baseConfig from '../../../../eslint.config.mjs';
 
 export default [
   ...baseConfig,
   {
     files: ['**/*.json'],
-    rules: {
-      '@nx/dependency-checks': [
-        'error',
-        {
-          ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs}'],
-        },
-      ],
-    },
     languageOptions: {
       parser: await import('jsonc-eslint-parser'),
     },
@@ -26,7 +18,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'sharedUi',
+          prefix: 'td',
           style: 'camelCase',
         },
       ],
@@ -34,21 +26,8 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'shared-ui',
+          prefix: 'td',
           style: 'kebab-case',
-        },
-      ],
-      '@nx/enforce-module-boundaries': [
-        'error',
-        {
-          enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
-          depConstraints: [
-            {
-              sourceTag: 'shared-global',
-              onlyDependOnLibsWithTags: ['shared-global'],
-            },
-          ],
         },
       ],
     },

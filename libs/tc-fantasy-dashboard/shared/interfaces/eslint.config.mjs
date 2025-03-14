@@ -1,5 +1,5 @@
 import nx from '@nx/eslint-plugin';
-import baseConfig from '../../../eslint.config.mjs';
+import baseConfig from '../../../../eslint.config.mjs';
 
 export default [
   ...baseConfig,
@@ -26,7 +26,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'sharedUi',
+          prefix: 'td',
           style: 'camelCase',
         },
       ],
@@ -34,21 +34,8 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'shared-ui',
+          prefix: 'td',
           style: 'kebab-case',
-        },
-      ],
-      '@nx/enforce-module-boundaries': [
-        'error',
-        {
-          enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
-          depConstraints: [
-            {
-              sourceTag: 'shared-global',
-              onlyDependOnLibsWithTags: ['shared-global'],
-            },
-          ],
         },
       ],
     },

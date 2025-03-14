@@ -15,7 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@shared-global/ui": ["libs/shared-global/ui/src/index.ts"]
+      "@shared-global/ui": ["libs/shared-global/ui/src/index.ts"],
+      "@tc-fantasy-dashboard/shared/interfaces": [
+        "libs/tc-fantasy-dashboard/shared/interfaces/src/index.ts"
+      ],
+      "@tc-fantasy-dashboard/shared/services": [
+        "libs/tc-fantasy-dashboard/shared/services/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
