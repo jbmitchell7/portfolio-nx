@@ -1,11 +1,7 @@
-const express = require('express');
+import express from 'express';
+import { LCSPlayer, NBAPlayer, NFLPlayer } from "../models/Player";
+
 const router = express.Router();
-const Models = require('../models/Player');
-
-const LCSPlayer = Models.LCSPlayer;
-const NBAPlayer = Models.NBAPlayer;
-const NFLPlayer = Models.NFLPlayer;
-
 const getModel = (req) => {
   let model = LCSPlayer;
   if (req.params.sport === 'nba') {
@@ -45,4 +41,4 @@ router.post('/:sport', async (req, res) => {
   }
 });
 
-module.exports = router;
+export const playerController = router;

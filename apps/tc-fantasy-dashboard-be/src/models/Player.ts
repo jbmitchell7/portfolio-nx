@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const playerSchema = new mongoose.Schema({
   player_id: { type: String, required: true },
@@ -33,10 +33,6 @@ const nflSchema = new mongoose.Schema(
   {collection: 'nfl'}
 );
 
-const lcsPlayer = mongoose.model('lcs', lcsSchema);
-const nbaPlayer = mongoose.model('nba', nbaSchema);
-const nflPlayer = mongoose.model('nfl', nflSchema);
-
-module.exports.LCSPlayer = lcsPlayer;
-module.exports.NBAPlayer = nbaPlayer;
-module.exports.NFLPlayer = nflPlayer;
+export const LCSPlayer = mongoose.model('lcs', lcsSchema);
+export const NBAPlayer = mongoose.model('nba', nbaSchema);
+export const NFLPlayer = mongoose.model('nfl', nflSchema);

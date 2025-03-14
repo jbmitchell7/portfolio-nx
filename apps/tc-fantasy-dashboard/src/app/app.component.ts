@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { leagueEntryRequest } from './store/global.actions';
@@ -10,11 +10,11 @@ import { ToastModule } from 'primeng/toast';
   templateUrl: './app.component.html',
   imports: [RouterOutlet, ToastModule]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   readonly #store = inject(Store);
   readonly #router = inject(Router);
 
-  constructor() {
+  ngOnInit(): void {
     this.#setMobile();
     const id = localStorage.getItem('LEAGUE_ID');
     if (id) {

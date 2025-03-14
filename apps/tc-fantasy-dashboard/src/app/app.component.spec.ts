@@ -1,13 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { provideMockStore } from '@ngrx/store/testing';
+import { MessageService } from 'primeng/api';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [AppComponent],
-    providers: [provideMockStore()]
-}).compileComponents();
+      imports: [AppComponent],
+      providers: [provideMockStore(), MessageService]
+    }).compileComponents();
   });
 
   it('should create the app', () => {
