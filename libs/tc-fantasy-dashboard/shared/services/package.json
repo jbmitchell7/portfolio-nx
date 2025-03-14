@@ -1,5 +1,5 @@
 {
-  "name": "tc-fantasy-dashboard/shared/services",
+  "name": "@tc-fantasy-dashboard/shared/services",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
