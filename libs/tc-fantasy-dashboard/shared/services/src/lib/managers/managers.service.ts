@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, of, take, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, take, tap } from 'rxjs';
 import { DataService } from '../data/data.service';
 import { Manager } from '@tc-fantasy-dashboard/shared/interfaces';
 
@@ -9,7 +9,7 @@ import { Manager } from '@tc-fantasy-dashboard/shared/interfaces';
 export class ManagerService extends DataService {
   #managers = new BehaviorSubject<Record<string, Manager> | null>(null);
 
-  get managers$() {
+  get managers$(): Observable<Record<string, Manager> | null> {
     return this.#managers.asObservable();
   }
 
@@ -17,7 +17,7 @@ export class ManagerService extends DataService {
     this.#managers.next(managers);
   }
 
-  getManagers(leagueId: string) {
+  getManagers(leagueId: string): void {
     this.sleeperApiService
       .getManagers(leagueId)
       .pipe(

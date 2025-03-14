@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { League } from '@tc-fantasy-dashboard/shared/interfaces';
-import { BehaviorSubject, catchError, of, take, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, take, tap } from 'rxjs';
 import { DataService } from '../data/data.service';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { DataService } from '../data/data.service';
 export class LeagueService extends DataService {
   readonly #league = new BehaviorSubject<League | null>(null);
 
-  get league$() {
+  get league$(): Observable<League | null> {
     return this.#league.asObservable();
   }
 
@@ -17,7 +17,7 @@ export class LeagueService extends DataService {
     this.#league.next(league);
   }
 
-  getLeague(leagueId: string) {
+  getLeague(leagueId: string): void {
     this.sleeperApiService
       .getLeague(leagueId)
       .pipe(
@@ -36,7 +36,7 @@ export class LeagueService extends DataService {
       ).subscribe();
   }
 
-  getSportState(league: League) {
+  getSportState(league: League): void {
     this.sleeperApiService
       .getSportState(league.sport)
       .pipe(
