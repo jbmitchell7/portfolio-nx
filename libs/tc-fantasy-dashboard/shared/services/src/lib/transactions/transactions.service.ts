@@ -18,6 +18,7 @@ export class TransactionService extends DataService {
   }
 
   getTransactions(leagueId: string, week: number): void {
+    this.setLoadingState(true);
     this.sleeperApiService
       .getTransactions(leagueId, week)
       .pipe(
@@ -27,6 +28,7 @@ export class TransactionService extends DataService {
             ...this.#transactions.value,
             [week]: transactions,
           });
+          this.setLoadingState(false);
         }),
         catchError(() => {
           this.messageService.add({
@@ -34,6 +36,8 @@ export class TransactionService extends DataService {
             summary: 'Error',
             detail: 'Cannot fetch transactions. Please try again later.',
           });
+          this.setTransactionsState({});
+          this.setLoadingState(false);
           return of(null);
         })
       )

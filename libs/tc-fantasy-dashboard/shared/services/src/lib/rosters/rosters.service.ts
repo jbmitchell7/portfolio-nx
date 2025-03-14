@@ -18,6 +18,7 @@ export class RosterService extends DataService {
   }
 
   getRosters(leagueId: string) {
+    this.setLoadingState(true);
     this.sleeperApiService
       .getRosters(leagueId)
       .pipe(

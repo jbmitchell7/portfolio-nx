@@ -7,7 +7,7 @@ import { SleeperApiService } from '../api-sleeper/sleeper-api.service';
   providedIn: 'root'
 })
 export abstract class DataService {
-  #isLoading = new BehaviorSubject<boolean>(true);
+  #isLoading = new BehaviorSubject<boolean>(false);
   isLoading$ = this.#isLoading.asObservable();
 
   constructor(

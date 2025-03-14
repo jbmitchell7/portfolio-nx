@@ -7,17 +7,27 @@ import { DataService } from '../data/data.service';
   providedIn: 'root'
 })
 export class LeagueService extends DataService {
-  readonly #league = new BehaviorSubject<League | null>(null);
+  readonly #leagues = new BehaviorSubject<Record<string, League>>({});
+  readonly #selectedLeague = new BehaviorSubject<string>('');
 
-  get league$(): Observable<League | null> {
-    return this.#league.asObservable();
+  get selectedLeague$(): Observable<string> {
+    return this.#selectedLeague.asObservable();
   }
 
-  setLeagueState(league: League | null): void {
-    this.#league.next(league);
+  setLeagueState(league: Record<string, League>): void {
+    this.#leagues.next(league);
+  }
+
+  setSelectedLeagueState(leagueId: string): void {
+    this.#selectedLeague.next(leagueId);
   }
 
   getLeague(leagueId: string): void {
+    if (this.#leagues.value[leagueId]) {
+      this.setSelectedLeagueState(leagueId);
+      return;
+    }
+    this.setLoadingState(true);
     this.sleeperApiService
       .getLeague(leagueId)
       .pipe(
@@ -29,8 +39,7 @@ export class LeagueService extends DataService {
             summary: 'Error',
             detail: 'Cannot fetch league data. Please try again later or try another id.' 
           });
-          this.setLeagueState(null);
-          this.setLoadingState(false);
+          this.#resetLeagueState();
           return of(null);
         })
       ).subscribe();
@@ -44,9 +53,13 @@ export class LeagueService extends DataService {
         tap((sportState) => {
           localStorage.setItem('LEAGUE_ID', league.league_id);
           this.setLeagueState({
-            ...league,
-            sportState
+            ...this.#leagues.value,
+            [league.league_id]: {
+              ...league,
+              sportState
+            }
           });
+          this.setSelectedLeagueState(league.league_id);
           this.setLoadingState(false);
         }),
         catchError(() => {
@@ -55,8 +68,15 @@ export class LeagueService extends DataService {
             summary: 'Error',
             detail: 'Cannot fetch sport state data. Please try again later.'
           });
+          this.#resetLeagueState();
           return of(null);
         })
       ).subscribe();
+  }
+
+  #resetLeagueState(): void {
+    this.setLeagueState({});
+    this.setSelectedLeagueState('');
+    this.setLoadingState(false);
   }
 }

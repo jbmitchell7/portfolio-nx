@@ -20,6 +20,7 @@ export class PlayerService extends DataService {
   }
 
   getPlayers(rosters: Roster[], sport: string): void {
+    this.setLoadingState(true);
     const ids = rosters.map((roster) => roster.players).flat();
     this.#fantasyDashboardApiService
       .getPlayers(sport, ids)

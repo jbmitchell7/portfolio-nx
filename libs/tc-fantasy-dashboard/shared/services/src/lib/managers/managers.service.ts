@@ -18,6 +18,7 @@ export class ManagerService extends DataService {
   }
 
   getManagers(leagueId: string): void {
+    this.setLoadingState(true);
     this.sleeperApiService
       .getManagers(leagueId)
       .pipe(
