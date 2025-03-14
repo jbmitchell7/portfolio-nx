@@ -1,4 +1,4 @@
-import { LeagueUser } from "./leagueuser";
+import { Manager } from "./manager";
 import { Player } from "./roster";
 
 export interface Transaction {
@@ -40,7 +40,7 @@ export enum TransactionType {
 export interface RosterMove {
   adds: Partial<Player>[],
   drops: Partial<Player>[],
-  manager: LeagueUser | undefined,
+  manager: Manager | undefined,
   type: string,
   waiverBid?: number
 }

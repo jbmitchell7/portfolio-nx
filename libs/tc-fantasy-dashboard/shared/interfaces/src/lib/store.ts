@@ -2,7 +2,7 @@ import { EntityState } from '@ngrx/entity';
 import { Transaction } from './transactions';
 import { Roster, Player } from './roster';
 import { League } from './league';
-import { LeagueUser } from './leagueuser';
+import { Manager } from './manager';
 
 export interface DataInterface {
   isLoading: boolean;
@@ -32,7 +32,7 @@ export interface RosterState extends DataInterface, EntityState<Roster> {}
 
 export interface PlayersState extends DataInterface, EntityState<Player> {}
 
-export interface ManagerState extends DataInterface, EntityState<LeagueUser> {}
+export interface ManagerState extends DataInterface, EntityState<Manager> {}
 
 export interface LeagueState extends DataInterface {
   league: League;

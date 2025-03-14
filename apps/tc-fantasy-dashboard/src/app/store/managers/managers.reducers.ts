@@ -5,9 +5,9 @@ import {
   getManagersSuccess,
 } from './managers.actions';
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { initialDataInterfaceState, LeagueUser, ManagerState } from '@tc-fantasy-dashboard/shared/interfaces';
+import { initialDataInterfaceState, Manager, ManagerState } from '@tc-fantasy-dashboard/shared/interfaces';
 
-export const managerAdapter: EntityAdapter<LeagueUser> = createEntityAdapter<LeagueUser>();
+export const managerAdapter: EntityAdapter<Manager> = createEntityAdapter<Manager>();
 
 export const initialRosterState: ManagerState = managerAdapter.getInitialState({
   ...initialDataInterfaceState

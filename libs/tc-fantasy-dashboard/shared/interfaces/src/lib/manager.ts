@@ -1,7 +1,7 @@
-export interface LeagueUser {
+export interface Manager {
     user_id: string;
     settings: null;
-    metadata: LeagueUserMetadata;
+    metadata: ManagerMetaData;
     league_id: string;
     is_owner: boolean;
     is_bot: boolean;
@@ -10,7 +10,7 @@ export interface LeagueUser {
     avatarUrl?: string;
 }
 
-export interface LeagueUserMetadata {
+export interface ManagerMetaData {
     team_name: string;
     mascot_message_emotion_leg_4: string;
     mascot_item_type_id_leg_9: string;

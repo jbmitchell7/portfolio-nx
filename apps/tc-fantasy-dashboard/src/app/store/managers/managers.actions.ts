@@ -1,9 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { LeagueUser } from '@tc-fantasy-dashboard/shared/interfaces';
+import { Manager } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export const getManagersSuccess = createAction(
   '[Managers] getManagersSuccess',
-  props<{ players: LeagueUser[] }>()
+  props<{ players: Manager[] }>()
 );
 
 export const getManagersFailure = createAction(

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { getTransactionsFailure, getTransactionsRequest, getTransactionsSuccess } from './transactions/transactions.actions';
 import { getPlayersRequest, getPlayersSuccess, getPlayersFailure } from './players/players.actions';
 import { FantasyDashboardApiService, SleeperApiService } from '@tc-fantasy-dashboard/shared/services';
-import { League, LeagueUser, Roster, SportState } from '@tc-fantasy-dashboard/shared/interfaces';
+import { League, Manager, Roster, SportState } from '@tc-fantasy-dashboard/shared/interfaces';
 
 @Injectable()
 export class GlobalEffects {
@@ -77,7 +77,7 @@ export class GlobalEffects {
         this.#sleeperApi
           .getManagers(props.leagueId)
           .pipe(
-            map((res: LeagueUser[]) => getManagersSuccess({ players: res })),
+            map((res: Manager[]) => getManagersSuccess({ players: res })),
             catchError(() =>
               of(getRostersFailure({ error: 'error getting roster data' }))
             )

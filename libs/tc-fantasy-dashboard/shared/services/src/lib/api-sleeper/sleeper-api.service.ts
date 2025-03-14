@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { League, LeagueUser, Roster, SportState, Transaction } from '@tc-fantasy-dashboard/shared/interfaces';
+import { League, Manager, Roster, SportState, Transaction } from '@tc-fantasy-dashboard/shared/interfaces';
 
 const apiUrl = 'https://api.sleeper.app/v1';
 
@@ -19,8 +19,8 @@ export class SleeperApiService {
     return this.#http.get<Roster[]>(`${apiUrl}/league/${leagueId}/rosters`);
   }
 
-  getManagers(leagueId: string): Observable<LeagueUser[]> {
-    return this.#http.get<LeagueUser[]>(`${apiUrl}/league/${leagueId}/users`);
+  getManagers(leagueId: string): Observable<Manager[]> {
+    return this.#http.get<Manager[]>(`${apiUrl}/league/${leagueId}/users`);
   }
 
   getSportState(sport: string): Observable<SportState> {

@@ -1,7 +1,7 @@
 import {
   AppState,
   League,
-  LeagueUser,
+  Manager,
   Player,
   PlayersState,
   RosterMove,
@@ -33,7 +33,7 @@ const getMoveData = (
   state: PlayersState,
   transaction: Transaction,
   id: number,
-  manager: LeagueUser | undefined
+  manager: Manager | undefined
 ): RosterMove => {
   const result = {
     adds: [] as Partial<Player>[],
@@ -64,7 +64,7 @@ const getMoveData = (
 const getManager = (
   state: AppState,
   rosterId: number
-): LeagueUser | undefined => {
+): Manager | undefined => {
   const managerId = Object.keys(state.rosterData.entities).find(
     (key) => state.rosterData.entities[key]?.roster_id === rosterId
   );
