@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { StandingsData } from '../../../data/interfaces/standingsData';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest, filter, tap } from 'rxjs';
 import { selectLeague, selectStandingsData } from '../../../store/global.selectors';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { StandingsData } from '@tc-fantasy-dashboard/shared/interfaces';
 
 interface Column {
   field: string;

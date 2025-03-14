@@ -1,12 +1,11 @@
-import { StandingsData } from '../data/interfaces/standingsData';
 import { LeagueState } from './league/league.reducer';
 import { ManagerState } from './managers/managers.reducers';
 import { RosterState } from './rosters/rosters.reducers';
 import { TransactionsState } from './transactions/transactions.reducer';
 import { PlayersState } from './players/players.reducer';
-import { Transaction } from '../data/interfaces/Transactions';
 import { getCurrentTransactionsWeek, getRosterMoves } from '../utils/transactions';
 import { getSeverity, getStreakIcon } from '../utils/standings';
+import { StandingsData, Transaction } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export interface DataInterface {
   isLoading: boolean;

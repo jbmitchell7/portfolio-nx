@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Transaction } from "../../data/interfaces/Transactions";
+import { Transaction } from "@tc-fantasy-dashboard/shared/interfaces";
 
 export const getTransactionsRequest = createAction(
   '[Transactions] getTransactionsRequest',

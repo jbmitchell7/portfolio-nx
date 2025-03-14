@@ -1,4 +1,3 @@
-import { LeagueUser } from '../../data/interfaces/leagueuser';
 import { DataInterface, initialDataInterfaceState } from '../global.selectors';
 import { createReducer, on } from '@ngrx/store';
 import {
@@ -7,6 +6,7 @@ import {
   getManagersSuccess,
 } from './managers.actions';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { LeagueUser } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export interface ManagerState extends DataInterface, EntityState<LeagueUser> {}
 

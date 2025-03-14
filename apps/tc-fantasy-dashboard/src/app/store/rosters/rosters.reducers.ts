@@ -1,5 +1,4 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Roster } from '../../data/interfaces/roster';
 import { DataInterface, initialDataInterfaceState } from '../global.selectors';
 import {
   clearRosterData,
@@ -7,6 +6,7 @@ import {
   getRostersSuccess,
 } from './rosters.actions';
 import { createReducer, on } from '@ngrx/store';
+import { Roster } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export interface RosterState extends DataInterface, EntityState<Roster> {}
 

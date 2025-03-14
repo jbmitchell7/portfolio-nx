@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Player } from "../../data/interfaces/roster";
+import { Player } from "@tc-fantasy-dashboard/shared/interfaces";
 
 export const getPlayersRequest = createAction(
   '[Players] getPlayersRequest',
