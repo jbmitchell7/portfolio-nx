@@ -7,13 +7,13 @@ import { Roster } from '@tc-fantasy-dashboard/shared/interfaces';
   providedIn: 'root'
 })
 export class RosterService extends DataService {
-  #rosters = new BehaviorSubject<Record<string, Roster> | null>(null);
+  #rosters = new BehaviorSubject<Record<string, Roster>>({});
   
-  get rosters$(): Observable<Record<string, Roster> | null> {
+  get rosters$(): Observable<Record<string, Roster>> {
     return this.#rosters.asObservable();
   }
 
-  setRosterState(rosters: Record<string, Roster> | null): void {
+  setRosterState(rosters: Record<string, Roster>): void {
     this.#rosters.next(rosters);
   }
 
@@ -29,11 +29,11 @@ export class RosterService extends DataService {
         }),
         catchError(() => {
           this.messageService.add({
-            severity: 'error',
+            severity: 'warning',
             summary: 'Error',
-            detail: 'Cannot fetch rosters data. Please try again later or try another id.'
+            detail: 'Cannot fetch rosters. Please try again later.'
           });
-          this.setRosterState(null);
+          this.setRosterState({});
           this.setLoadingState(false);
           return of(null);
         })

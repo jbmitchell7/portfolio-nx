@@ -14,7 +14,7 @@ export class FantasyDashboardApiService {
   readonly http = inject(HttpClient);
   readonly #messageService = inject(MessageService);
 
-  fantasyFocusGet(sport: string, ids: string[]): Observable<unknown> {
+  getPlayers(sport: string, ids: string[]): Observable<unknown> {
     return this.http.post(`${apiUrl}/${sport}`, {players: ids})
       .pipe(
         map(this.#extractResponseData),

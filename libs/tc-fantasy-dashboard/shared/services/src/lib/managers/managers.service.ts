@@ -7,13 +7,13 @@ import { Manager } from '@tc-fantasy-dashboard/shared/interfaces';
   providedIn: 'root'
 })
 export class ManagerService extends DataService {
-  #managers = new BehaviorSubject<Record<string, Manager> | null>(null);
+  #managers = new BehaviorSubject<Record<string, Manager>>({});
 
-  get managers$(): Observable<Record<string, Manager> | null> {
+  get managers$(): Observable<Record<string, Manager>> {
     return this.#managers.asObservable();
   }
 
-  setManagersState(managers: Record<string, Manager> | null): void {
+  setManagersState(managers: Record<string, Manager>): void {
     this.#managers.next(managers);
   }
 
@@ -29,11 +29,11 @@ export class ManagerService extends DataService {
         }),
         catchError(() => {            
           this.messageService.add({
-            severity: 'error',
+            severity: 'warning',
             summary: 'Error',
-            detail: 'Cannot fetch managers data. Please try again later or try another id.'
+            detail: 'Cannot fetch managers. Please try again later.'
           });
-          this.setManagersState(null);
+          this.setManagersState({});
           this.setLoadingState(false);
           return of(null);
         })

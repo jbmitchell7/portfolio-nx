@@ -100,7 +100,7 @@ export class GlobalEffects {
     this.#actions$.pipe(
       ofType(getPlayersRequest),
       switchMap((props) =>
-        this.#fantasyFocusApi.fantasyFocusGet(`players/${props.sport}`, props.ids)
+        this.#fantasyFocusApi.getPlayers(`players/${props.sport}`, props.ids)
           .pipe(
             map((res: any) => getPlayersSuccess({ players: res })),
             catchError(() =>
