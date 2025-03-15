@@ -1,6 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { leagueEntryRequest } from '../../store/global.actions';
 import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -25,7 +23,6 @@ import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent {
-  readonly #store = inject(Store);
   readonly #router = inject(Router);
   readonly #leagueInitService = inject(LeagueInitService);
 
@@ -33,7 +30,6 @@ export class WelcomeComponent {
 
   setLeagueId(): void {
     const id = this.leagueInputForm.value ?? '';
-    this.#store.dispatch(leagueEntryRequest({ leagueId: id }));
     this.#leagueInitService.initLeague(id);
     this.#router.navigate(['league']);
   }

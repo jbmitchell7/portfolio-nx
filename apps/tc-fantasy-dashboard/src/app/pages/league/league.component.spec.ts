@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
 import { LeagueComponent } from './league.component';
 import { provideRouter } from '@angular/router';
 import { NavbarComponent } from '@shared-global/ui';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
+import { provideHttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 describe('LeagueComponent', () => {
   let component: LeagueComponent;
@@ -11,7 +13,7 @@ describe('LeagueComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
     imports: [LeagueComponent, NavbarComponent],
-    providers: [provideMockStore(), provideRouter([])],
+    providers: [LeagueInitService, provideRouter([]), provideHttpClient(), MessageService],
   })
     .compileComponents();
   });
