@@ -38,13 +38,22 @@ export class LeagueInitService {
     this.#playersLoading.next(loading);
   }
 
+  get leagues$(): Observable<Record<string, League>> {
+    return this.#leagues.asObservable();
+  }
+
   setLeagueState(league: Record<string, League>): void {
     this.#leagues.next(league);
   }
 
-  getLeague(leagueId: string): void {
+  resetLeagueState(): void {
+    this.setLeagueState({});
+    this.setLoadingState(false);
+  }
+
+  initLeague(leagueId: string): void {
     if (this.#leagues.value[leagueId]) {
-      localStorage.setItem('LEAGUE_ID', leagueId);
+      localStorage.setItem('CURRENT_LEAGUE_ID', leagueId);
       return;
     }
     this.setLoadingState(true);
@@ -60,7 +69,7 @@ export class LeagueInitService {
             detail:
               'Cannot fetch league data. Please try again later or try another id.',
           });
-          this.#resetLeagueState();
+          this.resetLeagueState();
           return of(null);
         })
       )
@@ -73,7 +82,7 @@ export class LeagueInitService {
       .pipe(
         take(1),
         tap((sportState) => {
-          localStorage.setItem('LEAGUE_ID', league.league_id);
+          localStorage.setItem('CURRENT_LEAGUE_ID', league.league_id);
           const leagueData: League = {
             ...league,
             sportState,
@@ -86,7 +95,7 @@ export class LeagueInitService {
             summary: 'Error',
             detail: 'Cannot fetch sport state data. Please try again later.',
           });
-          this.#resetLeagueState();
+          this.resetLeagueState();
           return of(null);
         })
       )
@@ -116,7 +125,7 @@ export class LeagueInitService {
             summary: 'Error',
             detail: 'Cannot fetch managers. Please try again later.',
           });
-          this.#resetLeagueState();
+          this.resetLeagueState();
           return of(null);
         })
       )
@@ -160,7 +169,7 @@ export class LeagueInitService {
             summary: 'Error',
             detail: 'Cannot fetch transactions. Please try again later.',
           });
-          this.#resetLeagueState();
+          this.resetLeagueState();
           return of(null);
         })
       )
@@ -183,7 +192,7 @@ export class LeagueInitService {
             [league.league_id]: leagueData,
           });
           const ids = rosters.map((r) => r.players).flat();
-          this.getPlayers(ids, league.sport, league.league_id);
+          // this.getPlayers(ids, league.sport, league.league_id);
           this.setLoadingState(false);
         }),
         catchError(() => {
@@ -192,7 +201,7 @@ export class LeagueInitService {
             summary: 'Error',
             detail: 'Cannot fetch rosters. Please try again later.',
           });
-          this.#resetLeagueState();
+          this.resetLeagueState();
           return of(null);
         })
       )
@@ -231,11 +240,6 @@ export class LeagueInitService {
         })
       )
       .subscribe();
-  }
-
-  #resetLeagueState(): void {
-    this.setLeagueState({});
-    this.setLoadingState(false);
   }
 
   #createRecords(data: any[], key: string): Record<string, any> {

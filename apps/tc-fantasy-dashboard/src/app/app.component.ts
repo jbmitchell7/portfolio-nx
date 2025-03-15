@@ -1,9 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { leagueEntryRequest } from './store/global.actions';
 import Bowser from "bowser";
 import { ToastModule } from 'primeng/toast';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 
 @Component({
   selector: 'fd-root',
@@ -11,14 +10,14 @@ import { ToastModule } from 'primeng/toast';
   imports: [RouterOutlet, ToastModule]
 })
 export class AppComponent implements OnInit {
-  readonly #store = inject(Store);
   readonly #router = inject(Router);
+  readonly #leagueInitService = inject(LeagueInitService);  
 
   ngOnInit(): void {
     this.#setMobile();
-    const id = localStorage.getItem('LEAGUE_ID');
+    const id = localStorage.getItem('CURRENT_LEAGUE_ID');
     if (id) {
-      this.#store.dispatch(leagueEntryRequest({ leagueId: id }));
+      this.#leagueInitService.initLeague(id);
       if (!this.#router.url.includes('league')) {
         this.#router.navigateByUrl('/league');
       }

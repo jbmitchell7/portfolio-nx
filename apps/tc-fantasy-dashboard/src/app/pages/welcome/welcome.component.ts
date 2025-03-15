@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
 import { IconAttributionComponent } from '../../components/icon-attribution/icon-attribution.component';
 import { ColorModeBtnComponent } from '@shared-global/ui';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 
 @Component({
   imports: [
@@ -26,12 +27,14 @@ import { ColorModeBtnComponent } from '@shared-global/ui';
 export class WelcomeComponent {
   readonly #store = inject(Store);
   readonly #router = inject(Router);
+  readonly #leagueInitService = inject(LeagueInitService);
 
   leagueInputForm = new FormControl<string>('', [Validators.required, Validators.minLength(3)]);
 
   setLeagueId(): void {
     const id = this.leagueInputForm.value ?? '';
     this.#store.dispatch(leagueEntryRequest({ leagueId: id }));
+    this.#leagueInitService.initLeague(id);
     this.#router.navigate(['league']);
   }
 }

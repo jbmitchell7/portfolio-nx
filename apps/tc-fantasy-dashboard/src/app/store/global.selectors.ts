@@ -57,6 +57,6 @@ export const selectCurrentWeekTransactions = (
   }
   return weeklyTransactions.map((t) => ({
     ...t,
-    rosterMoves: getRosterMoves(t, state),
+    rosterMoves: getRosterMoves(t, state.leagueData.league),
   }));
 };

@@ -1,26 +1,9 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { GraphComponent } from '../../../components/graph/graph.component';
-import { Store } from '@ngrx/store';
-import {
-  combineLatest,
-  distinctUntilChanged,
-  filter,
-  Observable,
-  Subscription,
-  switchMap,
-  tap,
-} from 'rxjs';
-import {
-  selectAllPlayers,
-  selectApp,
-  selectCurrentWeekTransactions,
-  selectStandingsData,
-} from '../../../store/global.selectors';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
-import { getTransactionsRequest } from '../../../store/transactions/transactions.actions';
 import { WeeklyTransactionsComponent } from '../../../components/weekly-transactions/weekly-transactions.component';
-import { getPlayersRequest } from '../../../store/players/players.actions';
 import { TITLE_TEXT } from '../../../components/graph/graph.constants';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import {
@@ -28,9 +11,12 @@ import {
   SportState,
   League,
   Transaction,
-  RosterState,
+  Roster,
+  RosterMove,
+  Player,
 } from '@tc-fantasy-dashboard/shared/interfaces';
-import { getCurrentTransactionsWeek } from '@tc-fantasy-dashboard/shared/utils';
+import { getCurrentTransactionsWeek, getRosterMoves } from '@tc-fantasy-dashboard/shared/utils';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 
 @Component({
   selector: 'fd-home',
@@ -45,14 +31,13 @@ import { getCurrentTransactionsWeek } from '@tc-fantasy-dashboard/shared/utils';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnDestroy {
-  readonly #store = inject(Store);
-  #standingSub!: Subscription;
+  readonly #leagueInitService = inject(LeagueInitService);
   #leagueSub!: Subscription;
 
   standingsData!: StandingsData[];
-  sportState!: SportState;
+  sportState?: SportState;
   league!: League;
-  rosters!: RosterState;
+  rosters?: Record<string, Roster>;
   pageHeader!: string;
   weekTitle!: string;
   weekNumber!: number;
@@ -61,45 +46,25 @@ export class HomeComponent implements OnDestroy {
   graphHeader = TITLE_TEXT;
 
   constructor() {
-    this.#standingSub = this.#store
-      .select(selectStandingsData)
-      .subscribe((sd) => (this.standingsData = sd));
-
     this.#initLeagueSub();
   }
 
   ngOnDestroy(): void {
-    this.#standingSub.unsubscribe();
     this.#leagueSub.unsubscribe();
   }
 
   #initLeagueSub(): void {
-    this.#leagueSub = this.#store
-      .select(selectApp)
-      .pipe(
-        filter((app) => !!app.leagueData.league?.sportState?.season),
-        tap(({ leagueData, rosterData }) => {
-          this.rosters = rosterData;
-          this.league = leagueData.league;
-          if (this.league.sportState) {
-            this.sportState = this.league.sportState;
-          }
-          this.weekNumber = getCurrentTransactionsWeek(this.league);
-          this.pageHeader = this.#getPageHeader();
-        }),
-        tap(({ transactionsData }) => {
-          if (!transactionsData.transactions[this.weekNumber]) {
-            this.#store.dispatch(
-              getTransactionsRequest({
-                leagueId: this.league.league_id,
-                week: this.weekNumber,
-              })
-            );
-          }
-        }),
-        switchMap(() => this.#subWeeklyTransactions())
-      )
-      .subscribe();
+    this.#leagueSub = this.#leagueInitService.leagues$.subscribe((leagues) => {
+      const leagueId = localStorage.getItem('CURRENT_LEAGUE_ID');
+      this.league = leagues[leagueId as string];
+      this.rosters = this.league.rosters;
+      this.sportState = this.league.sportState;
+      this.weekNumber = getCurrentTransactionsWeek(this.league);
+      this.pageHeader = this.#getPageHeader();
+      this.transactions =
+      this.league.transactions?.[this.weekNumber] ?? ([] as Transaction[]);
+      this.#getMissingPlayers();
+    });
   }
 
   #getPageHeader(): string {
@@ -114,46 +79,30 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
-  #subWeeklyTransactions(): Observable<any> {
-    return combineLatest([
-      this.#store.select(selectCurrentWeekTransactions),
-      this.#store.select(selectAllPlayers),
-    ]).pipe(
-      filter(
-        ([t, players]) =>
-          !!t.length && !!players.ids.length && !players.isLoading
-      ),
-      //necessary to prevent infinite refreshing
-      distinctUntilChanged(
-        ([t, p], [tb, pb]) =>
-          JSON.stringify(t) === JSON.stringify(tb) &&
-          p.ids.length === pb.ids.length
-      ),
-      tap(([transactions]) => {
-        const missingPlayers: any[] = [];
-        transactions.forEach((t) => {
-          t.rosterMoves?.forEach((m: any) => {
-            m.adds?.forEach((a: any) => {
-              if (!a.full_name) {
-                missingPlayers.push(a.player_id);
-              }
-            });
-            m.drops?.forEach((a: any) => {
-              if (!a.full_name) {
-                missingPlayers.push(a.player_id);
-              }
-            });
-          });
+  #getMissingPlayers(): void {
+    const missingPlayers: string[] = [];
+    // TODO: need to add logic for generating roster moves here or to transaction component
+    this.transactions.forEach((t) => {
+      const rosterMoves = getRosterMoves(t, this.league);
+      rosterMoves?.forEach((m: RosterMove) => {
+        m.adds?.forEach((a: Partial<Player>) => {
+          if (!a.full_name) {
+            missingPlayers.push(a.player_id as string);
+          }
         });
-        if (missingPlayers.length) {
-          this.#store.dispatch(
-            getPlayersRequest({ sport: this.league.sport, ids: missingPlayers })
-          );
-        } else {
-          this.transactionsLoading = false;
-          this.transactions = transactions;
-        }
-      })
-    );
+        m.drops?.forEach((a: Partial<Player>) => {
+          if (!a.full_name) {
+            missingPlayers.push(a.player_id as string);
+          }
+        });
+      });
+    });
+    if (missingPlayers.length) {
+      this.#leagueInitService.getPlayers(
+        missingPlayers,
+        this.league.sport,
+        this.league.league_id
+      );
+    }
   }
 }

@@ -42,7 +42,7 @@ export class GlobalEffects {
       switchMap(props =>
         this.#sleeperApi.getSportState(props.league.sport).pipe(
           map((sport: SportState) => {
-            localStorage.setItem('LEAGUE_ID', props.league.league_id);
+            localStorage.setItem('CURRENT_LEAGUE_ID', props.league.league_id);
             return getSportStateSuccess({sport});
           }),
           catchError((error) => {

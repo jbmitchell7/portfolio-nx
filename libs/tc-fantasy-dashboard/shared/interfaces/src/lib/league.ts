@@ -8,7 +8,7 @@ export interface League extends LeagueResponse {
   managers?: Record<string, Manager>;
   players?: Record<string, Player>;
   rosters?: Record<string, Roster>;
-  transactions?: Record<string, Transaction>;
+  transactions?: Record<string, Transaction[]>;
 }
 
 export interface LeagueResponse {

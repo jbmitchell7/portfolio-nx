@@ -1,52 +1,57 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { IconAttributionComponent } from '../../components/icon-attribution/icon-attribution.component';
 import { NavbarComponent } from '@shared-global/ui';
 import { MenuItem } from 'primeng/api';
-import { Store } from '@ngrx/store';
-import { Subscription, filter, tap } from 'rxjs';
+import { filter, Subscription, tap, combineLatest } from 'rxjs';
 import { MENU_ROUTES } from './navigation.constants';
-import { leagueEntryRequest } from '../../store/global.actions';
-import { selectLeague } from '../../store/global.selectors';
-import { clearLeagueData } from '../../store/league/league.actions';
-import { clearManagersData } from '../../store/managers/managers.actions';
-import { clearRosterData } from '../../store/rosters/rosters.actions';
 import { League } from '@tc-fantasy-dashboard/shared/interfaces';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'fd-league',
   templateUrl: './league.component.html',
   imports: [
     CommonModule,
-    RouterOutlet,
     IconAttributionComponent,
     NavbarComponent,
+    ProgressSpinnerModule,
   ],
 })
 export class LeagueComponent implements OnInit, OnDestroy {
-  readonly #store = inject(Store);
   readonly #router = inject(Router);
+  readonly #leagueInitService = inject(LeagueInitService);
   #sub!: Subscription;
 
   menuItems!: MenuItem[];
   mobile = JSON.parse(localStorage.getItem('MOBILE') as string);
   leagueName!: string;
+  leagueYear!: string;
   logo = 'icons/helmet.png';
+  isLoading = true;
 
   ngOnInit(): void {
-    this.#sub = this.#store
-      .select(selectLeague)
+
+    this.#sub = combineLatest([
+      this.#leagueInitService.leagues$,
+      this.#leagueInitService.isLoading$,
+    ])
       .pipe(
-        filter((l) => !!l.sportState?.season),
-        tap((l) => {
-          this.leagueName = l.name;
+        tap(([_, loading]) => this.isLoading = loading),
+        filter(([leagues, loading]) => !loading && !!leagues),
+        tap(([leagues]) => {
+          const leagueId = localStorage.getItem('CURRENT_LEAGUE_ID');
+          const league = leagues[leagueId as string];
+          this.leagueName = league.name;
+          this.leagueYear = league.season;
           this.menuItems = [
             ...MENU_ROUTES,
             {
               label: 'Sleeper Link',
               icon: 'fa-solid fa-arrow-up-right-from-square',
-              url: `https://sleeper.com/leagues/${l.league_id}/league`,
+              url: `https://sleeper.com/leagues/${league.league_id}/league`,
             },
             {
               label: 'Change League/Season',
@@ -60,14 +65,14 @@ export class LeagueComponent implements OnInit, OnDestroy {
                 {
                   label: 'Previous Season',
                   icon: 'fa-solid fa-backward',
-                  disabled: !l.previous_league_id,
-                  command: () => this.#setLastSeason(l),
+                  disabled: !league.previous_league_id,
+                  command: () => this.#setLastSeason(league),
                 },
                 {
                   label: 'Next Season',
                   icon: 'fa-solid fa-forward',
-                  disabled: l.sportState?.season === l.season,
-                  command: () => this.#setNextSeason(l),
+                  disabled: league.sportState?.season === league.season,
+                  command: () => this.#setNextSeason(league),
                 },
               ],
             },
@@ -82,25 +87,19 @@ export class LeagueComponent implements OnInit, OnDestroy {
   }
 
   #resetLeague(): void {
-    this.#store.dispatch(clearLeagueData());
-    this.#store.dispatch(clearRosterData());
-    this.#store.dispatch(clearManagersData());
-    localStorage.setItem('LEAGUE_ID', '');
+    this.#leagueInitService.resetLeagueState();
+    localStorage.setItem('CURRENT_LEAGUE_ID', '');
     this.#router.navigateByUrl('/welcome');
   }
 
   #setNextSeason(league: League): void {
     const nextYear = +league.season + 1;
     const nextSeasonId = localStorage.getItem(nextYear.toString());
-    this.#store.dispatch(
-      leagueEntryRequest({ leagueId: nextSeasonId as string })
-    );
+    this.#leagueInitService.initLeague(nextSeasonId as string);
   }
 
   #setLastSeason(league: League): void {
     localStorage.setItem(league.season, league.league_id);
-    this.#store.dispatch(
-      leagueEntryRequest({ leagueId: league.previous_league_id })
-    );
+    this.#leagueInitService.initLeague(league.previous_league_id);
   }
 }

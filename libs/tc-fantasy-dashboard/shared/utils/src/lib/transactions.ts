@@ -1,9 +1,8 @@
 import {
-  AppState,
   League,
   Manager,
   Player,
-  PlayersState,
+  Roster,
   RosterMove,
   Transaction,
 } from '@tc-fantasy-dashboard/shared/interfaces';
@@ -22,18 +21,18 @@ export const getCurrentTransactionsWeek = (l: League): number => {
   return l.sportState.week;
 };
 
-export const getRosterMoves = (t: Transaction, state: AppState) => {
+export const getRosterMoves = (t: Transaction, league: League) => {
   const moves = [] as RosterMove[];
   t.roster_ids.forEach((id) => {
-    const manager = getManager(state, id);
-    const moveData = getMoveData(state.playerData, t, id, manager);
+    const manager = getManager(league, id);
+    const moveData = getMoveData(league.players ?? {}, t, id, manager);
     moves.push(moveData);
   });
   return moves;
 };
 
 const getMoveData = (
-  state: PlayersState,
+  players: Record<string, Player>,
   transaction: Transaction,
   id: number,
   manager: Manager | undefined
@@ -49,7 +48,7 @@ const getMoveData = (
     Object.keys(transaction.adds).forEach((key) => {
       if (transaction.adds?.[+key] === id) {
         result.adds.push(
-          state.entities[key] ?? ({ player_id: key } as Partial<Player>)
+          players[key] ?? ({ player_id: key } as Partial<Player>)
         );
       }
     });
@@ -57,7 +56,7 @@ const getMoveData = (
   if (transaction.drops !== null) {
     Object.keys(transaction.drops).forEach((key) => {
       if (transaction.drops?.[+key] === id) {
-        result.drops.push(state.entities[key] ?? { player_id: key });
+        result.drops.push(players[key] ?? { player_id: key });
       }
     });
   }
@@ -65,11 +64,11 @@ const getMoveData = (
 };
 
 const getManager = (
-  state: AppState,
+  league: League,
   rosterId: number
 ): Manager | undefined => {
-  const managerId = Object.keys(state.rosterData.entities).find(
-    (key) => state.rosterData.entities[key]?.roster_id === rosterId
+  const managerId = Object.keys(league.rosters as Record<string, Roster>).find(
+    (key) => league.rosters?.[key]?.roster_id === rosterId
   );
-  return managerId ? state.managersData.entities[managerId] : undefined;
+  return managerId ? league.managers?.[managerId] : undefined;
 };
