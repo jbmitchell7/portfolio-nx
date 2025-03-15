@@ -66,7 +66,7 @@ export class LeagueComponent implements OnInit, OnDestroy {
                 {
                   label: 'Next Season',
                   icon: 'fa-solid fa-forward',
-                  disabled: l.sportState.season === l.season,
+                  disabled: l.sportState?.season === l.season,
                   command: () => this.#setNextSeason(l),
                 },
               ],

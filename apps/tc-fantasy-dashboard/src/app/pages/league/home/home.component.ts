@@ -81,7 +81,9 @@ export class HomeComponent implements OnDestroy {
         tap(({ leagueData, rosterData }) => {
           this.rosters = rosterData;
           this.league = leagueData.league;
-          this.sportState = this.league.sportState;
+          if (this.league.sportState) {
+            this.sportState = this.league.sportState;
+          }
           this.weekNumber = getCurrentTransactionsWeek(this.league);
           this.pageHeader = this.#getPageHeader();
         }),
