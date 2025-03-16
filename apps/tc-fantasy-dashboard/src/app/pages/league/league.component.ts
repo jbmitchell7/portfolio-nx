@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { IconAttributionComponent } from '../../components/icon-attribution/icon-attribution.component';
 import { NavbarComponent } from '@shared-global/ui';
 import { MenuItem } from 'primeng/api';
@@ -18,6 +18,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     IconAttributionComponent,
     NavbarComponent,
     ProgressSpinnerModule,
+    RouterModule
   ],
 })
 export class LeagueComponent implements OnInit, OnDestroy {

@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { GraphComponent } from '../../../components/graph/graph.component';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
 import { WeeklyTransactionsComponent } from '../../../components/weekly-transactions/weekly-transactions.component';
@@ -15,7 +15,11 @@ import {
   RosterMove,
   Player,
 } from '@tc-fantasy-dashboard/shared/interfaces';
-import { getCurrentTransactionsWeek, getRosterMoves } from '@tc-fantasy-dashboard/shared/utils';
+import {
+  getCurrentTransactionsWeek,
+  getRosterMoves,
+  getStandingsData,
+} from '@tc-fantasy-dashboard/shared/utils';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 
 @Component({
@@ -41,8 +45,8 @@ export class HomeComponent implements OnDestroy {
   pageHeader!: string;
   weekTitle!: string;
   weekNumber!: number;
-  transactions: Transaction[] = [];
-  transactionsLoading = true;
+  rosterMoves: RosterMove[][] = [];
+  playersLoading = false;
   graphHeader = TITLE_TEXT;
 
   constructor() {
@@ -54,16 +58,20 @@ export class HomeComponent implements OnDestroy {
   }
 
   #initLeagueSub(): void {
-    this.#leagueSub = this.#leagueInitService.leagues$.subscribe((leagues) => {
+    this.#leagueSub = combineLatest([
+      this.#leagueInitService.leagues$,
+      this.#leagueInitService.playersLoading$,
+    ]).subscribe(([leagues, playersLoading]) => {
       const leagueId = localStorage.getItem('CURRENT_LEAGUE_ID');
+      this.playersLoading = playersLoading;
       this.league = leagues[leagueId as string];
+      this.standingsData = getStandingsData(this.league);
       this.rosters = this.league.rosters;
       this.sportState = this.league.sportState;
       this.weekNumber = getCurrentTransactionsWeek(this.league);
       this.pageHeader = this.#getPageHeader();
-      this.transactions =
-      this.league.transactions?.[this.weekNumber] ?? ([] as Transaction[]);
-      this.#getMissingPlayers();
+      const transactions = this.league.transactions?.[this.weekNumber] ?? ([] as Transaction[]);
+      this.#getRosterMoves(transactions);
     });
   }
 
@@ -79,23 +87,12 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
-  #getMissingPlayers(): void {
+  #getRosterMoves(transactions: Transaction[]): void {
     const missingPlayers: string[] = [];
-    // TODO: need to add logic for generating roster moves here or to transaction component
-    this.transactions.forEach((t) => {
+    const updatedRosterMoves = transactions.map((t) => {
       const rosterMoves = getRosterMoves(t, this.league);
-      rosterMoves?.forEach((m: RosterMove) => {
-        m.adds?.forEach((a: Partial<Player>) => {
-          if (!a.full_name) {
-            missingPlayers.push(a.player_id as string);
-          }
-        });
-        m.drops?.forEach((a: Partial<Player>) => {
-          if (!a.full_name) {
-            missingPlayers.push(a.player_id as string);
-          }
-        });
-      });
+      this.#checkForMissingPlayers(rosterMoves, missingPlayers);
+      return rosterMoves;
     });
     if (missingPlayers.length) {
       this.#leagueInitService.getPlayers(
@@ -103,6 +100,23 @@ export class HomeComponent implements OnDestroy {
         this.league.sport,
         this.league.league_id
       );
+    } else {
+      this.rosterMoves = updatedRosterMoves;
     }
+  }
+
+  #checkForMissingPlayers(rosterMoves: RosterMove[], missingPlayerIds: string[]): void {
+    rosterMoves?.forEach((m: RosterMove) => {
+      m.adds?.forEach((a: Partial<Player>) => {
+        if (!a.full_name) {
+          missingPlayerIds.push(a.player_id as string);
+        }
+      });
+      m.drops?.forEach((a: Partial<Player>) => {
+        if (!a.full_name) {
+          missingPlayerIds.push(a.player_id as string);
+        }
+      });
+    });
   }
 }
