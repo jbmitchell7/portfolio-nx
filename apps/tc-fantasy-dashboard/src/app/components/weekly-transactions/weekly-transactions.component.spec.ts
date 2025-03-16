@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WeeklyTransactionsComponent } from './weekly-transactions.component';
-import { provideMockStore } from '@ngrx/store/testing';
 
 describe('WeeklyTransactionsComponent', () => {
   let component: WeeklyTransactionsComponent;
@@ -9,8 +8,7 @@ describe('WeeklyTransactionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WeeklyTransactionsComponent],
-      providers: [provideMockStore()]
+      imports: [WeeklyTransactionsComponent]
     })
     .compileComponents();
 

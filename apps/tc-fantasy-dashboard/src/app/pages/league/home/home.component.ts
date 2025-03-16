@@ -70,8 +70,10 @@ export class HomeComponent implements OnDestroy {
       this.sportState = this.league.sportState;
       this.weekNumber = getCurrentTransactionsWeek(this.league);
       this.pageHeader = this.#getPageHeader();
-      const transactions = this.league.transactions?.[this.weekNumber] ?? ([] as Transaction[]);
-      this.#getRosterMoves(transactions);
+      if (!this.playersLoading) {
+        const transactions = this.league.transactions?.[this.weekNumber] ?? ([] as Transaction[]);
+        this.#getRosterMoves(transactions);
+      }
     });
   }
 

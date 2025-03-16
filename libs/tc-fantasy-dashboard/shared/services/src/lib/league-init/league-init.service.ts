@@ -9,6 +9,7 @@ import { BehaviorSubject, catchError, Observable, of, take, tap } from 'rxjs';
 import { FantasyDashboardApiService } from '../api-fantasy-dashboard/fantasy-dashboard-api.service';
 import { MessageService } from 'primeng/api';
 import { SleeperApiService } from '../api-sleeper/sleeper-api.service';
+import { getCurrentTransactionsWeek } from '@tc-fantasy-dashboard/shared/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -146,8 +147,9 @@ export class LeagueInitService {
     if (!league.sportState) {
       return;
     }
+    const transactionsWeek = getCurrentTransactionsWeek(league);
     this.#sleeperApiService
-      .getTransactions(league.league_id, league.sportState.week)
+      .getTransactions(league.league_id, transactionsWeek)
       .pipe(
         take(1),
         tap((transactions) => {
@@ -158,7 +160,7 @@ export class LeagueInitService {
             ...league,
             transactions: {
               ...league.transactions,
-              [league.sportState.week]: transactions,
+              [transactionsWeek]: transactions,
             },
           };
           this.#getRosters(leagueData);
@@ -192,7 +194,7 @@ export class LeagueInitService {
             [league.league_id]: leagueData,
           });
           const ids = rosters.map((r) => r.players).flat();
-          // this.getPlayers(ids, league.sport, league.league_id);
+          this.getPlayers(ids, league.sport, league.league_id);
           this.setLoadingState(false);
         }),
         catchError(() => {
@@ -210,6 +212,10 @@ export class LeagueInitService {
 
   getPlayers(playerIds: string[], sport: string, leagueId: string): void {
     this.#playersLoading.next(true);
+    if (this.#leagues.value[leagueId].players?.[playerIds[0]]) {
+      this.setPlayersLoadingState(false);
+      return;
+    }
     this.#fantasyDashboardApiService
       .getPlayers(sport, playerIds)
       .pipe(
