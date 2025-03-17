@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '@shared-global/ui';
 import { MenuItem } from 'primeng/api';
 import { filter, Subscription, tap, combineLatest } from 'rxjs';
@@ -22,7 +22,6 @@ import { IconAttributionComponent } from '@tc-fantasy-dashboard/shared/component
   ],
 })
 export class LeagueComponent implements OnInit, OnDestroy {
-  readonly #router = inject(Router);
   readonly #leagueInitService = inject(LeagueInitService);
   #sub!: Subscription;
 
@@ -88,7 +87,6 @@ export class LeagueComponent implements OnInit, OnDestroy {
 
   #resetLeague(): void {
     this.#leagueInitService.resetLeagueState();
-    this.#router.navigateByUrl('/welcome');
   }
 
   #setNextSeason(league: League): void {

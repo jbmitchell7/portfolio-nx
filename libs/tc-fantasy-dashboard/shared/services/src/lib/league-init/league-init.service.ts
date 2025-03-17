@@ -10,6 +10,7 @@ import { FantasyDashboardApiService } from '../api-fantasy-dashboard/fantasy-das
 import { MessageService } from 'primeng/api';
 import { SleeperApiService } from '../api-sleeper/sleeper-api.service';
 import { getCurrentTransactionsWeek } from '@tc-fantasy-dashboard/shared/utils';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +19,12 @@ export class LeagueInitService {
   readonly #fantasyDashboardApiService = inject(FantasyDashboardApiService);
   readonly #messageService = inject(MessageService);
   readonly #sleeperApiService = inject(SleeperApiService);
+  readonly #router = inject(Router);
 
-  #leagues: Record<string, League> = {};
   readonly #selectedLeague = new BehaviorSubject<League>({} as League);
   readonly #isLoading = new BehaviorSubject<boolean>(false);
   readonly #playersLoading = new BehaviorSubject<boolean>(false);
+  #leagues: Record<string, League> = {};
 
   get isLoading$(): Observable<boolean> {
     return this.#isLoading.asObservable();
@@ -55,6 +57,7 @@ export class LeagueInitService {
     this.#leagues = {};
     this.setLoadingState(false);
     this.setPlayersLoadingState(false);
+    this.#router.navigateByUrl('/welcome');
   }
 
   initLeague(leagueId: string): void {

@@ -10,7 +10,7 @@ import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
     selector: 'fd-weekly-transactions',
     imports: [CommonModule, ProgressSpinnerModule, DividerModule, ScrollPanelModule, LoadingComponent],
     templateUrl: './weekly-transactions.component.html',
-    styleUrl: './weekly-transactions.component.scss'
+    styleUrl: './weekly-transactions.component.css'
 })
 export class WeeklyTransactionsComponent {
   @Input({required: true}) rosterMoves: RosterMove[][] = [];
