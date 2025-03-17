@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { LeagueComponent } from './pages/league/league.component';
 import { WelcomeComponent } from '@tc-fantasy-dashboard/feature/welcome';
 import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
 import { StandingsComponent } from '@tc-fantasy-dashboard/feature/standings';
 import { HomeComponent } from '@tc-fantasy-dashboard/feature/home';
+import { LeagueComponent } from '@tc-fantasy-dashboard/feature/league';
 
 export const routes: Routes = [
   {path: '', component: LoadingComponent},

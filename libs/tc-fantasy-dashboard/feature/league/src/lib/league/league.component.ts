@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '@shared-global/ui';
 import { MenuItem } from 'primeng/api';
 import { filter, Subscription, tap, combineLatest } from 'rxjs';
-import { MENU_ROUTES } from './navigation.constants';
+import { MENU_ROUTES } from '../league-menu-items';
 import { League } from '@tc-fantasy-dashboard/shared/interfaces';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
