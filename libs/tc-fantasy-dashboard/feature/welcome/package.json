@@ -1,0 +1,12 @@
+{
+  "name": "@tc-fantasy-dashboard/feature/welcome",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/forms": "^19.2.0",
+    "primeng": "^19.0.8",
+    "@angular/router": "^19.2.0"
+  },
+  "sideEffects": false
+}

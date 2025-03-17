@@ -1,7 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { IconAttributionComponent } from '../../components/icon-attribution/icon-attribution.component';
 import { NavbarComponent } from '@shared-global/ui';
 import { MenuItem } from 'primeng/api';
 import { filter, Subscription, tap, combineLatest } from 'rxjs';
@@ -9,6 +8,7 @@ import { MENU_ROUTES } from './navigation.constants';
 import { League } from '@tc-fantasy-dashboard/shared/interfaces';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { IconAttributionComponent } from '@tc-fantasy-dashboard/shared/components';
 
 @Component({
   selector: 'fd-league',
