@@ -1,0 +1,11 @@
+.add {
+  color: var(--p-green-500);
+}
+
+.drop {
+  color: var(--p-red-500);
+}
+
+.trade {
+  color: var(--p-sky-500);
+}
