@@ -36,15 +36,14 @@ export class LeagueComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.#sub = combineLatest([
-      this.#leagueInitService.leagues$,
+      this.#leagueInitService.selectedLeague$,
       this.#leagueInitService.isLoading$,
     ])
       .pipe(
         tap(([_, loading]) => this.isLoading = loading),
-        filter(([leagues, loading]) => !loading && !!leagues),
-        tap(([leagues]) => {
-          const leagueId = localStorage.getItem('CURRENT_LEAGUE_ID');
-          const league = leagues[leagueId as string];
+        filter(([selectedLeague, loading]) => !loading && !!selectedLeague),
+        tap(([selectedLeague]) => {
+          const league = selectedLeague;
           this.leagueName = league.name;
           this.leagueYear = league.season;
           this.menuItems = [
@@ -89,7 +88,6 @@ export class LeagueComponent implements OnInit, OnDestroy {
 
   #resetLeague(): void {
     this.#leagueInitService.resetLeagueState();
-    localStorage.setItem('CURRENT_LEAGUE_ID', '');
     this.#router.navigateByUrl('/welcome');
   }
 

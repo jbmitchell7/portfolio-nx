@@ -63,11 +63,10 @@ export class StandingsComponent implements OnInit, OnDestroy {
   gridStyle = `p-datatable-striped ${this.mobileDevice ? 'p-datatable-sm' : ''}`
 
   ngOnInit(): void {
-    this.#sub = this.#leagueInitService.leagues$
+    this.#sub = this.#leagueInitService.selectedLeague$
       .pipe(
-        tap((leagues) => {
-          const leagueId = localStorage.getItem('CURRENT_LEAGUE_ID');
-          const league = leagues[leagueId as string];
+        tap((selectedLeague) => {
+          const league = selectedLeague;
           this.standingsData = getStandingsData(league);
           this.seasonStarted = this.standingsData[0].wins !== 0 || this.standingsData[0].losses !== 0;
           this.leagueName = league.name;

@@ -59,12 +59,11 @@ export class HomeComponent implements OnDestroy {
 
   #initLeagueSub(): void {
     this.#leagueSub = combineLatest([
-      this.#leagueInitService.leagues$,
-      this.#leagueInitService.playersLoading$,
-    ]).subscribe(([leagues, playersLoading]) => {
-      const leagueId = localStorage.getItem('CURRENT_LEAGUE_ID');
+      this.#leagueInitService.selectedLeague$,
+      this.#leagueInitService.playersLoading$
+    ]).subscribe(([league, playersLoading]) => {
       this.playersLoading = playersLoading;
-      this.league = leagues[leagueId as string];
+      this.league = league;
       this.standingsData = getStandingsData(this.league);
       this.rosters = this.league.rosters;
       this.sportState = this.league.sportState;
@@ -90,6 +89,10 @@ export class HomeComponent implements OnDestroy {
   }
 
   #getRosterMoves(transactions: Transaction[]): void {
+    if (!transactions.length) {
+      this.rosterMoves = [];
+      return;
+    }
     const missingPlayers: string[] = [];
     const updatedRosterMoves = transactions.map((t) => {
       const rosterMoves = getRosterMoves(t, this.league);
@@ -100,7 +103,7 @@ export class HomeComponent implements OnDestroy {
       this.#leagueInitService.getPlayers(
         missingPlayers,
         this.league.sport,
-        this.league.league_id
+        this.league
       );
     } else {
       this.rosterMoves = updatedRosterMoves;

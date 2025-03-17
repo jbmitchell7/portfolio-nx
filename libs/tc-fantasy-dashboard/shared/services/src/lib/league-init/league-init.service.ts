@@ -19,7 +19,8 @@ export class LeagueInitService {
   readonly #messageService = inject(MessageService);
   readonly #sleeperApiService = inject(SleeperApiService);
 
-  readonly #leagues = new BehaviorSubject<Record<string, League>>({});
+  #leagues: Record<string, League> = {};
+  readonly #selectedLeague = new BehaviorSubject<League>({} as League);
   readonly #isLoading = new BehaviorSubject<boolean>(false);
   readonly #playersLoading = new BehaviorSubject<boolean>(false);
 
@@ -39,25 +40,30 @@ export class LeagueInitService {
     this.#playersLoading.next(loading);
   }
 
-  get leagues$(): Observable<Record<string, League>> {
-    return this.#leagues.asObservable();
+  get selectedLeague$(): Observable<League> {
+    return this.#selectedLeague.asObservable();
   }
 
-  setLeagueState(league: Record<string, League>): void {
-    this.#leagues.next(league);
+  setSelectedLeague(league: League): void {
+    this.#leagues[league.league_id] = league;
+    this.#selectedLeague.next(league);
   }
 
   resetLeagueState(): void {
-    this.setLeagueState({});
+    localStorage.setItem('CURRENT_LEAGUE_ID', '');
+    this.setSelectedLeague({} as League);
+    this.#leagues = {};
     this.setLoadingState(false);
+    this.setPlayersLoadingState(false);
   }
 
   initLeague(leagueId: string): void {
-    if (this.#leagues.value[leagueId]) {
-      localStorage.setItem('CURRENT_LEAGUE_ID', leagueId);
+    this.setLoadingState(true);
+    if (this.#leagues[leagueId]) {
+      this.#selectedLeague.next(this.#leagues[leagueId]);
+      this.setLoadingState(false);
       return;
     }
-    this.setLoadingState(true);
     this.#sleeperApiService
       .getLeague(leagueId)
       .pipe(
@@ -84,11 +90,11 @@ export class LeagueInitService {
         take(1),
         tap((sportState) => {
           localStorage.setItem('CURRENT_LEAGUE_ID', league.league_id);
-          const leagueData: League = {
+          const updatedLeague: League = {
             ...league,
             sportState,
           };
-          this.#getManagers(leagueData);
+          this.#getManagers(updatedLeague);
         }),
         catchError(() => {
           this.#messageService.add({
@@ -114,11 +120,11 @@ export class LeagueInitService {
             managersWithAvatars,
             'user_id'
           );
-          const leagueData: League = {
+          const updatedLeague: League = {
             ...league,
             managers: managerRecords,
           };
-          this.#getTransactions(leagueData);
+          this.#getTransactions(updatedLeague);
         }),
         catchError(() => {
           this.#messageService.add({
@@ -156,14 +162,14 @@ export class LeagueInitService {
           if (!league.sportState) {
             return;
           }
-          const leagueData = {
+          const updatedLeague = {
             ...league,
             transactions: {
               ...league.transactions,
               [transactionsWeek]: transactions,
             },
           };
-          this.#getRosters(leagueData);
+          this.#getRosters(updatedLeague);
         }),
         catchError(() => {
           this.#messageService.add({
@@ -185,17 +191,15 @@ export class LeagueInitService {
         take(1),
         tap((rosters: Roster[]) => {
           const rosterRecords = this.#createRecords(rosters, 'owner_id');
-          const leagueData: League = {
+          const updatedLeague: League = {
             ...league,
             rosters: rosterRecords,
           };
-          this.setLeagueState({
-            ...this.#leagues.value,
-            [league.league_id]: leagueData,
-          });
-          const ids = rosters.map((r) => r.players).flat();
-          this.getPlayers(ids, league.sport, league.league_id);
+          this.setSelectedLeague(updatedLeague);
           this.setLoadingState(false);
+
+          const ids = rosters.map((r) => r.players).flat();
+          this.getPlayers(ids, league.sport, updatedLeague);
         }),
         catchError(() => {
           this.#messageService.add({
@@ -210,9 +214,9 @@ export class LeagueInitService {
       .subscribe();
   }
 
-  getPlayers(playerIds: string[], sport: string, leagueId: string): void {
+  getPlayers(playerIds: string[], sport: string, league: League): void {
     this.#playersLoading.next(true);
-    if (this.#leagues.value[leagueId].players?.[playerIds[0]]) {
+    if (league.players?.[playerIds[0]]) {
       this.setPlayersLoadingState(false);
       return;
     }
@@ -222,17 +226,14 @@ export class LeagueInitService {
         take(1),
         tap((players: any) => {
           const playerRecords = this.#createRecords(players, 'player_id');
-          const leagueData: League = {
-            ...this.#leagues.value[leagueId],
+          const updatedLeague = {
+            ...league,
             players: {
-              ...this.#leagues.value[leagueId].players,
+              ...league.players,
               ...playerRecords,
             },
           };
-          this.setLeagueState({
-            ...this.#leagues.value,
-            [leagueId]: leagueData,
-          });
+          this.setSelectedLeague(updatedLeague);
           this.setPlayersLoadingState(false);
         }),
         catchError(() => {
