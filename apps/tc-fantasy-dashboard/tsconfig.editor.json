@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../../libs/tc-fantasy-dashboard/feature/home/src/lib/home.component.spec.ts", "../../libs/tc-fantasy-dashboard/feature/home/src/lib/home.component.ts"],
   "compilerOptions": {},
   "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }
