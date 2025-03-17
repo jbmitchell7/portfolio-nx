@@ -1,1 +1,1 @@
-export * from './lib/standings/standings.component';
+export * from './lib/standings.component';
