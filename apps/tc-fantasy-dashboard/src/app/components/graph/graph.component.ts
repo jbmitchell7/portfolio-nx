@@ -1,9 +1,18 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { StandingsData } from '../../data/interfaces/standingsData';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { GRAPH_COLORS, SUBTITLE_TEXT } from '../../data/constants/graph.constants';
+import { GRAPH_COLORS, SUBTITLE_TEXT } from './graph.constants';
+import { StandingsData } from '@tc-fantasy-dashboard/shared/interfaces';
+
+interface ChartData {
+  x: number;
+  y: number;
+  r: number;
+  manager: string;
+  points: number;
+  losses: number;
+}
 @Component({
     selector: 'fd-graph',
     templateUrl: './graph.component.html',
@@ -12,8 +21,8 @@ import { GRAPH_COLORS, SUBTITLE_TEXT } from '../../data/constants/graph.constant
 export class GraphComponent implements OnChanges {
   @Input({required: true}) standingsData!: StandingsData[];
 
-  chartData: any;
-  chartOptions: any;
+  chartData: unknown;
+  chartOptions: unknown;
   isLoading = true;
   mobileBrowser = JSON.parse(localStorage.getItem('MOBILE') as string);
   showPreseasonMessage = false;
@@ -22,15 +31,15 @@ export class GraphComponent implements OnChanges {
   #minRadiusSize!: number;
   readonly #MIN_OFFSET = this.mobileBrowser ? 3 : 5;
 
-  ngOnChanges(changes: any): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.isLoading = true;
-    if (changes.standingsData && changes.standingsData.currentValue?.length) {
+    if (changes['standingsData'] && changes['standingsData'].currentValue?.length) {
       if (this.standingsData[0].wins === 0 && this.standingsData[0].losses === 0) {
         this.showPreseasonMessage = true;
       } else {
         this.showPreseasonMessage = false;
         this.#getRadiusRange(this.standingsData);
-        const data = this.standingsData.map(team => ({
+        const data: ChartData[] = this.standingsData.map(team => ({
           x: team.maxPoints,
           y: team.wins,
           r: this.#getRadiusValue(team.points, team.maxPoints),
@@ -44,7 +53,7 @@ export class GraphComponent implements OnChanges {
     }
   }
 
-  #setupChart(data: any[]): void {
+  #setupChart(data: ChartData[]): void {
     this.chartData = {
       labels: data.map(team => team.manager),
       datasets: [

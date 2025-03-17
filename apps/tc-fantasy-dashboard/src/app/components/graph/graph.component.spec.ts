@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GraphComponent } from './graph.component';
-import { provideMockStore } from '@ngrx/store/testing';
 
 describe('GraphComponent', () => {
   let component: GraphComponent;
@@ -8,8 +7,7 @@ describe('GraphComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [GraphComponent],
-    providers: [provideMockStore()]
+    imports: [GraphComponent]
 })
     .compileComponents();
   });

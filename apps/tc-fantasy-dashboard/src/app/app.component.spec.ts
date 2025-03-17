@@ -1,13 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { provideMockStore } from '@ngrx/store/testing';
 import { MessageService } from 'primeng/api';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideMockStore(), MessageService]
+      providers: [LeagueInitService, MessageService, provideHttpClient()]
     }).compileComponents();
   });
 

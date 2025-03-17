@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { StandingsData } from '../../../data/interfaces/standingsData';
-import { Store } from '@ngrx/store';
-import { Subscription, combineLatest, filter, tap } from 'rxjs';
-import { selectLeague, selectStandingsData } from '../../../store/global.selectors';
+import { Subscription, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { StandingsData } from '@tc-fantasy-dashboard/shared/interfaces';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
+import { getStandingsData } from '@tc-fantasy-dashboard/shared/utils';
 
 interface Column {
   field: string;
@@ -49,7 +49,7 @@ const STANDINGS_COLUMNS: Column[] = [
     imports: [CommonModule, TableModule, TagModule]
 })
 export class StandingsComponent implements OnInit, OnDestroy {
-  readonly #store = inject(Store);
+  readonly #leagueInitService = inject(LeagueInitService);
   #sub!: Subscription;
   pageTitle!: string;
   standingsData!: StandingsData[];
@@ -63,17 +63,14 @@ export class StandingsComponent implements OnInit, OnDestroy {
   gridStyle = `p-datatable-striped ${this.mobileDevice ? 'p-datatable-sm' : ''}`
 
   ngOnInit(): void {
-    this.#sub = combineLatest([
-      this.#store.select(selectStandingsData),
-      this.#store.select(selectLeague),
-    ])
+    this.#sub = this.#leagueInitService.selectedLeague$
       .pipe(
-        filter(([sd, l]) => !!sd.length && !!l.name),
-        tap(([sd, l]) => {
-          this.standingsData = sd;
-          this.seasonStarted = sd[0].wins !== 0 || sd[0].losses !== 0;
-          this.leagueName = l.name;
-          this.leagueYear = l.season;
+        tap((selectedLeague) => {
+          const league = selectedLeague;
+          this.standingsData = getStandingsData(league);
+          this.seasonStarted = this.standingsData[0].wins !== 0 || this.standingsData[0].losses !== 0;
+          this.leagueName = league.name;
+          this.leagueYear = league.season;
           this.pageTitle = ` ${this.leagueYear} Standings`;
         })
       )

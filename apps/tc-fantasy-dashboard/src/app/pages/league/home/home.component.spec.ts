@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home.component';
-import { provideMockStore } from '@ngrx/store/testing';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
+import { MessageService } from 'primeng/api';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -14,10 +14,11 @@ describe('HomeComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HomeComponent],
       providers: [
-        provideMockStore(),
         provideHttpClient(),
         provideHttpClientTesting(),
-        provideAnimationsAsync()
+        provideAnimationsAsync(),
+        LeagueInitService,
+        MessageService
       ]
     })
     .compileComponents();

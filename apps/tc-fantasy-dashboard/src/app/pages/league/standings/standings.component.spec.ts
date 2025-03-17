@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StandingsComponent } from './standings.component';
-import { provideMockStore } from '@ngrx/store/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 describe('StandingsComponent', () => {
   let component: StandingsComponent;
@@ -9,7 +10,7 @@ describe('StandingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
     imports: [StandingsComponent],
-    providers: [provideMockStore()]
+    providers: [provideHttpClient(), MessageService]
 })
     .compileComponents();
   });

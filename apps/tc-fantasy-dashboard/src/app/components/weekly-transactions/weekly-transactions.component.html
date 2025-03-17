@@ -3,16 +3,16 @@
     <p-progressSpinner />
   </div>
 } @else {
-  <p-scroll-panel styleClass="max-h-[85vh] lg:max-h-[65vh]">
+  <p-scroll-panel styleClass="max-h-[85vh] lg:h-[65vh]">
     <div class="flex flex-col gap-1 pr-3">
-      @if (!transactions.length) {
+      @if (!rosterMoves.length) {
         <p>No transactions this week.</p>
       } @else {
         <div class="flex flex-col">
-          @for (t of transactions; track $index) {
-            @if (t.rosterMoves?.[0]?.type !== 'trade') {
-              @for (m of t.rosterMoves; track $index) {
-                <h5 class="pb-2">{{(t.type === 'free_agent' ? 'free agent' : t.type) | titlecase}}</h5>
+          @for (moves of rosterMoves; track $index) {
+            @if (moves[0].type !== 'trade') {
+              @for (m of moves; track $index) {
+                <h5 class="pb-2">{{(m.type === 'free_agent' ? 'free agent' : m.type) | titlecase}}</h5>
                 <div class="flex flex-col gap-3 text-xs">
                   <div class="flex items-center gap-2">
                     @if (m.manager?.avatarUrl) {
@@ -43,7 +43,7 @@
             } @else {
               <h5 class="pb-2">Trade</h5>
               <div class="flex flex-col items-center gap-5 text-xs">
-                @for (m of t.rosterMoves; let i = $index; track i) {
+                @for (m of moves; let i = $index; track i) {
                   @if (i !== 0) {
                     <i class="fa-solid fa-rotate fa-xl self-center trade"></i>
                   }

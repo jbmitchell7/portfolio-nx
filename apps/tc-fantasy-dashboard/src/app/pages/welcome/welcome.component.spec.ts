@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WelcomeComponent } from './welcome.component';
-import { provideMockStore } from '@ngrx/store/testing';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
+import { MessageService } from 'primeng/api';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
@@ -11,7 +12,7 @@ describe('WelcomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [WelcomeComponent],
-      providers: [provideMockStore(), provideHttpClient(), provideHttpClientTesting()]
+      providers: [provideHttpClient(), provideHttpClientTesting(), LeagueInitService, MessageService]
     })
     .compileComponents();
 

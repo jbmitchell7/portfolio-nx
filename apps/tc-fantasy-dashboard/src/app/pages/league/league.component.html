@@ -1,13 +1,19 @@
 <div class="flex flex-col gap-2 h-full w-full">
   <shared-ui-navbar [menuItems]="menuItems" [logoPath]="logo" />
-  <div class="flex justify-center items-center gap-2 pt-5">
-    <img src="icons/icon-512x512.png" alt="trophy icon" class="h-20" />
-    <h2>{{leagueName}}</h2>
-  </div>
-  <div class="flex-auto flex flex-col justify-between p-3">
-    <div class="flex-auto">
-      <router-outlet></router-outlet>
+  @if (isLoading) {
+    <div class="flex-auto flex justify-center items-center">
+      <p-progress-spinner />
     </div>
-    <fd-icon-attribution />
-  </div>
+  } @else {
+    <div class="flex justify-center items-center gap-2 pt-5">
+      <img src="icons/icon-512x512.png" alt="trophy icon" class="h-20" />
+      <h2>{{leagueName}} {{leagueYear}}</h2>
+    </div>
+    <div class="flex-auto flex flex-col justify-between p-3">
+      <div class="flex-auto">
+        <router-outlet></router-outlet>
+      </div>
+      <fd-icon-attribution />
+    </div>
+  }
 </div>
