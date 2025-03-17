@@ -1,10 +1,10 @@
 import { Component, inject, OnDestroy } from '@angular/core';
-import { GraphComponent } from '../../../components/graph/graph.component';
+import { PowerRankingsGraphComponent } from './power-ranking-graph/power-rankings-graph.component';
 import { Subscription, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
-import { WeeklyTransactionsComponent } from '../../../components/weekly-transactions/weekly-transactions.component';
-import { TITLE_TEXT } from '../../../components/graph/graph.constants';
+import { WeeklyTransactionsComponent } from './weekly-transactions/weekly-transactions.component';
+import { TITLE_TEXT } from './power-ranking-graph/power-rankings-graph.constants';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import {
   StandingsData,
@@ -26,7 +26,7 @@ import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
   selector: 'fd-home',
   imports: [
     CommonModule,
-    GraphComponent,
+    PowerRankingsGraphComponent,
     PanelModule,
     WeeklyTransactionsComponent,
     ProgressSpinnerModule,

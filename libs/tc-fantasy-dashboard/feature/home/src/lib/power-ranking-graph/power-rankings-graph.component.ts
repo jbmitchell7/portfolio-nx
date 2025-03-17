@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { GRAPH_COLORS, SUBTITLE_TEXT } from './graph.constants';
+import { GRAPH_COLORS, SUBTITLE_TEXT } from './power-rankings-graph.constants';
 import { StandingsData } from '@tc-fantasy-dashboard/shared/interfaces';
 
 interface ChartData {
@@ -14,11 +14,11 @@ interface ChartData {
   losses: number;
 }
 @Component({
-    selector: 'fd-graph',
-    templateUrl: './graph.component.html',
+    selector: 'fd-power-rankings-graph',
+    templateUrl: './power-rankings-graph.component.html',
     imports: [CommonModule, ChartModule, ProgressSpinnerModule]
 })
-export class GraphComponent implements OnChanges {
+export class PowerRankingsGraphComponent implements OnChanges {
   @Input({required: true}) standingsData!: StandingsData[];
 
   chartData: unknown;

@@ -16,6 +16,12 @@
     "baseUrl": ".",
     "paths": {
       "@shared-global/ui": ["libs/shared-global/ui/src/index.ts"],
+      "@tc-fantasy-dashboard/feature/home": [
+        "libs/tc-fantasy-dashboard/feature/home/src/index.ts"
+      ],
+      "@tc-fantasy-dashboard/feature/standings": [
+        "libs/tc-fantasy-dashboard/feature/standings/src/index.ts"
+      ],
       "@tc-fantasy-dashboard/feature/welcome": [
         "libs/tc-fantasy-dashboard/feature/welcome/src/index.ts"
       ],

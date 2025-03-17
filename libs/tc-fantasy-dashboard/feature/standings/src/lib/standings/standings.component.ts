@@ -15,38 +15,38 @@ interface Column {
 const STANDINGS_COLUMNS: Column[] = [
   {
     field: 'username',
-    header: 'Manager'
+    header: 'Manager',
   },
   {
     field: 'wins',
-    header: 'Wins'
+    header: 'Wins',
   },
   {
     field: 'losses',
-    header: 'Losses'
+    header: 'Losses',
   },
   {
     field: 'streak',
-    header: 'Streak'
+    header: 'Streak',
   },
   {
     field: 'maxPoints',
-    header: 'Max Points'
+    header: 'Max Points',
   },
   {
     field: 'points',
-    header: 'PF'
+    header: 'PF',
   },
   {
     field: 'pointsAgainst',
-    header: 'PA'
-  }
+    header: 'PA',
+  },
 ];
 
 @Component({
-    selector: 'fd-standings',
-    templateUrl: './standings.component.html',
-    imports: [CommonModule, TableModule, TagModule]
+  selector: 'fd-standings',
+  templateUrl: './standings.component.html',
+  imports: [CommonModule, TableModule, TagModule],
 })
 export class StandingsComponent implements OnInit, OnDestroy {
   readonly #leagueInitService = inject(LeagueInitService);
@@ -60,7 +60,9 @@ export class StandingsComponent implements OnInit, OnDestroy {
   maxGridWidth = 690;
   seasonStarted = false;
   mobileDevice = JSON.parse(localStorage.getItem('MOBILE') as string);
-  gridStyle = `p-datatable-striped ${this.mobileDevice ? 'p-datatable-sm' : ''}`
+  gridStyle = `p-datatable-striped ${
+    this.mobileDevice ? 'p-datatable-sm' : ''
+  }`;
 
   ngOnInit(): void {
     this.#sub = this.#leagueInitService.selectedLeague$
@@ -68,7 +70,9 @@ export class StandingsComponent implements OnInit, OnDestroy {
         tap((selectedLeague) => {
           const league = selectedLeague;
           this.standingsData = getStandingsData(league);
-          this.seasonStarted = this.standingsData[0].wins !== 0 || this.standingsData[0].losses !== 0;
+          this.seasonStarted =
+            this.standingsData[0].wins !== 0 ||
+            this.standingsData[0].losses !== 0;
           this.leagueName = league.name;
           this.leagueYear = league.season;
           this.pageTitle = ` ${this.leagueYear} Standings`;

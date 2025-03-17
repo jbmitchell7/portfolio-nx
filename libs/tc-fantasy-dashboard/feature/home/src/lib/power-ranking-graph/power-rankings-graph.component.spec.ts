@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GraphComponent } from './graph.component';
+import { PowerRankingsGraphComponent } from './power-rankings-graph.component';
 
 describe('GraphComponent', () => {
-  let component: GraphComponent;
-  let fixture: ComponentFixture<GraphComponent>;
+  let component: PowerRankingsGraphComponent;
+  let fixture: ComponentFixture<PowerRankingsGraphComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [GraphComponent]
+    imports: [PowerRankingsGraphComponent]
 })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GraphComponent);
+    fixture = TestBed.createComponent(PowerRankingsGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
