@@ -63,7 +63,7 @@ export class WeeklyTransactionsComponent implements OnChanges, OnInit, OnDestroy
         this.league
       );
     } else {
-      this.rosterMoves = updatedRosterMoves;
+      this.rosterMoves = updatedRosterMoves.slice(0, 9);
     }
   }
 

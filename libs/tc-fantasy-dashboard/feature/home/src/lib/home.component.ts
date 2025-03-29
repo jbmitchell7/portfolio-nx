@@ -71,10 +71,10 @@ export class HomeComponent implements OnDestroy {
 
   #getPageHeader(): string {
     const opening = `${this.league.sport.toUpperCase()} ${this.league.season}`;
-    if (
-      this.league.status === 'complete' ||
-      this.league.status === 'pre_draft'
-    ) {
+    if (this.league.status === 'complete' ) {
+      return opening;
+    }
+    if (this.league.status === 'pre_draft') {
       return `${opening} Offseason`;
     } else {
       return `${opening} Week ${this.weekNumber}`;

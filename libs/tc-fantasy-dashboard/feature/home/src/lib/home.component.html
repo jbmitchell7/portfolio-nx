@@ -23,7 +23,7 @@
           <fd-league-champion [league]="league" />
         </p-panel>
         @if (league.currentSeason) {
-          <p-panel header="Weekly Transactions">
+          <p-panel header="Recent Transactions">
             <fd-weekly-transactions class="pt-3" [league]="league" [weekNumber]="weekNumber" />
           </p-panel>
         }
