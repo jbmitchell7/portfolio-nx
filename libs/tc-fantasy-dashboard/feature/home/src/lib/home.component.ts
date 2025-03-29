@@ -19,6 +19,7 @@ import {
 } from '@tc-fantasy-dashboard/shared/utils';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { LeagueChampionComponent } from "./league-champion/league-champion.component";
+import { DraftOrderComponent } from "./draft-order/draft-order.component";
 
 @Component({
   selector: 'fd-home',
@@ -28,7 +29,8 @@ import { LeagueChampionComponent } from "./league-champion/league-champion.compo
     PanelModule,
     WeeklyTransactionsComponent,
     ProgressSpinnerModule,
-    LeagueChampionComponent
+    LeagueChampionComponent,
+    DraftOrderComponent
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
