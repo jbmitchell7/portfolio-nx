@@ -29,6 +29,10 @@ body {
   p, a, li, span {
     font-size: var(--text-sm);
   }
+
+  ol {
+    list-style-type: decimal;
+  }
 }
 
 .p-panel-title {

@@ -7,18 +7,26 @@
     </div>
   } @else {
     <div class="w-full flex flex-col lg:flex-row justify-center gap-8">
-      <!-- <p-card [header]="weekTitle">
-        <h4>{{seasonComplete ? 'Season Champ' : 'Reigning Champ'}} - Coming Soon!</h4>
-      </p-card> -->
       <div class="h-[70vh] sm:h-full lg:flex-auto lg:max-w-1/2" [ngClass]="{'h-auto': league.status !== 'in_season'}">
-        <p-panel [header]="graphHeader">
-          <fd-power-rankings-graph [standingsData]="standingsData" />
-        </p-panel>
+        @if (this.weekNumber > 1) {
+          <p-panel [header]="graphHeader">
+            <fd-power-rankings-graph [standingsData]="standingsData" />
+          </p-panel>
+        } @else {
+          <p-panel header="Draft Order">
+            <fd-draft-order [league]="league" />
+          </p-panel>
+        }
       </div>
-      <div class="w-full lg:w-96">
-        <p-panel header="Weekly Transactions">
-          <fd-weekly-transactions class="pt-3" [rosterMoves]="rosterMoves" [isLoading]="playersLoading" />
+      <div class="flex flex-col gap-2 w-full lg:w-96">
+        <p-panel [header]="league.currentSeason ? 'Reigning Champ' : 'Season Champ'">
+          <fd-league-champion [league]="league" />
         </p-panel>
+        @if (league.currentSeason) {
+          <p-panel header="Recent Transactions">
+            <fd-weekly-transactions class="pt-3" [league]="league" [weekNumber]="weekNumber" />
+          </p-panel>
+        }
       </div>
     </div>
   }
