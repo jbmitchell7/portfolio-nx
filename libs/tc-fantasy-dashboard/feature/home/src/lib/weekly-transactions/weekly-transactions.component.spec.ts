@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WeeklyTransactionsComponent } from './weekly-transactions.component';
+import { provideHttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 describe('WeeklyTransactionsComponent', () => {
   let component: WeeklyTransactionsComponent;
@@ -8,7 +10,8 @@ describe('WeeklyTransactionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WeeklyTransactionsComponent]
+      imports: [WeeklyTransactionsComponent],
+      providers: [provideHttpClient(), MessageService]
     })
     .compileComponents();
 
