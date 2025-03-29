@@ -4,6 +4,7 @@ import { SportState } from './sportstate';
 import { Transaction } from './transactions';
 
 export interface League extends LeagueResponse {
+  currentSeason?: boolean;
   sportState?: SportState;
   managers?: Record<string, Manager>;
   players?: Record<string, Player>;

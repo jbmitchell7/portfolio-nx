@@ -28,7 +28,6 @@ export class LeagueComponent implements OnInit, OnDestroy {
   menuItems!: MenuItem[];
   mobile = JSON.parse(localStorage.getItem('MOBILE') as string);
   leagueName!: string;
-  leagueYear!: string;
   logo = 'icons/helmet.png';
   isLoading = true;
 
@@ -39,12 +38,11 @@ export class LeagueComponent implements OnInit, OnDestroy {
       this.#leagueInitService.isLoading$,
     ])
       .pipe(
-        tap(([_, loading]) => this.isLoading = loading),
+        tap(([, loading]) => this.isLoading = loading),
         filter(([selectedLeague, loading]) => !loading && !!selectedLeague),
         tap(([selectedLeague]) => {
           const league = selectedLeague;
           this.leagueName = league.name;
-          this.leagueYear = league.season;
           this.menuItems = [
             ...MENU_ROUTES,
             {

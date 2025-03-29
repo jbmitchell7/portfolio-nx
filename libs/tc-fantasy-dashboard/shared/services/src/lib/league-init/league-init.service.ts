@@ -96,6 +96,7 @@ export class LeagueInitService {
           const updatedLeague: League = {
             ...league,
             sportState,
+            currentSeason: league.season === sportState.season
           };
           this.#getManagers(updatedLeague);
         }),
