@@ -1,3 +1,4 @@
+import { Draft } from './draft';
 import { Manager } from './manager';
 import { Player, Roster } from './roster';
 import { SportState } from './sportstate';
@@ -10,6 +11,7 @@ export interface League extends LeagueResponse {
   players?: Record<string, Player>;
   rosters?: Record<string, Roster>;
   transactions?: Record<string, Transaction[]>;
+  draft?: Draft;
 }
 
 export interface LeagueResponse {
@@ -18,16 +20,16 @@ export interface LeagueResponse {
   league_id: string;
   name: string;
   season: string;
-  total_rosters?: number;
+  total_rosters: number;
   sport: string;
-  settings?: LeagueSettings;
-  season_type?: string;
-  scoring_settings?: Scoring;
-  roster_positions?: string[];
-  metadata?: LeagueMetadata;
+  settings: LeagueSettings;
+  season_type: string;
+  scoring_settings: Scoring;
+  roster_positions: string[];
+  metadata: LeagueMetadata;
   loser_bracket_id?: number;
-  draft_id?: string;
-  avatar?: null;
+  draft_id: string;
+  avatar: null;
 }
 
 export interface LeagueSettings {

@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import {
+  Draft,
   League,
   LeagueResponse,
   Manager,
@@ -173,13 +174,38 @@ export class LeagueInitService {
               [transactionsWeek]: transactions,
             },
           };
-          this.#getRosters(updatedLeague);
+          this.#getDraft(updatedLeague);
         }),
         catchError(() => {
           this.#messageService.add({
             severity: 'warning',
             summary: 'Error',
             detail: 'Cannot fetch transactions. Please try again later.',
+          });
+          this.resetLeagueState();
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
+
+  #getDraft(league: League): void {
+    this.#sleeperApiService
+    .getDraft(league.draft_id)
+      .pipe(
+        take(1),
+        tap((draft: Draft) => {
+          const updatedLeague: League = {
+            ...league,
+            draft
+          };
+          this.#getRosters(updatedLeague);
+        }),
+        catchError(() => {
+          this.#messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Cannot fetch draft data. Please try again later.',
           });
           this.resetLeagueState();
           return of(null);
