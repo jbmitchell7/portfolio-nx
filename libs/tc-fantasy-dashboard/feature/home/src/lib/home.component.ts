@@ -33,7 +33,7 @@ import { DraftOrderComponent } from "./draft-order/draft-order.component";
     DraftOrderComponent
 ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnDestroy {
   readonly #leagueInitService = inject(LeagueInitService);

@@ -6,8 +6,13 @@
       <p-progress-spinner />
     </div>
   } @else {
-    <div class="w-full flex flex-col lg:flex-row justify-center gap-8">
-      <div class="h-[70vh] sm:h-full lg:flex-auto lg:max-w-1/2" [ngClass]="{'h-auto': league.status !== 'in_season'}">
+    <div class="home-grid flex-auto gap-4" [ngClass]="this.weekNumber > 1 ? 'home-grid' : 'home-grid-offseason'">
+      <div class="champ">
+        <p-panel [header]="league.currentSeason ? 'Reigning Champ' : 'Season Champ'">
+          <fd-league-champion [league]="league" />
+        </p-panel>
+      </div>
+      <div class="data">
         @if (this.weekNumber > 1) {
           <p-panel [header]="graphHeader">
             <fd-power-rankings-graph [standingsData]="standingsData" />
@@ -18,16 +23,13 @@
           </p-panel>
         }
       </div>
-      <div class="flex flex-col gap-2 w-full lg:w-96">
-        <p-panel [header]="league.currentSeason ? 'Reigning Champ' : 'Season Champ'">
-          <fd-league-champion [league]="league" />
-        </p-panel>
-        @if (league.currentSeason) {
+      @if (league.currentSeason) {
+        <div class="transactions">
           <p-panel header="Recent Transactions">
             <fd-weekly-transactions class="pt-3" [league]="league" [weekNumber]="weekNumber" />
           </p-panel>
-        }
-      </div>
+        </div>
+      }
     </div>
   }
 </div>
