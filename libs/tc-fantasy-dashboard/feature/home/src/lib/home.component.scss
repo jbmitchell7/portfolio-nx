@@ -1,0 +1,57 @@
+::ng-deep .p-panel {
+  display: block !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "champ"
+    "data"
+    "transactions";
+}
+
+.data {
+  grid-area: data;
+}
+
+.champ {
+  grid-area: champ;
+}
+
+.transactions {
+  grid-area: transactions;
+}
+
+@media (width >= 64rem) {
+  .home-grid {
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas:
+      "champ data"
+      "transactions data";
+  
+    &-offseason {
+      grid-template-areas:
+        "champ transactions"
+        "data transactions";
+        
+    }
+  }
+}
+
+@media (width >= 80rem) {
+  .home-grid {
+    grid-template-columns: 1fr 2fr 4fr 1fr;
+    grid-template-areas:
+      ". champ data ."
+      ". transactions data .";
+  
+    &-offseason {
+      grid-template-areas:
+        ". champ transactions ."
+        ". data transactions .";
+    }
+  }
+}

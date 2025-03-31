@@ -65,6 +65,7 @@ export class LeagueInitService {
     this.setLoadingState(true);
     if (this.#leagues[leagueId]) {
       this.#selectedLeague.next(this.#leagues[leagueId]);
+      localStorage.setItem('CURRENT_LEAGUE_ID', leagueId);
       this.setLoadingState(false);
       return;
     }

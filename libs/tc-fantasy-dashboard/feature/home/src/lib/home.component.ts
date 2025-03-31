@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
 import { WeeklyTransactionsComponent } from './weekly-transactions/weekly-transactions.component';
 import { TITLE_TEXT } from './power-ranking-graph/power-rankings-graph.constants';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import {
   StandingsData,
   SportState,
@@ -20,6 +19,7 @@ import {
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { LeagueChampionComponent } from "./league-champion/league-champion.component";
 import { DraftOrderComponent } from "./draft-order/draft-order.component";
+import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
 
 @Component({
   selector: 'fd-home',
@@ -28,12 +28,12 @@ import { DraftOrderComponent } from "./draft-order/draft-order.component";
     PowerRankingsGraphComponent,
     PanelModule,
     WeeklyTransactionsComponent,
-    ProgressSpinnerModule,
     LeagueChampionComponent,
-    DraftOrderComponent
+    DraftOrderComponent,
+    LoadingComponent
 ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnDestroy {
   readonly #leagueInitService = inject(LeagueInitService);
