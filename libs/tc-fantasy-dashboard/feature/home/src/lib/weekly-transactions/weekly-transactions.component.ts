@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DividerModule } from 'primeng/divider';
@@ -7,7 +7,7 @@ import { League, Player, RosterMove, Transaction } from '@tc-fantasy-dashboard/s
 import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
 import { getRosterMoves } from '@tc-fantasy-dashboard/shared/utils';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
-import { Subscription } from 'rxjs';
+import { filter, Subscription, tap } from 'rxjs';
 
 @Component({
     selector: 'fd-weekly-transactions',
@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './weekly-transactions.component.html',
     styleUrl: './weekly-transactions.component.css'
 })
-export class WeeklyTransactionsComponent implements OnChanges, OnInit, OnDestroy {
+export class WeeklyTransactionsComponent implements OnInit, OnDestroy {
   @Input({required: true}) league!: League;
   @Input({required: true}) weekNumber!: number;
 
@@ -30,15 +30,17 @@ export class WeeklyTransactionsComponent implements OnChanges, OnInit, OnDestroy
   rosterMoves: RosterMove[][] = [];
   isLoading = true;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['league'] && !this.isLoading) {
-      const transactions = this.league.transactions?.[this.weekNumber] ?? ([] as Transaction[]);
-      this.#getRosterMoves(transactions);
-    }
-  }
-
   ngOnInit(): void {
-    this.#loadingSub = this.#leagueInitService.playersLoading$.subscribe(loading => this.isLoading = loading);
+    this.#loadingSub = this.#leagueInitService.playersLoading$
+      .pipe(
+        tap(loading => this.isLoading = loading),
+        filter(loading => !loading),
+        tap(() => {
+          const transactions = this.league.transactions?.[this.weekNumber] ?? ([] as Transaction[]);
+          this.#getRosterMoves(transactions);
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
