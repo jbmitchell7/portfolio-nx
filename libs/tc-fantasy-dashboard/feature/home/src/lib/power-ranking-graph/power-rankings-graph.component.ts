@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { GRAPH_COLORS, SUBTITLE_TEXT } from './power-rankings-graph.constants';
 import { StandingsData } from '@tc-fantasy-dashboard/shared/interfaces';
+import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
 
 interface ChartData {
   x: number;
@@ -16,7 +16,7 @@ interface ChartData {
 @Component({
     selector: 'fd-power-rankings-graph',
     templateUrl: './power-rankings-graph.component.html',
-    imports: [CommonModule, ChartModule, ProgressSpinnerModule]
+    imports: [CommonModule, ChartModule, LoadingComponent]
 })
 export class PowerRankingsGraphComponent implements OnChanges {
   @Input({required: true}) standingsData!: StandingsData[];
@@ -69,19 +69,39 @@ export class PowerRankingsGraphComponent implements OnChanges {
         color: 'white',
       }
     };
+
+    const axisTitle = {
+      display: true,
+      font: {
+        weight: 'bold'
+      }
+    };
     
     this.chartOptions = {
       layout: {
-        padding: 20
+        padding: {
+          top: 20,
+          bottom: 20
+        }
       },
       scales: {
         y: {
           ...scaleBorder,
-          min: 0
+          min: 0,
+          title: {
+            ...axisTitle,
+            text: 'Wins'
+          }
         },
-        x: scaleBorder
+        x: {
+          ...scaleBorder,
+          title: {
+            ...axisTitle,
+            text: 'Max Points',
+          }
+        }
       },
-      aspectRatio: this.mobileBrowser ? 0.8 : 1,
+      aspectRatio: this.mobileBrowser ? 0.75 : 1,
       plugins: {
         legend: {
           display: false
