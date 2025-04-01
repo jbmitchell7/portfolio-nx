@@ -1,6 +1,7 @@
 import { League } from '@tc-fantasy-dashboard/shared/interfaces';
 import { mockRoster } from './roster';
 import { mockManager } from './manager';
+import { mockSportState } from './sportState';
 
 export const mockLeague: League = {
   status: 'active',
@@ -84,5 +85,6 @@ export const mockLeague: League = {
   },
   managers: {
     '123': mockManager
-  }
+  },
+  sportState: mockSportState
 };
