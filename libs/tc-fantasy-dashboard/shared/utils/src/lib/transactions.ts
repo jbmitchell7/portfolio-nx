@@ -8,9 +8,6 @@ import {
 } from '@tc-fantasy-dashboard/shared/interfaces';
 
 export const getCurrentTransactionsWeek = (l: League): number => {
-  if (!l.sportState) {
-    return 0;
-  }
   const status = l.status;
   if (status === 'complete') {
     return 18;
@@ -18,7 +15,7 @@ export const getCurrentTransactionsWeek = (l: League): number => {
   if (status === 'pre_draft') {
     return 1;
   }
-  return l.sportState.week;
+  return l.sportState?.week ?? 0;
 };
 
 export const getRosterMoves = (t: Transaction, league: League) => {
