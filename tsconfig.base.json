@@ -34,6 +34,9 @@
       "@tc-fantasy-dashboard/shared/interfaces": [
         "libs/tc-fantasy-dashboard/shared/interfaces/src/index.ts"
       ],
+      "@tc-fantasy-dashboard/shared/mock-data": [
+        "libs/tc-fantasy-dashboard/shared/mock-data/src/index.ts"
+      ],
       "@tc-fantasy-dashboard/shared/services": [
         "libs/tc-fantasy-dashboard/shared/services/src/index.ts"
       ],
