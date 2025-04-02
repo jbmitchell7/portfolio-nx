@@ -185,10 +185,7 @@ export class LeagueInitService {
 
           const managersRes: Manager[] = res[0] as Manager[];
           const managersWithAvatars = this.#getManagerAvatars(managersRes);
-          const managerRecords = this.#createRecords(
-            managersWithAvatars,
-            'user_id'
-          );
+          const managerRecords = this.#createRecords(managersWithAvatars,'user_id');
 
           const rostersRes: Roster[] = res[1] as Roster[];
           const rosterRecords = this.#createRecords(rostersRes, 'owner_id');
