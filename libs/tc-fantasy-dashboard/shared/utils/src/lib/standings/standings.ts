@@ -2,6 +2,9 @@ import { League, Manager, Roster, StandingsData } from "@tc-fantasy-dashboard/sh
 
 export const getStandingsData = (league: League) => {
   const data: StandingsData[] = [];
+  if (!league.rosters) {
+    return data;
+  }
   Object.keys(league.rosters as Record<string, Roster>).forEach((key) => {
     const manager = league.managers?.[key] as Manager;
     const roster = league.rosters?.[key] as Roster;

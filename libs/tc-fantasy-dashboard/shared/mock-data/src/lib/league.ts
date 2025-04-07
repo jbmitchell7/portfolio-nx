@@ -1,9 +1,9 @@
-import { League } from '@tc-fantasy-dashboard/shared/interfaces';
+import { League, LeagueResponse } from '@tc-fantasy-dashboard/shared/interfaces';
 import { mockRoster } from './roster';
 import { mockManager } from './manager';
 import { mockSportState } from './sportState';
 
-export const mockLeague: League = {
+export const mockLeagueResponse: LeagueResponse = {
   status: 'active',
   previous_league_id: '',
   league_id: '12345',
@@ -79,7 +79,11 @@ export const mockLeague: League = {
     latest_league_winner_roster_id: '',
     keeper_deadline: ''
   },
-  avatar: null,
+  avatar: null
+};
+
+export const mockLeague: League = {
+  ...mockLeagueResponse,
   rosters: {
     '123': mockRoster
   },
