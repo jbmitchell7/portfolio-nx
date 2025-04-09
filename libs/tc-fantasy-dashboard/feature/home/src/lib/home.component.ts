@@ -70,7 +70,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   #getPageHeader(): string {
-    const opening = `${this.league.sport.toUpperCase()} ${this.league.season}`;
+    const opening = `${this.league.sport?.toUpperCase()} ${this.league.season}`;
     if (this.league.status === 'complete' ) {
       return opening;
     }
