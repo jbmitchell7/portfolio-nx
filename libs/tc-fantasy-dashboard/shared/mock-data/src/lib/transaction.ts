@@ -8,8 +8,10 @@ export const mockTransaction: Transaction = {
   draft_picks: [],
   creator: "",
   transaction_id: "",
-  adds: null,
+  adds: {
+    1: 123
+  },
   drops: null,
-  roster_ids: [],
+  roster_ids: [123],
   waiver_budget: []
 }

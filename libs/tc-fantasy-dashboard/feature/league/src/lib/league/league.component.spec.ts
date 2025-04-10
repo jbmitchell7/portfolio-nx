@@ -5,6 +5,7 @@ import { NavbarComponent } from '@shared-global/ui';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { provideHttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
+import { mockLeague, mockLeagueInit } from '@tc-fantasy-dashboard/shared/mock-data';
 
 describe('LeagueComponent', () => {
   let component: LeagueComponent;
@@ -13,7 +14,15 @@ describe('LeagueComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
     imports: [LeagueComponent, NavbarComponent],
-    providers: [LeagueInitService, provideRouter([]), provideHttpClient(), MessageService],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      MessageService,
+      {
+        provide: LeagueInitService,
+        useValue: mockLeagueInit,
+      }
+    ],
   })
     .compileComponents();
   });
@@ -38,6 +47,7 @@ describe('LeagueComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component.leagueName).toBe(mockLeague.name);
+    expect(component.menuItems.length).toBe(4);
   });
 });

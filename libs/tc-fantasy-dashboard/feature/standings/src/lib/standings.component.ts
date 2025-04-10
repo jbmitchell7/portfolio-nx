@@ -59,12 +59,14 @@ export class StandingsComponent implements OnInit, OnDestroy {
   dataLoaded = false;
   maxGridWidth = 690;
   seasonStarted = false;
-  mobileDevice = JSON.parse(localStorage.getItem('MOBILE') as string);
-  gridStyle = `p-datatable-striped ${
-    this.mobileDevice ? 'p-datatable-sm' : ''
-  }`;
+  mobileDevice = false;
+  gridStyle!: string;
 
   ngOnInit(): void {
+    this.mobileDevice = JSON.parse(localStorage.getItem('MOBILE') as string);
+    this.gridStyle = `p-datatable-striped ${
+      this.mobileDevice ? 'p-datatable-sm' : ''
+    }`;
     this.#sub = this.#leagueInitService.selectedLeague$
       .pipe(
         tap((selectedLeague) => {
@@ -75,7 +77,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
             this.standingsData[0].losses !== 0;
           this.leagueName = league.name;
           this.leagueYear = league.season;
-          this.pageTitle = ` ${this.leagueYear} Standings`;
+          this.pageTitle = `${this.leagueYear} Standings`;
         })
       )
       .subscribe();

@@ -1,5 +1,9 @@
 {
   "name": "@tc-fantasy-dashboard/shared/mock-data",
   "version": "0.0.1",
-  "sideEffects": false
+  "sideEffects": false,
+  "peerDependencies": {
+    "rxjs": "~7.8.0"
+  }
+  
 }

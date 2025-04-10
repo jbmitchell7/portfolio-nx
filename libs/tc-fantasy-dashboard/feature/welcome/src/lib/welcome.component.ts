@@ -38,6 +38,9 @@ export class WelcomeComponent {
 
   setLeagueId(): void {
     const id = this.leagueInputForm.value ?? '';
+    if (!id) {
+      return;
+    }
     this.#leagueInitService.initLeague(id);
     this.#router.navigate(['league']);
   }
