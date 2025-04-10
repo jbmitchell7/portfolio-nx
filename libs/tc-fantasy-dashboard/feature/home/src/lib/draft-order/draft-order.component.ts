@@ -1,10 +1,11 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { League, Manager } from '@tc-fantasy-dashboard/shared/interfaces';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
   selector: 'fd-draft-order',
-  imports: [CommonModule],
+  imports: [CommonModule, ScrollPanelModule],
   templateUrl: './draft-order.component.html',
 })
 export class DraftOrderComponent implements OnChanges {
