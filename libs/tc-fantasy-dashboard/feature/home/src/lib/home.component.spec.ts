@@ -5,6 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { MessageService } from 'primeng/api';
+import { mockLeague, mockLeagueInit } from '@tc-fantasy-dashboard/shared/mock-data';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -17,7 +18,10 @@ describe('HomeComponent', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideAnimationsAsync(),
-        LeagueInitService,
+        {
+          provide: LeagueInitService,
+          useValue: mockLeagueInit,
+        },
         MessageService
       ]
     })
@@ -29,6 +33,8 @@ describe('HomeComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component.league).toEqual(mockLeague);
+    expect(component.rosters).toEqual(mockLeague.rosters);
+    expect(component.pageHeader).toEqual('NFL 2023');
   });
 });

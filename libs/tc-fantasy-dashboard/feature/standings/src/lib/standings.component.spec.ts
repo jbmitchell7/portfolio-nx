@@ -3,8 +3,7 @@ import { StandingsComponent } from './standings.component';
 import { provideHttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
-import { mockLeague } from '@tc-fantasy-dashboard/shared/mock-data';
-import { of } from 'rxjs';
+import { mockLeague, mockLeagueInit } from '@tc-fantasy-dashboard/shared/mock-data';
 
 describe('StandingsComponent', () => {
   let component: StandingsComponent;
@@ -18,9 +17,7 @@ describe('StandingsComponent', () => {
         MessageService,
         {
           provide: LeagueInitService,
-          useValue: {
-            selectedLeague$: of(mockLeague),
-          },
+          useValue: mockLeagueInit,
         }
       ],
     }).compileComponents();

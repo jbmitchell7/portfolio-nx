@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { PowerRankingsGraphComponent } from './power-ranking-graph/power-rankings-graph.component';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -35,7 +35,7 @@ import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   readonly #leagueInitService = inject(LeagueInitService);
   #leagueSub!: Subscription;
 
@@ -49,15 +49,7 @@ export class HomeComponent implements OnDestroy {
   rosterMoves: RosterMove[][] = [];
   graphHeader = TITLE_TEXT;
 
-  constructor() {
-    this.#initLeagueSub();
-  }
-
-  ngOnDestroy(): void {
-    this.#leagueSub.unsubscribe();
-  }
-
-  #initLeagueSub(): void {
+  ngOnInit(): void {
     this.#leagueSub = this.#leagueInitService.selectedLeague$
       .subscribe(league => {
         this.league = league;
@@ -69,6 +61,10 @@ export class HomeComponent implements OnDestroy {
     });
   }
 
+  ngOnDestroy(): void {
+    this.#leagueSub.unsubscribe();
+  }
+
   #getPageHeader(): string {
     const opening = `${this.league.sport?.toUpperCase()} ${this.league.season}`;
     if (this.league.status === 'complete' ) {
@@ -76,8 +72,7 @@ export class HomeComponent implements OnDestroy {
     }
     if (this.league.status === 'pre_draft') {
       return `${opening} Offseason`;
-    } else {
-      return `${opening} Week ${this.weekNumber}`;
     }
+    return `${opening} Week ${this.weekNumber}`;
   }
 }

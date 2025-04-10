@@ -5,8 +5,7 @@ import { NavbarComponent } from '@shared-global/ui';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { provideHttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import { of } from 'rxjs';
-import { mockLeague } from '@tc-fantasy-dashboard/shared/mock-data';
+import { mockLeague, mockLeagueInit } from '@tc-fantasy-dashboard/shared/mock-data';
 
 describe('LeagueComponent', () => {
   let component: LeagueComponent;
@@ -21,10 +20,7 @@ describe('LeagueComponent', () => {
       MessageService,
       {
         provide: LeagueInitService,
-        useValue: {
-          selectedLeague$: of(mockLeague),
-          isLoading$: of(false)
-        }
+        useValue: mockLeagueInit,
       }
     ],
   })

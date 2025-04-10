@@ -4,7 +4,7 @@ import { mockManager } from './manager';
 import { mockSportState } from './sportState';
 
 export const mockLeagueResponse: LeagueResponse = {
-  status: 'active',
+  status: 'complete',
   previous_league_id: '',
   league_id: '12345',
   name: 'Mock League',
