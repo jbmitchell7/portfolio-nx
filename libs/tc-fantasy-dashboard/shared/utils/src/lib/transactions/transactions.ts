@@ -64,8 +64,8 @@ const getManager = (
   league: League,
   rosterId: number
 ): Manager | undefined => {
-  const managerId = Object.keys(league.rosters as Record<string, Roster>).find(
-    (key) => league.rosters?.[key]?.roster_id === rosterId
-  );
+  const managerId = Object
+    .keys(league.rosters as Record<string, Roster>)
+    .find((key) => league.rosters?.[key]?.roster_id === rosterId);
   return managerId ? league.managers?.[managerId] : undefined;
 };

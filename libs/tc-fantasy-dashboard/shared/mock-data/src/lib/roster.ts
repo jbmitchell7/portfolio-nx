@@ -17,7 +17,7 @@ export const mockRoster: Roster = {
     fpts_against: 0,
     fpts: 0
   },
-  roster_id: 0,
+  roster_id: 123,
   reserve: [],
   players: [],
   player_map: "",
