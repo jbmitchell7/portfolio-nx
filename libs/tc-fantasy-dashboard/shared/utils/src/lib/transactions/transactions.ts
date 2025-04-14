@@ -85,9 +85,9 @@ const getDraftPicksFromTransaction = (
 ): RosterMovePickAdded[] => {
   const picks = [] as RosterMovePickAdded[];
   transaction.draft_picks.forEach((pick) => {
-    let originalManager = {} as Manager;
-    if (originalManager?.user_id !== userId) {
-      originalManager = getManager(league, pick.roster_id) ?? {} as Manager;
+    let originalManager = getManager(league, pick.roster_id) ?? {} as Manager;
+    if (originalManager.user_id === userId) {
+      originalManager = {} as Manager;
     }
     if (pick.owner_id === rosterId) {
       let pickNumber = 0;
