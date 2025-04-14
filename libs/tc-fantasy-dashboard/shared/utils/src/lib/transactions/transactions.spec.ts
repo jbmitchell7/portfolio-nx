@@ -83,6 +83,7 @@ describe('getRosterMoves', () => {
         drops: [{ player_id: '2', name: 'Player 2' }],
         manager: { manager_id: 1, name: 'Manager 1' },
         type: 'trade',
+        picksAdded: [],
         waiverBid: 100,
       },
     ]);
@@ -115,6 +116,7 @@ describe('getRosterMoves', () => {
         drops: [{ player_id: '4' }],
         manager: { manager_id: 1, name: 'Manager 1' },
         type: 'waiver',
+        picksAdded: [],
         waiverBid: 50,
       },
     ]);
