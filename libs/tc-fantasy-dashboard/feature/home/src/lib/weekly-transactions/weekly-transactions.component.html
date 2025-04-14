@@ -53,11 +53,20 @@
                       }
                       <p>{{m.manager?.display_name ?? 'manager missing'}}</p>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col w-1/3">
                       @for (add of m.adds; track $index) {
                         <div class="flex items-center">
                           <i ngClass="fa-solid fa-plus add pr-2"></i>
                           <p>{{add?.full_name ?? add.player_id}}</p>
+                        </div>
+                      }
+                      @for (pick of m.picksAdded; track $index) {
+                        <div class="flex items-center">
+                          <i ngClass="fa-solid fa-plus add pr-2"></i>
+                          <p>{{pick.season + ' ' + pick.round}}</p>
+                          @if (!!pick.originalManager?.display_name) {
+                            <p class="pl-1">({{pick.originalManager?.display_name }})</p>
+                          }
                         </div>
                       }
                     </div>

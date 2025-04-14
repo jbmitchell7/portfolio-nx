@@ -13,7 +13,6 @@ export interface Transaction {
   drops: { [key: number]: number } | null;
   roster_ids: number[];
   waiver_budget: WaiverBudget[]; //used for trade involving faab
-  rosterMoves?: RosterMove[];
 }
 
 export interface DraftPick {
@@ -42,6 +41,14 @@ export interface RosterMove {
   drops: Partial<Player>[],
   manager: Manager | undefined,
   type: string,
-  waiverBid?: number
+  waiverBid?: number,
+  picksAdded?: RosterMovePickAdded[]
+}
+
+export interface RosterMovePickAdded {
+  round: string;
+  season: string;
+  originalManager?: Manager;
+  pickNumber?: number;
 }
 
