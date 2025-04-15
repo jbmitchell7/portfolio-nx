@@ -22,6 +22,9 @@
       "@tc-fantasy-dashboard/feature/league": [
         "libs/tc-fantasy-dashboard/feature/league/src/index.ts"
       ],
+      "@tc-fantasy-dashboard/feature/rosters": [
+        "libs/tc-fantasy-dashboard/feature/rosters/src/index.ts"
+      ],
       "@tc-fantasy-dashboard/feature/standings": [
         "libs/tc-fantasy-dashboard/feature/standings/src/index.ts"
       ],

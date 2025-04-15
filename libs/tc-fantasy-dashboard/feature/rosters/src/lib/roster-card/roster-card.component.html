@@ -1,0 +1,5 @@
+<p-panel [header]="roster.owner_id">
+  @for (playerId of roster.players; track $index) {
+    <div>{{players[playerId].full_name}}</div>
+  }
+</p-panel>
