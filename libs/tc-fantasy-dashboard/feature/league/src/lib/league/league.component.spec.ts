@@ -48,6 +48,6 @@ describe('LeagueComponent', () => {
 
   it('should create', () => {
     expect(component.leagueName).toBe(mockLeague.name);
-    expect(component.menuItems.length).toBe(4);
+    expect(component.menuItems.length).toBe(5);
   });
 });

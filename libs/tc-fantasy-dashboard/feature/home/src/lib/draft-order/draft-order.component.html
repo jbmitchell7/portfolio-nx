@@ -3,7 +3,7 @@
     @for (m of managersList; let i = $index; track i) {
       <li class="flex items-center gap-2">
         <p>{{i + 1}}.</p>
-        <img [src]="m.avatarUrl" alt="manager avatar" class="w-10" />
+        <img [src]="m.avatarUrl" alt="manager avatar" class="w-10 rounded-md" />
         <p>{{m.metadata.team_name}}</p>
       </li>
     }

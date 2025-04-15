@@ -13,6 +13,7 @@ import { RosterCardComponent } from './roster-card/roster-card.component';
 export class RostersComponent implements OnInit, OnDestroy {
   #sub!: Subscription;
   readonly #leagueInitService = inject(LeagueInitService);
+  league!: League;
   rosters!: Roster[];
   players!: Record<string, Player>;
 
@@ -20,6 +21,7 @@ export class RostersComponent implements OnInit, OnDestroy {
     this.#sub = this.#leagueInitService.selectedLeague$
       .pipe(
         tap((selectedLeague: League) => {
+          this.league = selectedLeague;
           const rosterKeys = Object.keys(selectedLeague.rosters ?? {})
           if (!rosterKeys.length) {
             return;

@@ -1,5 +1,18 @@
-<p-panel [header]="roster.owner_id">
+<p-panel>
+  <ng-template #header>
+    <div class="flex items-center">
+      <img
+        [src]="manager.avatarUrl"
+        alt="Logo"
+        class="w-8 rounded-md"
+      />
+      <span class="pl-2 text-lg font-semibold">{{ manager.metadata.team_name }}</span>
+    </div>
+  </ng-template>
   @for (playerId of roster.players; track $index) {
-    <div>{{players[playerId].full_name}}</div>
+    <div class="flex items-center gap-2">
+      <p class="w-8">{{players[playerId].position}}</p>
+      <p>{{players[playerId].full_name}}</p>
+    </div>
   }
 </p-panel>
