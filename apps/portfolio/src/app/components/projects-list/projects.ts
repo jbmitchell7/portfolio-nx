@@ -10,7 +10,7 @@ export interface ProjectItem {
 export const projects: ProjectItem[] = [
 	{
 		title: "TC Fantasy Dashboard",
-		description: "A MEAN stack project that uses the Sleeper Fantasy App API to display live data and charts on your favorite Sleeper fantasy league. If you have a league ID enter it in the field, if not feel free to use 725424222041657344 as an example.",
+		description: "A MEAN stack project that uses the Sleeper Fantasy App API to display live data and charts on your favorite Sleeper fantasy league. If you have a league ID enter it in the field, if not feel free to use 1206772146731241472 as an example.",
 		screenshot: "img/projects/sff.png",
 		github: "https://github.com/jbmitchell7/portfolio-nx",
 		projectUrl: "https://fantasy-dashboard.thundercloud.dev"
