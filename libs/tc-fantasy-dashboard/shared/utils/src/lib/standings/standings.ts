@@ -14,6 +14,7 @@ export const getStandingsData = (league: League) => {
         owner_id: roster.owner_id,
         playerIds: roster.players,
         username: manager.display_name,
+        teamName: manager.metadata.team_name,
         points: roster.settings.fpts,
         maxPoints: roster.settings.ppts,
         pointsAgainst: roster.settings.fpts_against,
