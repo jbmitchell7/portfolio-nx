@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RostersComponent } from './rosters.component';
 import { provideHttpClient } from '@angular/common/http';
+import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
+import { MessageService } from 'primeng/api';
+import { mockLeagueInit } from '@tc-fantasy-dashboard/shared/mock-data';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 describe('LeagueChampionComponent', () => {
   let component: RostersComponent;
@@ -8,14 +12,30 @@ describe('LeagueChampionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RostersComponent, provideHttpClient()],
+      imports: [RostersComponent],
+      providers: [
+        provideHttpClient(),
+        {
+          provide: LeagueInitService,
+          useValue: mockLeagueInit,
+        },
+        MessageService,
+        provideAnimationsAsync()
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(RostersComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  afterEach(() => {
+    component.ngOnDestroy();
   });
+
+  it('should create roster array', () => {
+    expect(component.rosters.length).toEqual(1);
+  });
+
+  
 });
