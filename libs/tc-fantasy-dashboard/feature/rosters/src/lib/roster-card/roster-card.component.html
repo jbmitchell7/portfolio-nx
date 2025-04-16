@@ -9,10 +9,12 @@
       <span class="pl-2 text-lg font-semibold">{{ manager.metadata.team_name }}</span>
     </div>
   </ng-template>
-  @for (playerId of roster.players; track $index) {
-    <div class="flex items-center gap-2">
-      <p class="w-8">{{players[playerId].position}}</p>
-      <p>{{players[playerId].full_name}}</p>
-    </div>
-  }
+  <div class="flex flex-col gap-2">
+    @for (player of rosteredPlayers; track $index) {
+      <div class="flex items-center gap-2">
+        <fd-position-badge [position]="player.position" [sport]="league.sport" />
+        <p>{{player.full_name}}</p>
+      </div>
+    }
+  </div>
 </p-panel>
