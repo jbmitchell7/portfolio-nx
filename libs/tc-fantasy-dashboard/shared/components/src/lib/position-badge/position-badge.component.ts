@@ -1,43 +1,52 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { $dt } from '@primeng/themes';
 
 @Component({
   selector: 'fd-position-badge',
   imports: [CommonModule],
   templateUrl: './position-badge.component.html',
+  styleUrl: './position-badge.component.css',
 })
 export class PositionBadgeComponent implements OnInit {
   @Input({required: true}) sport!: string;
   @Input({required: true}) position!: string;
 
-  backgroundColor!: any;
+  backgroundColor!: string;
 
   ngOnInit(): void {
-    if (this.sport === 'nfl') {
-      this.#getNFLBadgeColor();
-    }
+    this.#getBadgeColor();
   }
 
-  #getNFLBadgeColor(): void {
+  #getBadgeColor(): void {
+    // first position is NFL, second is NBA, third is LOL, default is DEF (aka Team) for all
     switch (this.position) {
       case 'QB':
-        this.backgroundColor = $dt('red.500');
+      case 'C':
+      case 'ADC':
+        this.backgroundColor = 'red';
         break;
       case 'RB':
-        this.backgroundColor = $dt('orange.500');
+      case 'PF':
+      case 'JUN':
+        this.backgroundColor = 'orange';
         break;
       case 'WR':
-        this.backgroundColor = $dt('sky.500');
+      case 'SF':
+      case 'MID':
+        this.backgroundColor = 'blue';
         break;
       case 'TE':
-        this.backgroundColor = $dt('lime.500');
+      case 'SG':
+      case 'SUP':
+        this.backgroundColor = 'lime';
         break;
       case 'K':
-        this.backgroundColor = $dt('pink.500');
+      case 'PG':
+      case 'TOP':
+        this.backgroundColor = 'pink';
         break;
       default:
-        this.backgroundColor = $dt('violet.500');
+        this.backgroundColor = 'violet';
     }
   }
 }

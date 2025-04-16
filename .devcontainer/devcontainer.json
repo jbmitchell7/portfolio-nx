@@ -19,7 +19,8 @@
         "firsttris.vscode-jest-runner",
         "esbenp.prettier-vscode",
         "formulahendry.auto-rename-tag",
-        "github.vscode-pull-request-github"
+        "github.vscode-pull-request-github",
+        "mongodb.mongodb-vscode"
 			]
 		}
 	}

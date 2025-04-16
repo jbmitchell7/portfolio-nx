@@ -4,7 +4,6 @@
   "peerDependencies": {
     "@angular/core": "^19.2.0",
     "primeng": "^19.0.8",
-    "@primeng/themes": "^19.0.8",
     "@angular/common": "~19.2.0"
   },
   "sideEffects": false

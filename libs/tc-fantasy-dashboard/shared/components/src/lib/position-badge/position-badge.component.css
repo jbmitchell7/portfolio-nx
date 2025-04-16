@@ -1,0 +1,23 @@
+.blue {
+  background-color: var(--p-blue-500);
+}
+
+.red {
+  background-color: var(--p-red-500);
+}
+
+.orange {
+  background-color: var(--p-orange-500);
+}
+
+.lime {
+  background-color: var(--p-lime-500);
+}
+
+.pink {
+  background-color: var(--p-pink-500);
+}
+
+.violet {
+  background-color: var(--p-violet-500);
+}
