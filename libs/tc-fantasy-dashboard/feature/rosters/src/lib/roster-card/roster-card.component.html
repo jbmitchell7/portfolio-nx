@@ -9,12 +9,49 @@
       <span class="pl-2 text-lg font-semibold">{{ manager.metadata.team_name }}</span>
     </div>
   </ng-template>
-  <div class="flex flex-col gap-2">
-    @for (player of rosteredPlayers; track $index) {
-      <div class="flex items-center gap-2">
-        <fd-position-badge [position]="player.position" [sport]="league.sport" />
-        <p>{{player.full_name}}</p>
-      </div>
+  <p-accordion multiple="true" [value]="['s']">
+    <p-accordion-panel value="s">
+      <p-accordion-header>Starters</p-accordion-header>
+      <p-accordion-content>
+        <div class="flex flex-col gap-2">
+          @for (player of starters; track $index) {
+            <div class="flex items-center gap-2">
+              <fd-position-badge [position]="player.position" [sport]="league.sport" />
+              <p>{{player.full_name}}</p>
+            </div>
+          }
+        </div>
+      </p-accordion-content>
+    </p-accordion-panel>
+    @if (bench.length) {
+      <p-accordion-panel value="b">
+        <p-accordion-header>Bench</p-accordion-header>
+        <p-accordion-content>
+          <div class="flex flex-col gap-2">
+            @for (player of bench; track $index) {
+              <div class="flex items-center gap-2">
+                <fd-position-badge [position]="player.position" [sport]="league.sport" />
+                <p>{{player.full_name}}</p>
+              </div>
+            }
+          </div>
+        </p-accordion-content>
+      </p-accordion-panel>
     }
-  </div>
+    @if (taxi.length) {
+      <p-accordion-panel value="t">
+        <p-accordion-header>Taxi</p-accordion-header>
+        <p-accordion-content>
+          <div class="flex flex-col gap-2">
+            @for (player of taxi; track $index) {
+              <div class="flex items-center gap-2">
+                <fd-position-badge [position]="player.position" [sport]="league.sport" />
+                <p>{{player.full_name}}</p>
+              </div>
+            }
+          </div>
+        </p-accordion-content>
+      </p-accordion-panel>
+    }
+  </p-accordion>
 </p-panel>
