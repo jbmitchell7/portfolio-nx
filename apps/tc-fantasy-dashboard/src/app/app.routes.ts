@@ -4,6 +4,7 @@ import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
 import { StandingsComponent } from '@tc-fantasy-dashboard/feature/standings';
 import { HomeComponent } from '@tc-fantasy-dashboard/feature/home';
 import { LeagueComponent } from '@tc-fantasy-dashboard/feature/league';
+import { RostersComponent } from '@tc-fantasy-dashboard/feature/rosters';
 
 export const routes: Routes = [
   {path: '', component: LoadingComponent},
@@ -14,7 +15,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: 'standings', component: StandingsComponent }
+      { path: 'standings', component: StandingsComponent },
+      { path: 'rosters', component: RostersComponent }
     ],
   },
   { path: '**', redirectTo: 'welcome', pathMatch: 'prefix' },

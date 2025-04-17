@@ -1,0 +1,11 @@
+@if (isLoading) {
+  <fd-loading />
+} @else {
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    @for (roster of rosters; track roster.roster_id) {
+      <fd-roster-card [roster]="roster" [players]="players" [league]="league" />
+    } @empty {
+      <h4>No rosters available</h4>
+    }
+  </div>
+}

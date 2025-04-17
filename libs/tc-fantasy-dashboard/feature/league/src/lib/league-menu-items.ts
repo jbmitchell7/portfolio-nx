@@ -11,6 +11,11 @@ export const MENU_ROUTES: MenuItem[] = [
     routerLink: ['standings'],
     icon: 'fa-solid fa-list-ol'
   },
+  {
+    label: 'Rosters',
+    routerLink: ['rosters'],
+    icon: 'fa-solid fa-people-group'
+  },
   // matchups
   // transactions
   // rivalry

@@ -67,7 +67,7 @@ const getMoveData = (
   return result;
 };
 
-const getManager = (
+export const getManager = (
   league: League,
   rosterId: number
 ): Manager | undefined => {

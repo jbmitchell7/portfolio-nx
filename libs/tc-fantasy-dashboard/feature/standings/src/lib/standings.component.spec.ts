@@ -50,6 +50,7 @@ describe('StandingsComponent', () => {
         "streakIcon": undefined,
         "username": "",
         "wins": 0,
+        "teamName": "",
       },
     ]);
     expect(component.seasonStarted).toBeFalsy();

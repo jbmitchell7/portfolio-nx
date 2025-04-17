@@ -2,13 +2,13 @@ import { Player } from "@tc-fantasy-dashboard/shared/interfaces";
 
 export const mockPlayer: Player = {
   injury_status: "healthy",
-  team: "Vikings",
+  team: "N/A",
   first_name: "John",
   last_name: "Doe",
-  full_name: "John Doe",
-  fantasy_positions: [],
-  player_id: "1",
-  sport: "nfl",
-  position: "QB",
+  full_name: "Empty",
+  fantasy_positions: ['Flex'],
+  player_id: "0",
+  sport: "N/A",
+  position: "Flex",
   active: true
 };

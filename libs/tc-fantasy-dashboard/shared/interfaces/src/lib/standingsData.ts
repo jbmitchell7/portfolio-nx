@@ -2,6 +2,7 @@ import { Player } from "./roster";
 
 export interface StandingsData {
   username: string;
+  teamName: string;
   points: number;
   maxPoints: number;
   pointsAgainst: number;
