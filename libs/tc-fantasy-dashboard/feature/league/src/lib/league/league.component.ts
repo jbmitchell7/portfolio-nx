@@ -51,14 +51,14 @@ export class LeagueComponent implements OnInit, OnDestroy {
               url: `https://sleeper.com/leagues/${league.league_id}/league`,
             },
             {
-              label: 'Change League/Season',
+              label: 'Change League',
+              icon: 'fa-solid fa-arrows-rotate',
+              command: () => this.#resetLeague(),
+            },
+            {
+              label: 'Change Season',
               icon: 'fa-solid fa-shuffle',
               items: [
-                {
-                  label: 'Change League',
-                  icon: 'fa-solid fa-arrows-rotate',
-                  command: () => this.#resetLeague(),
-                },
                 {
                   label: 'Previous Season',
                   icon: 'fa-solid fa-backward',
