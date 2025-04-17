@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
@@ -6,9 +6,12 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   imports: [ProgressSpinnerModule],
   template:
   `
-    <div class="h-full w-full flex items-center justify-center">
+    <div class="h-full w-full flex flex-col items-center justify-center">
       <p-progress-spinner />
+      <p class="text-center">{{message}}</p>
     </div>
   `
 })
-export class LoadingComponent {}
+export class LoadingComponent {
+  @Input() message = 'Loading...';
+}

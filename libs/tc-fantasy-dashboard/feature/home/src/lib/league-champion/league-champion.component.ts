@@ -19,7 +19,7 @@ export class LeagueChampionComponent implements OnChanges {
       const champUserId = Object.keys(this.league.rosters).find(id => this.league.rosters?.[id].roster_id === +champRosterId);
       if (champUserId) {
         const champ = this.league.managers?.[champUserId]
-        this.champName = champ?.metadata.team_name;
+        this.champName = champ?.metadata.team_name ?? champ?.display_name;
         this.champAvatar = champ?.avatarUrl;
       }
     }

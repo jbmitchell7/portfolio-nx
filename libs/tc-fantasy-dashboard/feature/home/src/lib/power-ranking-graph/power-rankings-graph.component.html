@@ -1,14 +1,12 @@
-<div *ngIf="!isLoading else spinner">
-  <ng-container *ngIf="showPreseasonMessage else chart">
-    Trends are available after Week 1
-  </ng-container>
-  <ng-template #chart>
-    <p-chart type="bubble" [data]="chartData" [options]="chartOptions"/>
-    <p *ngFor="let line of graphDescription" class="text-center">{{line}}</p>
-  </ng-template>
-</div>
-<ng-template #spinner>
+@if (isLoading) {
   <div class="w-1/2 h-1/2 flex items-center justify-center">
     <fd-loading />
   </div>
-</ng-template>
+} @else if (showPreseasonMessage) {
+  <p>Trends are available after Week 1</p>
+} @else {
+  <p-chart type="bubble" [data]="chartData" [options]="chartOptions"/>
+  @for (line of graphDescription; track $index) {
+    <p class="text-center">{{line}}</p>
+  }
+}

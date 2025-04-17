@@ -6,7 +6,7 @@
         alt="Logo"
         class="w-8 rounded-md"
       />
-      <span class="pl-2 text-lg font-semibold">{{ manager.metadata.team_name }}</span>
+      <span class="pl-2 text-lg font-semibold">{{ manager.metadata.team_name ?? manager.display_name }}</span>
     </div>
   </ng-template>
   <p-accordion multiple="true" [value]="['s']">

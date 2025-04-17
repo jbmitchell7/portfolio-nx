@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeagueChampionComponent } from './league-champion.component';
 import { CommonModule } from '@angular/common';
 import { mockLeague, mockManager, mockRoster } from '@tc-fantasy-dashboard/shared/mock-data';
-import { ManagerMetaData } from '@tc-fantasy-dashboard/shared/interfaces';
 
 describe('LeagueChampionComponent', () => {
   let component: LeagueChampionComponent;
@@ -37,7 +36,7 @@ describe('LeagueChampionComponent', () => {
           avatarUrl: 'avatar-url',
           metadata: {
             team_name: 'Team A',
-          } as ManagerMetaData
+          }
         },
       },
     };
