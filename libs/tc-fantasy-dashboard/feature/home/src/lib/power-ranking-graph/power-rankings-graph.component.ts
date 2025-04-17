@@ -43,7 +43,7 @@ export class PowerRankingsGraphComponent implements OnChanges {
           x: team.maxPoints,
           y: team.wins,
           r: this.#getRadiusValue(team.points, team.maxPoints),
-          manager: team.username,
+          manager: team.teamName,
           points: team.points,
           losses: team.losses
         }));
