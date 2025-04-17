@@ -16,10 +16,4 @@ export const MENU_ROUTES: MenuItem[] = [
     routerLink: ['rosters'],
     icon: 'fa-solid fa-people-group'
   },
-  // matchups
-  // transactions
-  // rivalry
-  // drafts
-  // history
-  // records
 ];
