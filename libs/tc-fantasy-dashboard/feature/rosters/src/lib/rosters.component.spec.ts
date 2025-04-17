@@ -5,6 +5,7 @@ import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { MessageService } from 'primeng/api';
 import { mockLeagueInit } from '@tc-fantasy-dashboard/shared/mock-data';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { of } from 'rxjs';
 
 describe('LeagueChampionComponent', () => {
   let component: RostersComponent;
@@ -17,7 +18,10 @@ describe('LeagueChampionComponent', () => {
         provideHttpClient(),
         {
           provide: LeagueInitService,
-          useValue: mockLeagueInit,
+          useValue: {
+            ...mockLeagueInit,
+            playersLoading$: of(false),
+          },
         },
         MessageService,
         provideAnimationsAsync()
