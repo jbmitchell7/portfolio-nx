@@ -6,6 +6,7 @@ import { PositionBadgeComponent } from '@tc-fantasy-dashboard/shared/components'
 import { mockPlayer } from '@tc-fantasy-dashboard/shared/mock-data';
 import { AccordionModule } from 'primeng/accordion';
 import { PanelModule } from 'primeng/panel';
+import { sortPlayersByPosition } from '@tc-fantasy-dashboard/shared/utils';
 
 @Component({
   selector: 'fd-roster-card',
@@ -29,9 +30,11 @@ export class RosterCardComponent implements OnInit {
     const benchedIds = this.roster.players
       .filter(playerId => !this.roster.starters.includes(playerId) && !this.roster.taxi.includes(playerId));
 
-    this.bench = this.#getPlayerDataList(benchedIds);
+    this.bench = this.#getPlayerDataList(benchedIds)
+      .sort((a, b) => sortPlayersByPosition(a, b, this.league.sport));
+    this.taxi = this.#getPlayerDataList(this.roster.taxi)
+      .sort((a, b) => sortPlayersByPosition(a, b, this.league.sport));
     this.starters = this.#getPlayerDataList(this.roster.starters);
-    this.taxi = this.#getPlayerDataList(this.roster.taxi);
   }
 
   #getPlayerDataList(playerIds: string[]): Player[] {

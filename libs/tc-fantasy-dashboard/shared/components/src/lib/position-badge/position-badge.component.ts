@@ -22,7 +22,7 @@ export class PositionBadgeComponent implements OnInit {
     switch (this.position) {
       case 'QB':
       case 'C':
-      case 'ADC':
+      case 'TOP':
         this.backgroundColor = 'red';
         break;
       case 'RB':
@@ -37,12 +37,12 @@ export class PositionBadgeComponent implements OnInit {
         break;
       case 'TE':
       case 'SG':
-      case 'SUP':
+      case 'ADC':
         this.backgroundColor = 'lime';
         break;
       case 'K':
       case 'PG':
-      case 'TOP':
+      case 'SUP':
         this.backgroundColor = 'pink';
         break;
       default:

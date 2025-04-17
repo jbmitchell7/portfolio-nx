@@ -43,3 +43,53 @@ export interface Player {
   position: string;
   active: boolean;
 }
+
+export enum NFLPositions {
+  QB,
+  RB,
+  WR,
+  TE,
+  K,
+  DEF,
+  FB,
+  C,
+  G,
+  T,
+  OG,
+  OT,
+  OL,
+  CB,
+  SS,
+  S,
+  FS,
+  SAF,
+  DB,
+  DE,
+  DT,
+  NT,
+  DL,
+  ILB,
+  OLB,
+  LB,
+  'K/P',
+  LS,
+  P,
+}
+
+export enum NBAPositions {
+  PG,
+  SG,
+  SF,
+  PF,
+  C,
+  DEF
+}
+
+export enum LCSPositions {
+  TOP,
+  JUN,
+  MID,
+  ADC,
+  SUP,
+  DEF
+}
