@@ -46,11 +46,6 @@ export class LeagueComponent implements OnInit, OnDestroy {
           this.menuItems = [
             ...MENU_ROUTES,
             {
-              label: 'Sleeper Link',
-              icon: 'fa-solid fa-arrow-up-right-from-square',
-              url: `https://sleeper.com/leagues/${league.league_id}/league`,
-            },
-            {
               label: 'Change League',
               icon: 'fa-solid fa-arrows-rotate',
               command: () => this.#resetLeague(),
@@ -73,6 +68,11 @@ export class LeagueComponent implements OnInit, OnDestroy {
                 },
               ],
             },
+            {
+              label: 'Fantasy Resources',
+              icon: 'fa-solid fa-arrow-up-right-from-square',
+              items: this.#getFantasyResources(league),
+            },
           ];
         })
       )
@@ -81,6 +81,54 @@ export class LeagueComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.#sub.unsubscribe();
+  }
+
+  #getFantasyResources(league: League): MenuItem[] {
+    const resources = [
+      {
+        label: 'Sleeper',
+        icon: 'fa-solid fa-trophy',
+        url: `https://sleeper.com/leagues/${league.league_id}/league`
+      },
+      {
+        label: 'Rotowire',
+        icon: 'fa-solid fa-chart-simple',
+        url: `https://www.rotowire.com/`
+      },
+    ];
+    if (league.sport === 'nfl') {
+      resources.push(
+        {
+          label: 'Keep/Trade/Cut',
+          icon: 'fa-solid fa-right-left',
+          url: `https://keeptradecut.com/`
+        },
+        {
+          label: 'Reddit FF Trade Analyzer',
+          icon: 'fa-solid fa-right-left',
+          url: `https://www.reddit.com/r/TradeAnalyzerFF/`
+        },
+      )
+    }
+    if (league.sport === 'nba') {
+      resources.push(
+        {
+          label: 'Reddit Fantasy Basketball',
+          icon: 'fa-solid fa-share-nodes',
+          url: `https://www.reddit.com/r/fantasybball/`
+        }
+      )
+    }
+    if (league.sport === 'lcs') {
+      resources.push(
+        {
+          label: 'Reddit Fantasy LCS',
+          url: `https://www.reddit.com/r/FantasyLCS/`,
+          icon: 'fa-solid fa-share-nodes'
+        },
+      )
+    }
+    return resources;
   }
 
   #resetLeague(): void {
