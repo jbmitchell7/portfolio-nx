@@ -11,8 +11,7 @@ import { sortPlayersByPosition } from '@tc-fantasy-dashboard/shared/utils';
 @Component({
   selector: 'fd-roster-card',
   imports: [CommonModule, AccordionModule, PositionBadgeComponent, PanelModule],
-  templateUrl: './roster-card.component.html',
-  styleUrl: './roster-card.component.css',
+  templateUrl: './roster-card.component.html'
 })
 export class RosterCardComponent implements OnInit {
   @Input({required: true}) roster!: Roster;
