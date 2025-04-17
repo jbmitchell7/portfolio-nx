@@ -1,13 +1,14 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subscription, tap } from 'rxjs';
+import { combineLatest, Subscription, tap } from 'rxjs';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services'; // Replace with the actual path
 import { League, Player, Roster } from '@tc-fantasy-dashboard/shared/interfaces';
 import { RosterCardComponent } from './roster-card/roster-card.component';
+import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
 
 @Component({
   selector: 'fd-rosters',
-  imports: [CommonModule, RosterCardComponent],
+  imports: [CommonModule, RosterCardComponent, LoadingComponent],
   templateUrl: './rosters.component.html'
 })
 export class RostersComponent implements OnInit, OnDestroy {
@@ -16,11 +17,16 @@ export class RostersComponent implements OnInit, OnDestroy {
   league!: League;
   rosters!: Roster[];
   players!: Record<string, Player>;
+  isLoading = true;
 
   ngOnInit(): void {
-    this.#sub = this.#leagueInitService.selectedLeague$
+    this.#sub = combineLatest([
+      this.#leagueInitService.selectedLeague$,
+      this.#leagueInitService.playersLoading$
+    ])
       .pipe(
-        tap((selectedLeague: League) => {
+        tap(([selectedLeague, loading]) => {
+          this.isLoading = loading;
           this.league = selectedLeague;
           const rosterKeys = Object.keys(selectedLeague.rosters ?? {})
           if (!rosterKeys.length) {

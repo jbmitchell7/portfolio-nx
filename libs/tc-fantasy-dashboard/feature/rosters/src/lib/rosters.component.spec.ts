@@ -36,6 +36,4 @@ describe('LeagueChampionComponent', () => {
   it('should create roster array', () => {
     expect(component.rosters.length).toEqual(1);
   });
-
-  
 });

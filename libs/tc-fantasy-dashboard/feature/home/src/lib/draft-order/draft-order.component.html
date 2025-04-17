@@ -6,6 +6,10 @@
         <img [src]="m.avatarUrl" alt="manager avatar" class="w-10 rounded-md" />
         <p>{{m.metadata.team_name}}</p>
       </li>
+    } @empty {
+      <li>
+        <p>Draft Order Unavailable</p>
+      </li>
     }
   </ul>
 </p-scroll-panel>
