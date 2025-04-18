@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { GRAPH_COLORS, SUBTITLE_TEXT } from './power-rankings-graph.constants';
@@ -18,39 +18,33 @@ interface ChartData {
     templateUrl: './power-rankings-graph.component.html',
     imports: [CommonModule, ChartModule, LoadingComponent]
 })
-export class PowerRankingsGraphComponent implements OnChanges {
-  @Input({required: true}) standingsData!: StandingsData[];
+export class PowerRankingsGraphComponent {
+  readonly standingsData = input.required<StandingsData[]>();
 
   chartData: unknown;
   chartOptions: unknown;
   isLoading = true;
   mobileBrowser = JSON.parse(localStorage.getItem('MOBILE') as string);
-  showPreseasonMessage = false;
   graphDescription = SUBTITLE_TEXT;
 
   #minRadiusSize!: number;
   readonly #MIN_OFFSET = this.mobileBrowser ? 3 : 5;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.isLoading = true;
-    if (changes['standingsData'] && changes['standingsData'].currentValue?.length) {
-      if (this.standingsData[0].wins === 0 && this.standingsData[0].losses === 0) {
-        this.showPreseasonMessage = true;
-      } else {
-        this.showPreseasonMessage = false;
-        this.#getRadiusRange(this.standingsData);
-        const data: ChartData[] = this.standingsData.map(team => ({
-          x: team.maxPoints,
-          y: team.wins,
-          r: this.#getRadiusValue(team.points, team.maxPoints),
-          manager: team.teamName,
-          points: team.points,
-          losses: team.losses
-        }));
-        this.#setupChart(data);
-      }
+  constructor() {
+    effect(() => {
+      this.isLoading = true;
+      this.#getRadiusRange(this.standingsData());
+      const data: ChartData[] = this.standingsData().map(team => ({
+        x: team.maxPoints,
+        y: team.wins,
+        r: this.#getRadiusValue(team.points, team.maxPoints),
+        manager: team.teamName,
+        points: team.points,
+        losses: team.losses
+      }));
+      this.#setupChart(data);
       this.isLoading = false;
-    }
+    });
   }
 
   #setupChart(data: ChartData[]): void {

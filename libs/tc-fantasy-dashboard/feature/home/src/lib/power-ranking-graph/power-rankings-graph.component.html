@@ -2,9 +2,7 @@
   <div class="w-1/2 h-1/2 flex items-center justify-center">
     <fd-loading />
   </div>
-} @else if (showPreseasonMessage) {
-  <p>Trends are available after Week 1</p>
-} @else {
+}  @else {
   <p-chart type="bubble" [data]="chartData" [options]="chartOptions"/>
   @for (line of graphDescription; track $index) {
     <p class="text-center">{{line}}</p>
