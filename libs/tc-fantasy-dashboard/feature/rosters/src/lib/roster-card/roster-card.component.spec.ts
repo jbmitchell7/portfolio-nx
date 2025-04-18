@@ -2,9 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RosterCardComponent } from './roster-card.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { mockLeague, mockManager, mockPlayer, mockRoster } from '@tc-fantasy-dashboard/shared/mock-data';
+import { ComponentRef } from '@angular/core';
 
 describe('RosterCardComponent', () => {
   let component: RosterCardComponent;
+  let componentRef: ComponentRef<RosterCardComponent>;
   let fixture: ComponentFixture<RosterCardComponent>;
 
   beforeEach(async () => {
@@ -15,9 +17,10 @@ describe('RosterCardComponent', () => {
 
     fixture = TestBed.createComponent(RosterCardComponent);
     component = fixture.componentInstance;
-    component.roster = mockRoster;
-    component.league = mockLeague;
-    component.players = {[mockPlayer.player_id]: mockPlayer};
+    componentRef = fixture.componentRef;
+    componentRef.setInput('roster', mockRoster);
+    componentRef.setInput('players', {[mockPlayer.player_id]: mockPlayer});
+    componentRef.setInput('league', mockLeague);
     fixture.detectChanges();
   });
 

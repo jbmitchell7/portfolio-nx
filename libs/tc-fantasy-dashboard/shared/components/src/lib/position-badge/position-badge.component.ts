@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './position-badge.component.css',
 })
 export class PositionBadgeComponent implements OnInit {
-  @Input() position?: string;
+  readonly position = input<string>();
 
   backgroundColor!: string;
 
@@ -18,7 +18,7 @@ export class PositionBadgeComponent implements OnInit {
 
   #getBadgeColor(): void {
     // first position is NFL, second is NBA, third is LOL, default is DEF (aka Team) for all
-    switch (this.position) {
+    switch (this.position()) {
       case 'QB':
       case 'C':
       case 'TOP':

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
@@ -10,6 +10,6 @@ import { ColorModeBtnComponent } from "../color-mode-btn/color-mode-btn.componen
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
-  @Input({required: true}) menuItems!: MenuItem[];
-  @Input() logoPath?: string;
+  readonly menuItems = input.required<MenuItem[]>();
+  readonly logoPath = input<string>();
 }
