@@ -26,8 +26,7 @@ export class PlayerDetailsDialogComponent {
     this.player.set(mockPlayer);
   }
 
-  #getPlayerHeight(height: number | undefined): string {
-    if (!height) return '';
+  #getPlayerHeight(height: number): string {
     const feet = Math.floor(height / 12);
     const inches = height % 12;
     return `${feet}'${inches}"`;

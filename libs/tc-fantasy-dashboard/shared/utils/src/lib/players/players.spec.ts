@@ -15,6 +15,14 @@ describe('sortPlayersByPosition', () => {
         player_id: '',
         sport: '',
         active: false,
+        age: 0,
+        depth_chart_order: 0,
+        years_exp: 0,
+        high_school: '',
+        height: 0,
+        number: 0,
+        weight: 0,
+        college: ''
       },
       {
         position: 'QB',
@@ -27,6 +35,14 @@ describe('sortPlayersByPosition', () => {
         player_id: '',
         sport: '',
         active: false,
+        age: 0,
+        depth_chart_order: 0,
+        years_exp: 0,
+        high_school: '',
+        height: 0,
+        number: 0,
+        weight: 0,
+        college: ''
       },
       {
         position: 'WR',
@@ -39,6 +55,14 @@ describe('sortPlayersByPosition', () => {
         player_id: '',
         sport: '',
         active: false,
+        age: 0,
+        depth_chart_order: 0,
+        years_exp: 0,
+        high_school: '',
+        height: 0,
+        number: 0,
+        weight: 0,
+        college: ''
       },
     ];
     const toSort = [...players];
@@ -61,6 +85,14 @@ describe('sortPlayersByPosition', () => {
         player_id: '',
         sport: '',
         active: false,
+        age: 0,
+        depth_chart_order: 0,
+        years_exp: 0,
+        high_school: '',
+        height: 0,
+        number: 0,
+        weight: 0,
+        college: ''
       },
       {
         position: 'PG',
@@ -73,6 +105,14 @@ describe('sortPlayersByPosition', () => {
         player_id: '',
         sport: '',
         active: false,
+        age: 0,
+        depth_chart_order: 0,
+        years_exp: 0,
+        high_school: '',
+        height: 0,
+        number: 0,
+        weight: 0,
+        college: ''
       },
       {
         position: 'SG',
@@ -85,6 +125,14 @@ describe('sortPlayersByPosition', () => {
         player_id: '',
         sport: '',
         active: false,
+        age: 0,
+        depth_chart_order: 0,
+        years_exp: 0,
+        high_school: '',
+        height: 0,
+        number: 0,
+        weight: 0,
+        college: ''
       },
     ];
     const sorted = [...players];
@@ -107,6 +155,14 @@ describe('sortPlayersByPosition', () => {
         player_id: '',
         sport: '',
         active: false,
+        age: 0,
+        depth_chart_order: 0,
+        years_exp: 0,
+        high_school: '',
+        height: 0,
+        number: 0,
+        weight: 0,
+        college: ''
       },
       {
         position: 'MID',
@@ -119,6 +175,14 @@ describe('sortPlayersByPosition', () => {
         player_id: '',
         sport: '',
         active: false,
+        age: 0,
+        depth_chart_order: 0,
+        years_exp: 0,
+        high_school: '',
+        height: 0,
+        number: 0,
+        weight: 0,
+        college: ''
       },
       {
         position: 'ADC',
@@ -131,6 +195,14 @@ describe('sortPlayersByPosition', () => {
         player_id: '',
         sport: '',
         active: false,
+        age: 0,
+        depth_chart_order: 0,
+        years_exp: 0,
+        high_school: '',
+        height: 0,
+        number: 0,
+        weight: 0,
+        college: ''
       },
     ];
     const sorted = [...players];
