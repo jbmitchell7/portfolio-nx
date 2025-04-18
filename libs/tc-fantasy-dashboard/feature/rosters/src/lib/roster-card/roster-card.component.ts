@@ -28,7 +28,8 @@ export class RosterCardComponent implements OnInit {
   starters!: Player[];
   bench!: Player[];
   taxi!: Player[];
-  selectedPlayer = signal<Player>(mockPlayer);
+  selectedPlayer!: Player;
+  dialogVisible = signal(false);
 
   ngOnInit(): void {
     this.manager = getManager(this.league, this.roster.roster_id) ?? ({} as Manager);
@@ -48,6 +49,7 @@ export class RosterCardComponent implements OnInit {
   }
 
   openPlayerDetailsDialog(player: Player): void {
-    this.selectedPlayer.set(player);
+    this.selectedPlayer = player;
+    this.dialogVisible.set(true);
   }
 }
