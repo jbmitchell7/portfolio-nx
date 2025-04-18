@@ -8,8 +8,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './position-badge.component.css',
 })
 export class PositionBadgeComponent implements OnInit {
-  @Input({required: true}) sport!: string;
-  @Input({required: true}) position!: string;
+  @Input() position?: string;
 
   backgroundColor!: string;
 

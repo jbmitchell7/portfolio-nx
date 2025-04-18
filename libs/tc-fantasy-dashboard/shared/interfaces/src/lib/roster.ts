@@ -42,6 +42,14 @@ export interface Player {
   sport: string;
   position: string;
   active: boolean;
+  age: number;
+  depth_chart_order: number;
+  years_exp: number;
+  high_school: string;
+  height: number;
+  number: number;
+  weight: number;
+  college: string;
 }
 
 export enum NFLPositions {
