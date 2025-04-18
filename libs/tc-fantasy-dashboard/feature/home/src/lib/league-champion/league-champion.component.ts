@@ -1,6 +1,6 @@
-import { Component, effect, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { League } from '@tc-fantasy-dashboard/shared/interfaces';
+import { League, Manager } from '@tc-fantasy-dashboard/shared/interfaces';
 
 @Component({
   selector: 'fd-league-champion',
@@ -9,20 +9,16 @@ import { League } from '@tc-fantasy-dashboard/shared/interfaces';
 })
 export class LeagueChampionComponent {
   readonly league = input.required<League>();
-  champAvatar?: string;
-  champName?: string;
+  readonly champion = computed<Manager | null>(() => this.#getChampion());
 
-  constructor() {
-    effect(() => {
-      const rosters = this.league()?.rosters;
-      if (!rosters) return;
-      const champRosterId = this.league().metadata?.latest_league_winner_roster_id;
-      const champUserId = Object.keys(rosters).find(id => rosters[id]?.roster_id === +champRosterId);
-      if (champUserId) {
-        const champ = this.league().managers?.[champUserId]
-        this.champName = champ?.metadata.team_name ?? champ?.display_name;
-        this.champAvatar = champ?.avatarUrl;
-      }
-    })
+  #getChampion(): Manager | null {
+    const rosters = this.league()?.rosters;
+    if (!rosters) return null;
+
+    const champRosterId = this.league().metadata?.latest_league_winner_roster_id;
+    const champUserId = Object.keys(rosters).find(id => rosters[id]?.roster_id === +champRosterId);
+    if (!champUserId) return null;
+
+    return this.league().managers?.[champUserId] ?? null;
   }
 }

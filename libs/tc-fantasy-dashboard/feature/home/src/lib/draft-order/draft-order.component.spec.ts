@@ -41,7 +41,7 @@ describe('DraftOrderComponent', () => {
     });
     fixture.detectChanges();
 
-    expect(component.managersList.length).toEqual(2);
+    expect(component.managersList().length).toEqual(2);
   });
 
   it('should handle empty draft_order gracefully', () => {
@@ -64,6 +64,6 @@ describe('DraftOrderComponent', () => {
     });
     fixture.detectChanges();
 
-    expect(component.managersList).toEqual([]);
+    expect(component.managersList()).toEqual([]);
   });
 });

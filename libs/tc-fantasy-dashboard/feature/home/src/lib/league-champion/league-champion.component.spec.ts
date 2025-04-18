@@ -45,7 +45,7 @@ describe('LeagueChampionComponent', () => {
     });
     fixture.detectChanges();
 
-    expect(component.champName).toBe('Team A');
-    expect(component.champAvatar).toBe('avatar-url');
+    expect(component.champion()?.metadata.team_name).toBe('Team A');
+    expect(component.champion()?.avatarUrl).toBe('avatar-url');
   });
 });

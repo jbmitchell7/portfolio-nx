@@ -1,4 +1,4 @@
-import { Component, effect, input, model } from '@angular/core';
+import { Component, computed, input, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Player } from '@tc-fantasy-dashboard/shared/interfaces';
 import { DialogModule } from 'primeng/dialog';
@@ -12,16 +12,10 @@ import { PositionBadgeComponent } from "../position-badge/position-badge.compone
 export class PlayerDetailsDialogComponent {
   readonly player = input.required<Player>();
   readonly visible = model<boolean>(false);
-  playerHeight!: string;
-
-  constructor() {
-    effect(() => {
-      if (!this.player()) return;
-      this.playerHeight = this.#getPlayerHeight(this.player().height);
-    });
-  }
+  readonly playerHeight = computed(() => this.#getPlayerHeight(this.player().height));
 
   #getPlayerHeight(height: number): string {
+    if (!this.player()) return '';
     const feet = Math.floor(height / 12);
     const inches = height % 12;
     return `${feet}'${inches}"`;

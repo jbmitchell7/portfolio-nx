@@ -1,55 +1,40 @@
-import { Component, effect, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
-import { GRAPH_COLORS, SUBTITLE_TEXT } from './power-rankings-graph.constants';
+import { ChartData, DEFAULT_CHART_OPTIONS, GRAPH_COLORS, SUBTITLE_TEXT } from './power-rankings-graph.constants';
 import { StandingsData } from '@tc-fantasy-dashboard/shared/interfaces';
-import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
 
-interface ChartData {
-  x: number;
-  y: number;
-  r: number;
-  manager: string;
-  points: number;
-  losses: number;
-}
 @Component({
     selector: 'fd-power-rankings-graph',
     templateUrl: './power-rankings-graph.component.html',
-    imports: [CommonModule, ChartModule, LoadingComponent]
+    imports: [CommonModule, ChartModule]
 })
 export class PowerRankingsGraphComponent {
   readonly standingsData = input.required<StandingsData[]>();
+  readonly chartData = computed<unknown>(() => this.#setupChart());
 
-  chartData: unknown;
-  chartOptions: unknown;
-  isLoading = true;
   mobileBrowser = JSON.parse(localStorage.getItem('MOBILE') as string);
   graphDescription = SUBTITLE_TEXT;
+  chartOptions = {
+    ...DEFAULT_CHART_OPTIONS,
+    aspectRatio: this.mobileBrowser ? 0.75 : 1,
+  };
 
   #minRadiusSize!: number;
   readonly #MIN_OFFSET = this.mobileBrowser ? 3 : 5;
 
-  constructor() {
-    effect(() => {
-      if (!this.standingsData()?.length) return;
-      this.isLoading = true;
-      this.#getRadiusRange(this.standingsData());
-      const data: ChartData[] = this.standingsData().map(team => ({
-        x: team.maxPoints,
-        y: team.wins,
-        r: this.#getRadiusValue(team.points, team.maxPoints),
-        manager: team.teamName,
-        points: team.points,
-        losses: team.losses
-      }));
-      this.#setupChart(data);
-      this.isLoading = false;
-    });
-  }
-
-  #setupChart(data: ChartData[]): void {
-    this.chartData = {
+  #setupChart(): unknown {
+    if (!this.standingsData()?.length) return null;
+    this.#getRadiusRange(this.standingsData());
+    const data: ChartData[] = this.standingsData().map(team => ({
+      x: team.maxPoints,
+      y: team.wins,
+      r: this.#getRadiusValue(team.points, team.maxPoints),
+      manager: team.teamName,
+      points: team.points,
+      losses: team.losses
+    }));
+    return {
       labels: data.map(team => team.manager),
       datasets: [
         {
@@ -58,63 +43,6 @@ export class PowerRankingsGraphComponent {
         }
       ]
     };
-
-    const scaleBorder = {
-      grid: {
-        color: 'white',
-      }
-    };
-
-    const axisTitle = {
-      display: true,
-      font: {
-        weight: 'bold'
-      }
-    };
-    
-    this.chartOptions = {
-      layout: {
-        padding: {
-          top: 20,
-          bottom: 20
-        }
-      },
-      scales: {
-        y: {
-          ...scaleBorder,
-          min: 0,
-          title: {
-            ...axisTitle,
-            text: 'Wins'
-          }
-        },
-        x: {
-          ...scaleBorder,
-          title: {
-            ...axisTitle,
-            text: 'Max Points',
-          }
-        }
-      },
-      aspectRatio: this.mobileBrowser ? 0.75 : 1,
-      plugins: {
-        legend: {
-          display: false
-        },
-        tooltip: {
-          displayColors: false,
-          callbacks: {
-            label: (context: any) => {
-              const team = context.dataset.data[context.dataIndex];
-              const points = team.points;
-              const max = team.x;
-              const record = `${team.y}-${team.losses}`
-              return [`Points: ${points}`, `Max Points: ${max}`, `Record: ${record}`];
-            }
-          }
-        }
-      }
-    }
   }
 
   #getRadiusRange(standings: StandingsData[]): void {

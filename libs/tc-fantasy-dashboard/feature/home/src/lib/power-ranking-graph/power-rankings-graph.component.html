@@ -1,10 +1,4 @@
-@if (isLoading) {
-  <div class="w-1/2 h-1/2 flex items-center justify-center">
-    <fd-loading />
-  </div>
-}  @else {
-  <p-chart type="bubble" [data]="chartData" [options]="chartOptions"/>
-  @for (line of graphDescription; track $index) {
-    <p class="text-center">{{line}}</p>
-  }
+<p-chart type="bubble" [data]="chartData()" [options]="chartOptions"/>
+@for (line of graphDescription; track $index) {
+  <p class="text-center">{{line}}</p>
 }

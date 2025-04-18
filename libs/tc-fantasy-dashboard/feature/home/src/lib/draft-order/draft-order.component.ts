@@ -1,4 +1,4 @@
-import { Component, effect, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { League, Manager } from '@tc-fantasy-dashboard/shared/interfaces';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
@@ -10,19 +10,15 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 })
 export class DraftOrderComponent {
   readonly league = input.required<League>();
-  managersList: Manager[] = [];
+  readonly managersList = computed<Manager[]>(() => this.#getManagersList());
 
-  constructor() {
-    effect(() => {
-      if (!this.league()) return;
-      const managers = this.league().managers
-      const draft = this.league().draft;
-      if (draft && managers) {
-        const managerIds = Object
-          .keys(draft.draft_order)
-          .sort((a, b) => draft.draft_order[a] - draft.draft_order[b]);
-        this.managersList = managerIds.map(id => managers[id]);
-      }
-    })
+  #getManagersList(): Manager[] {
+    const managers = this.league()?.managers
+    const draft = this.league()?.draft;
+    if (!draft || !managers) return [];
+    const managerIds = Object
+      .keys(draft.draft_order)
+      .sort((a, b) => draft.draft_order[a] - draft.draft_order[b]);
+    return managerIds.map(id => managers[id]);
   }
 }

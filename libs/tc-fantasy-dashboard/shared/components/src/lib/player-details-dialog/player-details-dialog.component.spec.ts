@@ -23,6 +23,6 @@ describe('PlayerDetailsDialogComponent', () => {
   });
 
   it('should calculate player height correctly', () => {
-    expect(component.playerHeight).toBe(`6'2"`);
+    expect(component.playerHeight()).toBe(`6'2"`);
   });
 });

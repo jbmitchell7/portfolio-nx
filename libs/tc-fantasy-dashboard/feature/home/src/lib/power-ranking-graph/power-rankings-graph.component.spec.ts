@@ -30,6 +30,5 @@ describe('GraphComponent', () => {
 
     expect(component.chartData).toBeDefined();
     expect(component.chartOptions).toBeDefined();
-    expect(component.isLoading).toBeFalsy();
   });
 });
