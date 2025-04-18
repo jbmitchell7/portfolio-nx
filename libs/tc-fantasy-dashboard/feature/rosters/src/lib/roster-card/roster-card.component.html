@@ -44,11 +44,11 @@
         (keydown.enter)="openPlayerDetailsDialog(player)"
         [tabindex]="+player.player_id"
       >
-        <fd-position-badge [position]="player.position" [sport]="league.sport" />
+        <fd-position-badge [position]="player.position" />
         <p>{{player.full_name}}</p>
       </div>
     }
   </div>
 </ng-template>
 
-<fd-player-details-dialog [player]="selectedPlayer" />
+<fd-player-details-dialog [(player)]="selectedPlayer" />

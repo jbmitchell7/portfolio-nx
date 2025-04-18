@@ -1,3 +1,28 @@
-<p-dialog [(visible)]="visible" [modal]="true">
-  <p>{{player()?.full_name}}</p>
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '30vw' }"
+  [breakpoints]="{ '1200px': '40vw', '760px': '90vw' }"
+  (onHide)="resetPlayer()"
+>
+  @if (player()) {
+    <ng-template #header>
+      <div class="flex flex-col items-start gap-2">
+        <h3>{{player().full_name}}</h3>
+        <div class="flex items-center gap-2">
+          <fd-position-badge [position]="player().position" />
+          <h5>#{{player().number}}</h5>
+          <h5>{{player().team}}</h5>
+        </div>
+      </div>
+    </ng-template>
+    <p class="font-bold text-md">Age: <span class="font-normal pl-1">{{player().age}}</span></p>
+    @if (player().sport !== 'lcs') {
+      <p class="font-bold text-md">Years of Experience: <span class="pl-1 font-normal">{{player().years_exp}}</span></p>
+      <p class="font-bold text-md">High School: <span class="pl-1 font-normal">{{player().high_school}}</span></p>
+      <p class="font-bold text-md">College: <span class="pl-1 font-normal">{{player().college}}</span></p>
+      <p class="font-bold text-md">Height: <span class="pl-1 font-normal">{{playerHeight}}</span></p>
+      <p class="font-bold text-md">Weight: <span class="pl-1 font-normal">{{player().weight}}lbs</span></p>
+    }
+  }
 </p-dialog>

@@ -10,5 +10,13 @@ export const mockPlayer: Player = {
   player_id: "0",
   sport: "N/A",
   position: "Flex",
-  active: true
+  active: true,
+  age: 0,
+  depth_chart_order: 0,
+  years_exp: 0,
+  high_school: "",
+  height: 0,
+  number: 0,
+  weight: 0,
+  college: ""
 };

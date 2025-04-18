@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { League, Manager, Player, Roster } from '@tc-fantasy-dashboard/shared/interfaces';
 import { getManager } from '@tc-fantasy-dashboard/shared/utils';
@@ -28,7 +28,7 @@ export class RosterCardComponent implements OnInit {
   starters!: Player[];
   bench!: Player[];
   taxi!: Player[];
-  selectedPlayer!: Player;
+  selectedPlayer = signal<Player>(mockPlayer);
 
   ngOnInit(): void {
     this.manager = getManager(this.league, this.roster.roster_id) ?? ({} as Manager);
@@ -48,6 +48,6 @@ export class RosterCardComponent implements OnInit {
   }
 
   openPlayerDetailsDialog(player: Player): void {
-    this.selectedPlayer = player;
+    this.selectedPlayer.set(player);
   }
 }
