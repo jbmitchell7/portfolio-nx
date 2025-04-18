@@ -32,6 +32,7 @@ export class PowerRankingsGraphComponent {
 
   constructor() {
     effect(() => {
+      if (!this.standingsData()?.length) return;
       this.isLoading = true;
       this.#getRadiusRange(this.standingsData());
       const data: ChartData[] = this.standingsData().map(team => ({

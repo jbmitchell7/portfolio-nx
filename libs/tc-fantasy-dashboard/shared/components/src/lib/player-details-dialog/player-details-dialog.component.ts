@@ -16,6 +16,7 @@ export class PlayerDetailsDialogComponent {
 
   constructor() {
     effect(() => {
+      if (!this.player()) return;
       this.playerHeight = this.#getPlayerHeight(this.player().height);
     });
   }

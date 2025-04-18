@@ -14,6 +14,7 @@ export class DraftOrderComponent {
 
   constructor() {
     effect(() => {
+      if (!this.league()) return;
       const managers = this.league().managers
       const draft = this.league().draft;
       if (draft && managers) {
