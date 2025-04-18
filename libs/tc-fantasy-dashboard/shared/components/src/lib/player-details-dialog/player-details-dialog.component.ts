@@ -1,9 +1,8 @@
-import { Component, effect, model, signal } from '@angular/core';
+import { Component, computed, input, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Player } from '@tc-fantasy-dashboard/shared/interfaces';
 import { DialogModule } from 'primeng/dialog';
 import { PositionBadgeComponent } from "../position-badge/position-badge.component";
-import { mockPlayer } from '@tc-fantasy-dashboard/shared/mock-data';
 
 @Component({
   selector: 'fd-player-details-dialog',
@@ -11,22 +10,12 @@ import { mockPlayer } from '@tc-fantasy-dashboard/shared/mock-data';
   templateUrl: './player-details-dialog.component.html',
 })
 export class PlayerDetailsDialogComponent {
-  player = model<Player>(mockPlayer);
-  readonly visible = signal<boolean>(false);
-  playerHeight!: string;
-
-  constructor() {
-    effect(() => {
-      this.visible.set(this.player().age !== 0);
-      this.playerHeight = this.#getPlayerHeight(this.player().height);
-    });
-  }
-
-  resetPlayer(): void {
-    this.player.set(mockPlayer);
-  }
+  readonly player = input.required<Player>();
+  readonly visible = model<boolean>(false);
+  readonly playerHeight = computed(() => this.#getPlayerHeight(this.player().height));
 
   #getPlayerHeight(height: number): string {
+    if (!this.player()) return '';
     const feet = Math.floor(height / 12);
     const inches = height % 12;
     return `${feet}'${inches}"`;

@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DraftOrderComponent } from './draft-order.component';
 import { mockDraft, mockLeague, mockManager } from '@tc-fantasy-dashboard/shared/mock-data';
+import { ComponentRef } from '@angular/core';
 
 describe('DraftOrderComponent', () => {
   let component: DraftOrderComponent;
+  let componentRef: ComponentRef<DraftOrderComponent>;
   let fixture: ComponentFixture<DraftOrderComponent>;
 
   beforeEach(async () => {
@@ -13,15 +15,11 @@ describe('DraftOrderComponent', () => {
 
     fixture = TestBed.createComponent(DraftOrderComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    componentRef = fixture.componentRef;
   });
 
   it('should initialize managersList based on league input', () => {
-    component.league = {
+    componentRef.setInput('league', {
       ...mockLeague,
       managers: {
         '1': {
@@ -40,14 +38,14 @@ describe('DraftOrderComponent', () => {
           '2': 1,
         },
       },
-    }
-    component.ngOnChanges();
+    });
+    fixture.detectChanges();
 
-    expect(component.managersList.length).toEqual(2);
+    expect(component.managersList().length).toEqual(2);
   });
 
   it('should handle empty draft_order gracefully', () => {
-    component.league = {
+    componentRef.setInput('league', {
       ...mockLeague,
       managers: {
         '1': {
@@ -63,9 +61,9 @@ describe('DraftOrderComponent', () => {
         ...mockDraft,
         draft_order: {},
       },
-    }
-    component.ngOnChanges();
+    });
+    fixture.detectChanges();
 
-    expect(component.managersList).toEqual([]);
+    expect(component.managersList()).toEqual([]);
   });
 });

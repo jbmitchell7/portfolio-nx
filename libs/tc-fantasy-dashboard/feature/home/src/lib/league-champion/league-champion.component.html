@@ -1,7 +1,9 @@
 <div class="flex items-center justify-evenly">
   <img src="icons/icon-512x512.png" alt="trophy icon" class="h-20" />
-  <div class="flex items-center gap-2">
-    <img [src]="champAvatar" alt="champion avatar" class="w-10 rounded-md"/>
-    <h5>{{champName}}</h5>
-  </div>
+  @if (champion()?.display_name) {
+    <div class="flex items-center gap-2">
+      <img [src]="champion()?.avatarUrl" alt="champion avatar" class="w-10 rounded-md"/>
+      <h5>{{champion()?.metadata?.team_name ?? champion()?.display_name}}</h5>
+    </div>
+  }
 </div>

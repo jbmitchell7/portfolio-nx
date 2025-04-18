@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
@@ -7,6 +7,6 @@ import { PanelModule } from 'primeng/panel';
   templateUrl: './section-wrapper.component.html'
 })
 export class SectionWrapperComponent {
-  @Input({required: true}) id!: string;
-  @Input({required: true}) header!: string;
+  readonly id = input.required<string>();
+  readonly header = input.required<string>();
 }

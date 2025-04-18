@@ -1,28 +1,24 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { League } from '@tc-fantasy-dashboard/shared/interfaces';
+import { League, Manager } from '@tc-fantasy-dashboard/shared/interfaces';
 
 @Component({
   selector: 'fd-league-champion',
   imports: [CommonModule],
   templateUrl: './league-champion.component.html',
 })
-export class LeagueChampionComponent implements OnChanges {
-  @Input({required: true}) league!: League;
-  
-  champAvatar?: string;
-  champName?: string;
+export class LeagueChampionComponent {
+  readonly league = input.required<League>();
+  readonly champion = computed<Manager | null>(() => this.#getChampion());
 
-  ngOnChanges(): void {
-    const champRosterId = this.league.metadata?.latest_league_winner_roster_id;
-    if (this.league.rosters && champRosterId) {
-      const champUserId = Object.keys(this.league.rosters).find(id => this.league.rosters?.[id].roster_id === +champRosterId);
-      if (champUserId) {
-        const champ = this.league.managers?.[champUserId]
-        this.champName = champ?.metadata.team_name ?? champ?.display_name;
-        this.champAvatar = champ?.avatarUrl;
-      }
-    }
-    
+  #getChampion(): Manager | null {
+    const rosters = this.league()?.rosters;
+    if (!rosters) return null;
+
+    const champRosterId = this.league().metadata?.latest_league_winner_roster_id;
+    const champUserId = Object.keys(rosters).find(id => rosters[id]?.roster_id === +champRosterId);
+    if (!champUserId) return null;
+
+    return this.league().managers?.[champUserId] ?? null;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { League, Manager, Player, Roster } from '@tc-fantasy-dashboard/shared/interfaces';
 import { getManager } from '@tc-fantasy-dashboard/shared/utils';
@@ -19,35 +19,36 @@ import { sortPlayersByPosition } from '@tc-fantasy-dashboard/shared/utils';
 ],
   templateUrl: './roster-card.component.html'
 })
-export class RosterCardComponent implements OnInit {
-  @Input({required: true}) roster!: Roster;
-  @Input({required: true}) players!: Record<string, Player>;
-  @Input({required: true}) league!: League;
+export class RosterCardComponent {
+  readonly roster = input.required<Roster>();
+  readonly players = input.required<Record<string, Player>>();
+  readonly league = input.required<League>();
 
-  manager!: Manager;
-  starters!: Player[];
-  bench!: Player[];
-  taxi!: Player[];
-  selectedPlayer = signal<Player>(mockPlayer);
+  readonly manager = computed<Manager>(() => getManager(this.league(), this.roster().roster_id) ?? ({} as Manager));
+  readonly starters = computed<Player[]>(() => this.#getPlayerDataList(this.roster().starters));
+  readonly bench = computed<Player[]>(() => this.#getBench());
+  readonly taxi = computed<Player[]>(() => (
+    this.#getPlayerDataList(this.roster().taxi)
+      .sort((a, b) => sortPlayersByPosition(a, b, this.league().sport))
+  ));
 
-  ngOnInit(): void {
-    this.manager = getManager(this.league, this.roster.roster_id) ?? ({} as Manager);
+  selectedPlayer!: Player;
+  dialogVisible = signal(false);
 
-    const benchedIds = this.roster.players
-      .filter(playerId => !this.roster.starters.includes(playerId) && !this.roster.taxi.includes(playerId));
+  #getBench(): Player[] {
+    const benchedIds = this.roster().players
+      .filter(playerId => !this.roster().starters.includes(playerId) && !this.roster().taxi.includes(playerId));
 
-    this.bench = this.#getPlayerDataList(benchedIds)
-      .sort((a, b) => sortPlayersByPosition(a, b, this.league.sport));
-    this.taxi = this.#getPlayerDataList(this.roster.taxi)
-      .sort((a, b) => sortPlayersByPosition(a, b, this.league.sport));
-    this.starters = this.#getPlayerDataList(this.roster.starters);
+    return this.#getPlayerDataList(benchedIds)
+      .sort((a, b) => sortPlayersByPosition(a, b, this.league().sport));
   }
-
+ 
   #getPlayerDataList(playerIds: string[]): Player[] {
-    return playerIds.map(playerId => this.players[playerId] ?? mockPlayer);
+    return playerIds.map(playerId => this.players()[playerId] ?? mockPlayer);
   }
 
   openPlayerDetailsDialog(player: Player): void {
-    this.selectedPlayer.set(player);
+    this.selectedPlayer = player;
+    this.dialogVisible.set(true);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, inject, input, OnDestroy, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DividerModule } from 'primeng/divider';
@@ -22,8 +22,8 @@ import { filter, Subscription, tap } from 'rxjs';
     styleUrl: './weekly-transactions.component.css'
 })
 export class WeeklyTransactionsComponent implements OnInit, OnDestroy {
-  @Input({required: true}) league!: League;
-  @Input({required: true}) weekNumber!: number;
+  readonly league = input.required<League>();
+  readonly weekNumber = input.required<number>();
 
   readonly #leagueInitService = inject(LeagueInitService);
   #loadingSub!: Subscription;
@@ -36,7 +36,7 @@ export class WeeklyTransactionsComponent implements OnInit, OnDestroy {
         tap(loading => this.isLoading = loading),
         filter(loading => !loading),
         tap(() => {
-          const transactions = this.league.transactions?.[this.weekNumber] ?? ([] as Transaction[]);
+          const transactions = this.league().transactions?.[this.weekNumber()] ?? ([] as Transaction[]);
           this.#getRosterMoves(transactions);
         })
       )
@@ -54,15 +54,15 @@ export class WeeklyTransactionsComponent implements OnInit, OnDestroy {
     }
     const missingPlayers: string[] = [];
     const updatedRosterMoves = transactions.map((t) => {
-      const rosterMoves = getRosterMoves(t, this.league);
+      const rosterMoves = getRosterMoves(t, this.league());
       this.#checkForMissingPlayers(rosterMoves, missingPlayers);
       return rosterMoves;
     });
     if (missingPlayers.length) {
       this.#leagueInitService.getPlayers(
         missingPlayers,
-        this.league.sport,
-        this.league
+        this.league().sport,
+        this.league()
       );
     } else {
       this.rosterMoves = updatedRosterMoves.slice(0, 9);

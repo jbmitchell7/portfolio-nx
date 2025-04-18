@@ -2,33 +2,33 @@
   <ng-template #header>
     <div class="flex items-center">
       <img
-        [src]="manager.avatarUrl"
+        [src]="manager().avatarUrl"
         alt="Logo"
         class="w-8 rounded-md"
       />
-      <span class="pl-2 text-lg font-semibold">{{ manager.metadata.team_name ?? manager.display_name }}</span>
+      <span class="pl-2 text-lg font-semibold">{{ manager().metadata.team_name ?? manager().display_name }}</span>
     </div>
   </ng-template>
   <p-accordion multiple="true" [value]="['s']">
     <p-accordion-panel value="s">
       <p-accordion-header>Starters</p-accordion-header>
       <p-accordion-content>
-        <ng-container *ngTemplateOutlet="listContent; context: {list: starters}"></ng-container>
+        <ng-container *ngTemplateOutlet="listContent; context: {list: starters()}"></ng-container>
       </p-accordion-content>
     </p-accordion-panel>
-    @if (bench.length) {
+    @if (bench().length) {
       <p-accordion-panel value="b">
         <p-accordion-header>Bench</p-accordion-header>
         <p-accordion-content>
-          <ng-container *ngTemplateOutlet="listContent; context: {list: bench}"></ng-container>
+          <ng-container *ngTemplateOutlet="listContent; context: {list: bench()}"></ng-container>
         </p-accordion-content>
       </p-accordion-panel>
     }
-    @if (taxi.length) {
+    @if (taxi().length) {
       <p-accordion-panel value="t">
         <p-accordion-header>Taxi</p-accordion-header>
         <p-accordion-content>
-          <ng-container *ngTemplateOutlet="listContent; context: {list: taxi}"></ng-container>
+          <ng-container *ngTemplateOutlet="listContent; context: {list: taxi()}"></ng-container>
         </p-accordion-content>
       </p-accordion-panel>
     }
@@ -51,4 +51,4 @@
   </div>
 </ng-template>
 
-<fd-player-details-dialog [(player)]="selectedPlayer" />
+<fd-player-details-dialog [player]="selectedPlayer" [(visible)]="dialogVisible" />

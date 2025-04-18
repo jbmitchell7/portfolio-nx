@@ -1,7 +1,7 @@
-<p-menubar [model]="menuItems">
-  @if (logoPath) {
+<p-menubar [model]="menuItems()">
+  @if (logoPath()) {
     <ng-template #start>
-      <img [src]="logoPath" alt="logo" class="h-8" />
+      <img [src]="logoPath()" alt="logo" class="h-8" />
     </ng-template>
   }
   <ng-template #end>

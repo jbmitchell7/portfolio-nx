@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,45 +7,35 @@ import { CommonModule } from '@angular/common';
   templateUrl: './position-badge.component.html',
   styleUrl: './position-badge.component.css',
 })
-export class PositionBadgeComponent implements OnInit {
-  @Input() position?: string;
+export class PositionBadgeComponent {
+  readonly position = input<string>();
+  readonly backgroundColor = computed<string>(() => this.#getBadgeColor());
 
-  backgroundColor!: string;
-
-  ngOnInit(): void {
-    this.#getBadgeColor();
-  }
-
-  #getBadgeColor(): void {
+  #getBadgeColor(): string {
     // first position is NFL, second is NBA, third is LOL, default is DEF (aka Team) for all
-    switch (this.position) {
+    switch (this.position()) {
       case 'QB':
       case 'C':
       case 'TOP':
-        this.backgroundColor = 'red';
-        break;
+        return 'red';
       case 'RB':
       case 'PF':
       case 'JUN':
-        this.backgroundColor = 'orange';
-        break;
+        return 'orange';
       case 'WR':
       case 'SF':
       case 'MID':
-        this.backgroundColor = 'blue';
-        break;
+        return 'blue';
       case 'TE':
       case 'SG':
       case 'ADC':
-        this.backgroundColor = 'lime';
-        break;
+        return 'lime';
       case 'K':
       case 'PG':
       case 'SUP':
-        this.backgroundColor = 'pink';
-        break;
+        return 'pink';
       default:
-        this.backgroundColor = 'violet';
+        return 'violet';
     }
   }
 }

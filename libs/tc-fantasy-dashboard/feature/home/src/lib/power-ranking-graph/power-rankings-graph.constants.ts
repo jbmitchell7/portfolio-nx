@@ -1,3 +1,12 @@
+export interface ChartData {
+  x: number;
+  y: number;
+  r: number;
+  manager: string;
+  points: number;
+  losses: number;
+}
+
 export const TITLE_TEXT = 'Team/Manager Trends';
 
 export const SUBTITLE_TEXT = [
@@ -31,3 +40,59 @@ export const GRAPH_COLORS = [
   '#ffffff',
   '#000000'
 ];
+
+const SCALE_BORDER = {
+  grid: {
+    color: 'white',
+  }
+};
+
+const AXIS_TITLE = {
+  display: true,
+  font: {
+    weight: 'bold'
+  }
+};
+
+export const DEFAULT_CHART_OPTIONS = {
+  layout: {
+    padding: {
+      top: 20,
+      bottom: 20
+    }
+  },
+  scales: {
+    y: {
+      ...SCALE_BORDER,
+      min: 0,
+      title: {
+        ...AXIS_TITLE,
+        text: 'Wins'
+      }
+    },
+    x: {
+      ...SCALE_BORDER,
+      title: {
+        ...AXIS_TITLE,
+        text: 'Max Points',
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      display: false
+    },
+    tooltip: {
+      displayColors: false,
+      callbacks: {
+        label: (context: any) => {
+          const team = context.dataset.data[context.dataIndex];
+          const points = team.points;
+          const max = team.x;
+          const record = `${team.y}-${team.losses}`
+          return [`Points: ${points}`, `Max Points: ${max}`, `Record: ${record}`];
+        }
+      }
+    }
+  }
+};
