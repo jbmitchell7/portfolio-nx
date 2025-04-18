@@ -25,7 +25,7 @@ describe('RosterCardComponent', () => {
   });
 
   it('should get Manager', () => {
-    expect(component.manager.user_id).toEqual(mockManager.user_id);
+    expect(component.manager().user_id).toEqual(mockManager.user_id);
   });
 
   it('should initialize starters, bench, and taxi players correctly', () => {
@@ -39,12 +39,12 @@ describe('RosterCardComponent', () => {
   });
 
   it('should sort bench players by position', () => {
-    const benchPositions = component.bench.map(player => player.position);
+    const benchPositions = component.bench().map(player => player.position);
     expect(benchPositions).toEqual([...benchPositions].sort());
   });
 
   it('should sort taxi players by position', () => {
-    const taxiPositions = component.taxi.map(player => player.position);
+    const taxiPositions = component.taxi().map(player => player.position);
     expect(taxiPositions).toEqual([...taxiPositions].sort());
   });
 });

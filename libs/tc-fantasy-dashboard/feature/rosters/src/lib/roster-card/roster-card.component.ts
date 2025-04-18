@@ -1,4 +1,4 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { League, Manager, Player, Roster } from '@tc-fantasy-dashboard/shared/interfaces';
 import { getManager } from '@tc-fantasy-dashboard/shared/utils';
@@ -19,31 +19,30 @@ import { sortPlayersByPosition } from '@tc-fantasy-dashboard/shared/utils';
 ],
   templateUrl: './roster-card.component.html'
 })
-export class RosterCardComponent implements OnInit {
+export class RosterCardComponent {
   readonly roster = input.required<Roster>();
   readonly players = input.required<Record<string, Player>>();
   readonly league = input.required<League>();
 
-  manager!: Manager;
-  starters!: Player[];
-  bench!: Player[];
-  taxi!: Player[];
+  readonly manager = computed<Manager>(() => getManager(this.league(), this.roster().roster_id) ?? ({} as Manager));
+  readonly starters = computed<Player[]>(() => this.#getPlayerDataList(this.roster().starters));
+  readonly bench = computed<Player[]>(() => this.#getBench());
+  readonly taxi = computed<Player[]>(() => (
+    this.#getPlayerDataList(this.roster().taxi)
+      .sort((a, b) => sortPlayersByPosition(a, b, this.league().sport))
+  ));
+
   selectedPlayer!: Player;
   dialogVisible = signal(false);
 
-  ngOnInit(): void {
-    this.manager = getManager(this.league(), this.roster().roster_id) ?? ({} as Manager);
-
+  #getBench(): Player[] {
     const benchedIds = this.roster().players
       .filter(playerId => !this.roster().starters.includes(playerId) && !this.roster().taxi.includes(playerId));
 
-    this.bench = this.#getPlayerDataList(benchedIds)
+    return this.#getPlayerDataList(benchedIds)
       .sort((a, b) => sortPlayersByPosition(a, b, this.league().sport));
-    this.taxi = this.#getPlayerDataList(this.roster().taxi)
-      .sort((a, b) => sortPlayersByPosition(a, b, this.league().sport));
-    this.starters = this.#getPlayerDataList(this.roster().starters);
   }
-
+ 
   #getPlayerDataList(playerIds: string[]): Player[] {
     return playerIds.map(playerId => this.players()[playerId] ?? mockPlayer);
   }
