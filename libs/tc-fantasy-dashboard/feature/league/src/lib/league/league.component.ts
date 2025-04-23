@@ -2,13 +2,14 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '@shared-global/ui';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { filter, Subscription, tap, combineLatest } from 'rxjs';
 import { MENU_ROUTES } from '../league-menu-items';
 import { League } from '@tc-fantasy-dashboard/shared/interfaces';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { IconAttributionComponent } from '@tc-fantasy-dashboard/shared/components';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'fd-league',
@@ -18,11 +19,14 @@ import { IconAttributionComponent } from '@tc-fantasy-dashboard/shared/component
     IconAttributionComponent,
     NavbarComponent,
     ProgressSpinnerModule,
-    RouterModule
+    RouterModule,
+    ConfirmDialogModule
   ],
+  providers: [ConfirmationService],
 })
 export class LeagueComponent implements OnInit, OnDestroy {
   readonly #leagueInitService = inject(LeagueInitService);
+  readonly #confirmationService = inject(ConfirmationService);
   #sub!: Subscription;
 
   menuItems!: MenuItem[];
@@ -32,7 +36,6 @@ export class LeagueComponent implements OnInit, OnDestroy {
   isLoading = true;
 
   ngOnInit(): void {
-
     this.#sub = combineLatest([
       this.#leagueInitService.selectedLeague$,
       this.#leagueInitService.isLoading$,
@@ -132,7 +135,19 @@ export class LeagueComponent implements OnInit, OnDestroy {
   }
 
   #resetLeague(): void {
-    this.#leagueInitService.resetLeagueState();
+    this.#confirmationService.confirm({
+      message: 'Are you sure?',
+      header: 'Change League',
+      acceptButtonProps: {
+        severity: 'success'
+      },
+      rejectButtonProps: {
+        severity: 'danger'
+      },
+      accept: () => {
+        this.#leagueInitService.resetLeagueState();
+      },
+    });
   }
 
   #setNextSeason(league: League): void {
