@@ -17,9 +17,9 @@
                 </div>
                 <div class="flex items-start justify-between">
                   @for (add of m.adds; track $index) {
-                    <div class="flex items-center">
+                    <div class="flex items-center pb-1">
                       <i ngClass="fa-solid fa-plus add pr-2"></i>
-                      <p>{{add?.full_name ?? add.player_id}}</p>
+                      <fd-player-info [player]="add" />
                     </div>
                     @if (m.waiverBid) {
                       <p>Bid: ${{m.waiverBid}}</p>
@@ -27,9 +27,9 @@
                   }
 
                   @for (drop of m.drops; track $index) {
-                    <div class="flex items-center">
+                    <div class="flex items-center pb-1">
                       <i ngClass="fa-solid fa-minus drop pr-2"></i>
-                      <p>{{drop?.full_name ?? drop.player_id}}</p>
+                      <fd-player-info [player]="drop" />
                     </div>
                   }
                 </div>
@@ -51,9 +51,9 @@
                   </div>
                   <div class="flex flex-col w-5/12">
                     @for (add of m.adds; track $index) {
-                      <div class="flex items-center flex-wrap">
+                      <div class="flex items-center flex-wrap pb-1">
                         <i ngClass="fa-solid fa-plus add pr-2"></i>
-                        <p>{{add?.full_name ?? add.player_id}}</p>
+                        <fd-player-info [player]="add" />
                       </div>
                     }
                     @for (pick of m.picksAdded; track $index) {
