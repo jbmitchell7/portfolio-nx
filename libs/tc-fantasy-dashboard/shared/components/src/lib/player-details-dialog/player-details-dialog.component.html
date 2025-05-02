@@ -23,5 +23,20 @@
       <p class="font-bold text-md">Height: <span class="pl-1 font-normal">{{playerHeight()}}</span></p>
       <p class="font-bold text-md">Weight: <span class="pl-1 font-normal">{{player().weight}}lbs</span></p>
     }
+    @if (player().depth_chart_order) {
+      <p class="font-bold text-md">Depth Chart: <span class="pl-1 font-normal">{{depthChartPosition()}}</span></p>
+    }
+    @if (player().fantasy_positions.length > 1) {
+      <p class="font-bold text-md">Fantasy Positions:
+        <span class="font-normal pl-1">
+          @for(position of this.player().fantasy_positions; track $index; let last = $last) {
+            {{position}}
+            @if (!last) {
+              <span>,</span>
+            }
+          }
+        </span>
+      </p>
+    }
   }
 </p-dialog>
