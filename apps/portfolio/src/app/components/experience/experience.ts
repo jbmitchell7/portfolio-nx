@@ -30,7 +30,7 @@ interface Work {
 export const work: Work[] = [
   {
     title: "Software Developer",
-    dates: "September 2023-Present",
+    dates: "September 2022-Present",
     description: "Full stack development on enterprise-level software primarily working in Angular"
   },
   {
