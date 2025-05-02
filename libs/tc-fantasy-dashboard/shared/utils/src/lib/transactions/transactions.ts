@@ -38,8 +38,8 @@ const getMoveData = (
   manager: Manager | undefined
 ): RosterMove => {
   const result: RosterMove = {
-    adds: [] as Partial<Player>[],
-    drops: [] as Partial<Player>[],
+    adds: [] as Player[],
+    drops: [] as Player[],
     manager,
     type: transaction.type,
     waiverBid: transaction.settings?.waiver_bid,
@@ -49,7 +49,7 @@ const getMoveData = (
     Object.keys(transaction.adds).forEach((key) => {
       if (transaction.adds?.[+key] === id) {
         result.adds.push(
-          league.players?.[key] ?? ({ player_id: key } as Partial<Player>)
+          league.players?.[key] ?? ({ player_id: key } as Player)
         );
       }
     });
@@ -57,7 +57,7 @@ const getMoveData = (
   if (transaction.drops !== null) {
     Object.keys(transaction.drops).forEach((key) => {
       if (transaction.drops?.[+key] === id) {
-        result.drops.push(league.players?.[key] ?? { player_id: key });
+        result.drops.push(league.players?.[key] ?? { player_id: key } as Player);
       }
     });
   }

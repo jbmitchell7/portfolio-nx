@@ -13,6 +13,7 @@ export class PlayerDetailsDialogComponent {
   readonly player = input.required<Player>();
   readonly visible = model<boolean>(false);
   readonly playerHeight = computed(() => this.#getPlayerHeight(this.player().height));
+  readonly depthChartPosition = computed(() => `${this.player().position}${this.player().depth_chart_order}`);
 
   #getPlayerHeight(height: number): string {
     if (!this.player()) return '';

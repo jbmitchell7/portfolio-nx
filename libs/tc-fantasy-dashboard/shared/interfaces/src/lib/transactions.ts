@@ -37,8 +37,8 @@ export enum TransactionType {
 }
 
 export interface RosterMove {
-  adds: Partial<Player>[],
-  drops: Partial<Player>[],
+  adds: Player[],
+  drops: Player[],
   manager: Manager | undefined,
   type: string,
   waiverBid?: number,

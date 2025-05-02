@@ -1,21 +1,20 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { League, Manager, Player, Roster } from '@tc-fantasy-dashboard/shared/interfaces';
 import { getManager } from '@tc-fantasy-dashboard/shared/utils';
-import { PlayerDetailsDialogComponent, PositionBadgeComponent } from '@tc-fantasy-dashboard/shared/components';
 import { mockPlayer } from '@tc-fantasy-dashboard/shared/mock-data';
 import { AccordionModule } from 'primeng/accordion';
 import { PanelModule } from 'primeng/panel';
 import { sortPlayersByPosition } from '@tc-fantasy-dashboard/shared/utils';
+import { PlayerInfoComponent } from '@tc-fantasy-dashboard/shared/components';
 
 @Component({
   selector: 'fd-roster-card',
   imports: [
     CommonModule,
     AccordionModule,
-    PositionBadgeComponent,
     PanelModule,
-    PlayerDetailsDialogComponent
+    PlayerInfoComponent
 ],
   templateUrl: './roster-card.component.html'
 })
@@ -32,9 +31,6 @@ export class RosterCardComponent {
       .sort((a, b) => sortPlayersByPosition(a, b, this.league().sport))
   ));
 
-  selectedPlayer!: Player;
-  dialogVisible = signal(false);
-
   #getBench(): Player[] {
     const benchedIds = this.roster().players
       .filter(playerId => !this.roster().starters.includes(playerId) && !this.roster().taxi.includes(playerId));
@@ -45,10 +41,5 @@ export class RosterCardComponent {
  
   #getPlayerDataList(playerIds: string[]): Player[] {
     return playerIds.map(playerId => this.players()[playerId] ?? mockPlayer);
-  }
-
-  openPlayerDetailsDialog(player: Player): void {
-    this.selectedPlayer = player;
-    this.dialogVisible.set(true);
   }
 }

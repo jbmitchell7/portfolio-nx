@@ -4,7 +4,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DividerModule } from 'primeng/divider';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { League, Player, RosterMove, Transaction } from '@tc-fantasy-dashboard/shared/interfaces';
-import { LoadingComponent } from '@tc-fantasy-dashboard/shared/components';
+import { LoadingComponent, PlayerInfoComponent } from '@tc-fantasy-dashboard/shared/components';
 import { getRosterMoves } from '@tc-fantasy-dashboard/shared/utils';
 import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { filter, Subscription, tap } from 'rxjs';
@@ -16,7 +16,8 @@ import { filter, Subscription, tap } from 'rxjs';
       ProgressSpinnerModule,
       DividerModule,
       ScrollPanelModule,
-      LoadingComponent
+      LoadingComponent,
+      PlayerInfoComponent
     ],
     templateUrl: './weekly-transactions.component.html',
     styleUrl: './weekly-transactions.component.css'

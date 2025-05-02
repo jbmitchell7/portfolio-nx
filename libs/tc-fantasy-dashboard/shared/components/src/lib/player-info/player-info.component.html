@@ -1,0 +1,16 @@
+@if (!player().full_name) {
+  <p>{{player().player_id}}</p>
+} @else {
+  <div
+    class="flex items-center gap-2 cursor-pointer"
+    (click)="openPlayerDetailsDialog()"
+    (keydown.enter)="openPlayerDetailsDialog()"
+    [tabindex]="+player().player_id"
+  >
+    <fd-position-badge [position]="player().position" />
+    <p>{{player().full_name}}</p>
+  </div>
+
+  <fd-player-details-dialog [player]="player()" [(visible)]="dialogVisible" />
+}
+
