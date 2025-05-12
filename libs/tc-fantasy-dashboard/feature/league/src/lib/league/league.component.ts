@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '@shared-global/ui';
-import { ConfirmationService, MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { filter, Subscription, tap, combineLatest } from 'rxjs';
 import { MENU_ROUTES } from '../league-menu-items';
 import { League } from '@tc-fantasy-dashboard/shared/interfaces';
@@ -10,6 +10,7 @@ import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { IconAttributionComponent } from '@tc-fantasy-dashboard/shared/components';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'fd-league',
@@ -27,6 +28,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 export class LeagueComponent implements OnInit, OnDestroy {
   readonly #leagueInitService = inject(LeagueInitService);
   readonly #confirmationService = inject(ConfirmationService);
+  readonly #messageService = inject(MessageService);
+  readonly #clipboard = inject(Clipboard);
   #sub!: Subscription;
 
   menuItems!: MenuItem[];
@@ -87,7 +90,7 @@ export class LeagueComponent implements OnInit, OnDestroy {
   }
 
   #getFantasyResources(league: League): MenuItem[] {
-    const resources = [
+    const resources: MenuItem[] = [
       {
         label: 'Sleeper',
         icon: 'fa-solid fa-trophy',
@@ -111,7 +114,7 @@ export class LeagueComponent implements OnInit, OnDestroy {
           icon: 'fa-solid fa-right-left',
           url: `https://www.reddit.com/r/TradeAnalyzerFF/`
         },
-      )
+      );
     }
     if (league.sport === 'nba') {
       resources.push(
@@ -120,7 +123,7 @@ export class LeagueComponent implements OnInit, OnDestroy {
           icon: 'fa-solid fa-share-nodes',
           url: `https://www.reddit.com/r/fantasybball/`
         }
-      )
+      );
     }
     if (league.sport === 'lcs') {
       resources.push(
@@ -129,8 +132,15 @@ export class LeagueComponent implements OnInit, OnDestroy {
           url: `https://www.reddit.com/r/FantasyLCS/`,
           icon: 'fa-solid fa-share-nodes'
         },
-      )
+      );
     }
+    resources.push(
+      {
+        label: 'Copy League Id',
+        icon: 'fa-solid fa-copy',
+        command: () => this.#copyLeagueId(league.league_id),
+      }
+    );
     return resources;
   }
 
@@ -159,5 +169,14 @@ export class LeagueComponent implements OnInit, OnDestroy {
   #setLastSeason(league: League): void {
     localStorage.setItem(league.season, league.league_id);
     this.#leagueInitService.initLeague(league.previous_league_id);
+  }
+
+  #copyLeagueId(leagueId: string): void {
+    this.#clipboard.copy(leagueId);
+    this.#messageService.add({
+      severity: 'success',
+      summary: 'League ID Copied',
+      life: 3000,
+    });
   }
 }
