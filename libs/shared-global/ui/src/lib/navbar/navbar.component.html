@@ -1,4 +1,4 @@
-<p-menubar [model]="menuItems()">
+<p-menubar [model]="menuItems()" [style]="{'border-radius': 0, 'border-left': 0, 'border-right': 0, 'border-top': 0}">
   @if (logoPath()) {
     <ng-template #start>
       <img [src]="logoPath()" alt="logo" class="h-8" />
