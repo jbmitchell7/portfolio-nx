@@ -1,0 +1,26 @@
+{
+  "name": "tc-hit-tracker-be",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/tc-hit-tracker-be/src",
+  "projectType": "application",
+  "tags": ["ht-be-app"],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "tc-hit-tracker-be:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "tc-hit-tracker-be:build:development"
+        },
+        "production": {
+          "buildTarget": "tc-hit-tracker-be:build:production"
+        }
+      }
+    }
+  }
+}
