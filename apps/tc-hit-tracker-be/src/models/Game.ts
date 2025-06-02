@@ -6,10 +6,20 @@ enum Location {
 }
 
 const gameSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
-  gameNumber: { type: Number, required: true },
-  location: {type: Location, required: true},
-  atBats: [{type: mongoose.Schema.Types.ObjectId, ref: 'AtBat', required: true}], 
+  gameNumber: {
+    type: Number,
+    required: true,
+    min: 1,
+  },
+  location: {
+    type: Location,
+    required: true
+  },
+  atBats: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'AtBat',
+    required: true
+  }], 
 });
 
 export const Game = mongoose.model('Game', gameSchema);

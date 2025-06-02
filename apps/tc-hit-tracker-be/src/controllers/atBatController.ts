@@ -17,8 +17,8 @@ router.post('/:gameId', async (req, res) => {
       return res.status(404).json({ error: 'Game not found' });
     }
 
-    const newAtBat = new atBatModel({atBatData, gameId: game._id});
-    newAtBat.save();
+    await atBatModel.create(atBatData);
+    await game.updateOne({ id: gameId }, { $push: { atBats: atBatData } });
     res.status(201).json({ message: 'At-bat created successfully', data: atBatData });
     
   } catch (error) {
