@@ -11,14 +11,17 @@ import {
 import { nthNumber } from '../numbers/numbers';
 
 export const getCurrentTransactionsWeek = (l: League): number => {
+  if (!l.sportState) {
+    return 0;
+  }
   const status = l.status;
   if (status === 'complete') {
     return 18;
   }
-  if (status === 'pre_draft') {
+  if (status === 'pre_draft' || l.sportState.season_type === 'pre') {
     return 1;
   }
-  return l.sportState?.week ?? 0;
+  return l.sportState.week;
 };
 
 export const getRosterMoves = (t: Transaction, league: League) => {

@@ -47,6 +47,11 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "serve": {
+      "options": {
+        "host": "0.0.0.0"
+      }
     }
   },
   "generators": {

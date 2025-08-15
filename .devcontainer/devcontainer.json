@@ -5,6 +5,8 @@
 		"dockerfile": "Dockerfile"
 	},
 
+  "forwardPorts": [3000, 4200],
+
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
