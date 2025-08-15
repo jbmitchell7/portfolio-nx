@@ -26,14 +26,18 @@ export class RosterCardComponent {
   readonly manager = computed<Manager>(() => getManager(this.league(), this.roster().roster_id) ?? ({} as Manager));
   readonly starters = computed<Player[]>(() => this.#getPlayerDataList(this.roster().starters));
   readonly bench = computed<Player[]>(() => this.#getBench());
-  readonly taxi = computed<Player[]>(() => (
-    this.#getPlayerDataList(this.roster().taxi)
-      .sort((a, b) => sortPlayersByPosition(a, b, this.league().sport))
-  ));
+  readonly taxi = computed<Player[]>(() => {
+    const taxi = this.roster().taxi;
+    if (!taxi?.length) {
+      return [];
+    }
+    return this.#getPlayerDataList(taxi)
+      .sort((a, b) => sortPlayersByPosition(a, b, this.league().sport));
+  });
 
   #getBench(): Player[] {
     const benchedIds = this.roster().players
-      .filter(playerId => !this.roster().starters.includes(playerId) && !this.roster().taxi.includes(playerId));
+      .filter(playerId => !this.roster().starters.includes(playerId) && !this.roster().taxi?.includes(playerId));
 
     return this.#getPlayerDataList(benchedIds)
       .sort((a, b) => sortPlayersByPosition(a, b, this.league().sport));

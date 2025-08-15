@@ -15,7 +15,7 @@ export const getCurrentTransactionsWeek = (l: League): number => {
   if (status === 'complete') {
     return 18;
   }
-  if (status === 'pre_draft') {
+  if (status === 'pre_draft' || l.sportState.season_type === 'pre') {
     return 1;
   }
   return l.sportState?.week ?? 0;
