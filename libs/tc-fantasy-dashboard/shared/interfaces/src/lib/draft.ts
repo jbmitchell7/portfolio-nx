@@ -31,3 +31,11 @@ export interface DraftMetadata {
   name: string; // e.g., "My Dynasty"
   description: string; // optional, can be empty
 }
+
+export interface TradedPick {
+  season: string,
+  round: number,
+  roster_id: number,
+  previous_owner_id: number,
+  owner_id: number
+}

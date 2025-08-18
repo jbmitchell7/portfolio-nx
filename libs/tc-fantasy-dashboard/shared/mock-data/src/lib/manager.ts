@@ -1,6 +1,6 @@
-import { Manager } from "@tc-fantasy-dashboard/shared/interfaces";
+import { ManagerRes } from "@tc-fantasy-dashboard/shared/interfaces";
 
-export const mockManager: Manager = {
+export const mockManager: ManagerRes = {
   user_id: "123",
   settings: null,
   metadata: {

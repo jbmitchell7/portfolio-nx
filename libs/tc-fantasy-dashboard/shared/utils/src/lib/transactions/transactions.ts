@@ -3,7 +3,6 @@ import {
   League,
   Manager,
   Player,
-  Roster,
   RosterMove,
   RosterMovePickAdded,
   Transaction,
@@ -74,9 +73,7 @@ export const getManager = (
   league: League,
   rosterId: number
 ): Manager | undefined => {
-  const managerId = Object
-    .keys(league.rosters as Record<string, Roster>)
-    .find((key) => league.rosters?.[key]?.roster_id === rosterId);
+  const managerId = league.rosters?.[rosterId]?.owner_id;
   return managerId ? league.managers?.[managerId] : undefined;
 };
 

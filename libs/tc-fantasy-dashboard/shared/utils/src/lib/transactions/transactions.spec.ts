@@ -60,10 +60,10 @@ describe('getRosterMoves', () => {
         '2': { player_id: '2', name: 'Player 2' },
       },
       rosters: {
-        '1': { roster_id: 1 } as Roster,
+        123: { roster_id: 123, owner_id: '1' } as Roster,
       },
       managers: {
-        '1': { manager_id: 1, name: 'Manager 1' } as unknown as Manager,
+        '1': { manager_id: 1, name: 'Manager 1', roster_id: 123 } as unknown as Manager,
       },
     } as unknown as League;
 

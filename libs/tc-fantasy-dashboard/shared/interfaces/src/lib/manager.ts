@@ -1,4 +1,4 @@
-export interface Manager {
+export interface ManagerRes {
     user_id: string;
     settings: null;
     metadata: {
@@ -9,5 +9,9 @@ export interface Manager {
     is_bot: boolean;
     display_name: string;
     avatar: string
-    avatarUrl?: string;
+}
+
+export interface Manager extends ManagerRes {
+  roster_id: number;
+  avatarUrl?: string;
 }
