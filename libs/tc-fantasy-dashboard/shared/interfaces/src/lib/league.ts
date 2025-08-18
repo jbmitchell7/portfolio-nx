@@ -9,7 +9,7 @@ export interface League extends LeagueResponse {
   currentSeason?: boolean;
   managers?: Record<string, Manager>;
   players?: Record<string, Player>;
-  rosters?: Record<string, Roster>;
+  rosters?: Record<number, Roster>;
   transactions?: Record<string, Transaction[]>;
   draft?: Draft;
 }
