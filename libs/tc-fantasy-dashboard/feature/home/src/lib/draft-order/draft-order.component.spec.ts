@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DraftOrderComponent } from './draft-order.component';
 import { mockDraft, mockLeague, mockManager } from '@tc-fantasy-dashboard/shared/mock-data';
 import { ComponentRef } from '@angular/core';
+import { SleeperApiService } from '@tc-fantasy-dashboard/shared/services';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('DraftOrderComponent', () => {
   let component: DraftOrderComponent;
@@ -11,6 +13,7 @@ describe('DraftOrderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DraftOrderComponent],
+      providers: [SleeperApiService, provideHttpClient()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DraftOrderComponent);

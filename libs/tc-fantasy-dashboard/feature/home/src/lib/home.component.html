@@ -17,7 +17,7 @@
           <p-panel [header]="graphHeader">
             <fd-power-rankings-graph [standingsData]="standingsData" />
           </p-panel>
-        } @else if (league.draft?.draft_order && league.draft?.status !== 'complete') {
+        } @else if (league.draft?.draft_order) {
           <p-panel header="Draft Order">
             <fd-draft-order [league]="league" />
           </p-panel>

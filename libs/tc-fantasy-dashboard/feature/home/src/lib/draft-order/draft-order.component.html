@@ -1,10 +1,13 @@
 <p-scroll-panel styleClass="h-[80vh] lg:h-[54vh]">
   <ul class="flex flex-col gap-3">
-    @for (m of managersList(); let i = $index; track i) {
+    @for (m of managersList(); let i = $index; track m.user_id) {
       <li class="flex items-center gap-2">
         <p>{{i + 1}}.</p>
         <img [src]="m.avatarUrl" alt="manager avatar" class="w-10 rounded-md" />
         <p>{{m.metadata.team_name ?? m.display_name}}</p>
+        @if (tradedPicks[m.user_id]) {
+          <p>owned by: {{tradedPicks[m.user_id].owner_id}}</p>
+        } 
       </li>
     } @empty {
       <li>

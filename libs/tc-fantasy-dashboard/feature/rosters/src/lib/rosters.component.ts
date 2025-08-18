@@ -32,7 +32,7 @@ export class RostersComponent implements OnInit, OnDestroy {
           if (!rosterKeys.length) {
             return;
           }
-          this.rosters = rosterKeys.map(rosterId => selectedLeague.rosters?.[rosterId] as Roster);
+          this.rosters = rosterKeys.map(rosterId => selectedLeague.rosters?.[+rosterId] as Roster);
           this.players = selectedLeague.players ?? {};
         })
       )
