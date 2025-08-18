@@ -1,4 +1,4 @@
-import { Draft } from "@tc-fantasy-dashboard/shared/interfaces";
+import { Draft, TradedPick } from "@tc-fantasy-dashboard/shared/interfaces";
 
 export const mockDraft: Draft = {
   type: "",
@@ -28,4 +28,12 @@ export const mockDraft: Draft = {
   draft_order: {},
   slot_to_roster_id: {},
   draft_id: ""
-}
+};
+
+export const mockTradedPick: TradedPick = {
+  round: 1,
+  roster_id: 1,
+  owner_id: 2,
+  season: "2025",
+  previous_owner_id: 0
+};
