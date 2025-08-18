@@ -5,9 +5,9 @@ export const getStandingsData = (league: League) => {
   if (!league.rosters) {
     return data;
   }
-  Object.keys(league.rosters as Record<string, Roster>).forEach((key) => {
-    const manager = league.managers?.[key] as Manager;
-    const roster = league.rosters?.[key] as Roster;
+  Object.keys(league.rosters as Record<number, Roster>).forEach((key) => {
+    const roster = league.rosters?.[+key] as Roster;
+    const manager = league.managers?.[roster.owner_id] as Manager;
     if (!!manager && !!roster) {
       const streak = roster.metadata?.streak;
       data.push({

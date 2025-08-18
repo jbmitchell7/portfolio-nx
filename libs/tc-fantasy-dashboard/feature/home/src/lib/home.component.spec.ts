@@ -34,7 +34,6 @@ describe('HomeComponent', () => {
 
   it('should create', () => {
     expect(component.league).toEqual(mockLeague);
-    expect(component.rosters).toEqual(mockLeague.rosters);
     expect(component.pageHeader).toEqual('NFL 2023');
   });
 });

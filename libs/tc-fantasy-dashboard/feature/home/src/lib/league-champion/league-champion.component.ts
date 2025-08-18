@@ -16,7 +16,7 @@ export class LeagueChampionComponent {
     if (!rosters) return null;
 
     const champRosterId = this.league().metadata?.latest_league_winner_roster_id;
-    const champUserId = Object.keys(rosters).find(id => rosters[id]?.roster_id === +champRosterId);
+    const champUserId = Object.keys(rosters).find(id => rosters[+id]?.roster_id === +champRosterId);
     if (!champUserId) return null;
 
     return this.league().managers?.[champUserId] ?? null;

@@ -7,10 +7,7 @@ import { WeeklyTransactionsComponent } from './weekly-transactions/weekly-transa
 import { TITLE_TEXT } from './power-ranking-graph/power-rankings-graph.constants';
 import {
   StandingsData,
-  SportState,
-  League,
-  Roster,
-  RosterMove,
+  League
 } from '@tc-fantasy-dashboard/shared/interfaces';
 import {
   getCurrentTransactionsWeek,
@@ -40,13 +37,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   #leagueSub!: Subscription;
 
   standingsData!: StandingsData[];
-  sportState?: SportState;
   league!: League;
-  rosters?: Record<string, Roster>;
   pageHeader!: string;
-  weekTitle!: string;
   weekNumber!: number;
-  rosterMoves: RosterMove[][] = [];
   graphHeader = TITLE_TEXT;
 
   ngOnInit(): void {
@@ -54,8 +47,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(league => {
         this.league = league;
         this.standingsData = getStandingsData(this.league);
-        this.rosters = this.league.rosters;
-        this.sportState = this.league.sportState;
         this.weekNumber = getCurrentTransactionsWeek(this.league);
         this.pageHeader = this.#getPageHeader();
     });

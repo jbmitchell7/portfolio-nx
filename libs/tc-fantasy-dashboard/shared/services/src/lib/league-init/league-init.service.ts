@@ -4,6 +4,7 @@ import {
   League,
   LeagueResponse,
   Manager,
+  ManagerRes,
   Roster,
   Transaction,
 } from '@tc-fantasy-dashboard/shared/interfaces';
@@ -183,15 +184,14 @@ export class LeagueInitService {
         tap(res => {
           localStorage.setItem('CURRENT_LEAGUE_ID', league.league_id);
 
-          const managersRes: Manager[] = res[0] as Manager[];
-          const managersWithAvatars = this.#getManagerAvatars(managersRes);
-          const managerRecords = this.#createRecords(managersWithAvatars,'user_id');
-
+          const managersRes: ManagerRes[] = res[0] as ManagerRes[];
           const rostersRes: Roster[] = res[1] as Roster[];
-          const rosterRecords = this.#createRecords(rostersRes, 'owner_id');
-
           const transactions: Transaction[] = res[2] as Transaction[];
           const draft: Draft = res[3] as Draft;
+
+          const rosterRecords = this.#createRecords(rostersRes, 'roster_id');
+          const fullManagerData = this.#getFullManagerData(managersRes, rostersRes);
+          const managerRecords = this.#createRecords(fullManagerData, 'user_id');
 
           const updatedLeague: League = {
             ...league,
@@ -223,14 +223,17 @@ export class LeagueInitService {
       .subscribe();
   }
 
-  #getManagerAvatars(managers: Manager[]): Manager[] {
+  #getFullManagerData(managers: ManagerRes[], rosters: Roster[]): Manager[] {
     const avatarUrl = 'https://sleepercdn.com/avatars/thumbs';
     const defaultAvatar = '4f4090e5e9c3941414db40a871e3e909';
-    return managers.map((p) => ({
-      ...p,
-      avatarUrl: `${avatarUrl}/${p.avatar ?? defaultAvatar}`,
-      id: p.user_id,
-    }));
+    return managers.map((p) => {
+      const roster = rosters.find((r) => r.owner_id === p.user_id);
+      return {
+        ...p,
+        avatarUrl: `${avatarUrl}/${p.avatar ?? defaultAvatar}`,
+        roster_id: roster?.roster_id ?? 0
+      };
+    });
   }
 
   #createRecords(data: any[], key: string): Record<string, any> {

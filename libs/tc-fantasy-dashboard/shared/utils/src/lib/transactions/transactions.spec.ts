@@ -60,17 +60,17 @@ describe('getRosterMoves', () => {
         '2': { player_id: '2', name: 'Player 2' },
       },
       rosters: {
-        '1': { roster_id: 1 } as Roster,
+        123: { roster_id: 123, owner_id: '1' } as Roster,
       },
       managers: {
-        '1': { manager_id: 1, name: 'Manager 1' } as unknown as Manager,
+        '1': { manager_id: 1, name: 'Manager 1', roster_id: 123 } as unknown as Manager,
       },
     } as unknown as League;
 
     const transaction = {
-      roster_ids: [1],
-      adds: { '1': 1 },
-      drops: { '2': 1 },
+      roster_ids: [123],
+      adds: { '1': 123 },
+      drops: { '2': 123 },
       type: 'trade',
       settings: { waiver_bid: 100 },
     } as unknown as Transaction;
@@ -81,7 +81,7 @@ describe('getRosterMoves', () => {
       {
         adds: [{ player_id: '1', name: 'Player 1' }],
         drops: [{ player_id: '2', name: 'Player 2' }],
-        manager: { manager_id: 1, name: 'Manager 1' },
+        manager: { manager_id: 1, name: 'Manager 1', roster_id: 123 },
         type: 'trade',
         picksAdded: [],
         waiverBid: 100,
@@ -93,17 +93,17 @@ describe('getRosterMoves', () => {
     const league: League = {
       players: {},
       rosters: {
-        '1': { roster_id: 1 } as Roster,
+        123: { roster_id: 123, owner_id: '1' } as Roster,
       },
       managers: {
-        '1': { manager_id: 1, name: 'Manager 1' } as unknown as Manager,
+        '1': { manager_id: 1, name: 'Manager 1', roster_id: 123 } as unknown as Manager,
       },
     } as unknown as League;
 
     const transaction = {
-      roster_ids: [1],
-      adds: { '3': 1 },
-      drops: { '4': 1 },
+      roster_ids: [123],
+      adds: { '3': 123 },
+      drops: { '4': 123 },
       type: 'waiver',
       settings: { waiver_bid: 50 },
     } as unknown as Transaction;
@@ -114,7 +114,7 @@ describe('getRosterMoves', () => {
       {
         adds: [{ player_id: '3' }],
         drops: [{ player_id: '4' }],
-        manager: { manager_id: 1, name: 'Manager 1' },
+        manager: { manager_id: 1, name: 'Manager 1', roster_id: 123 },
         type: 'waiver',
         picksAdded: [],
         waiverBid: 50,

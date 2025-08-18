@@ -10,5 +10,7 @@ export const mockManager: Manager = {
   is_owner: false,
   is_bot: false,
   display_name: "",
-  avatar: ""
+  avatar: "",
+  avatarUrl: "",
+  roster_id: 1
 }
