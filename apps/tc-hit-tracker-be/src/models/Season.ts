@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
+import { gameSchema } from "./Game";
 
 const seasonSchema = new mongoose.Schema({
   year: {
     type: Number,
     required: true,
-    unique: true,
     min: 1900,
   },
   league: {
@@ -15,11 +15,7 @@ const seasonSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  games: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Game',
-    required: true
-  }],
+  games: [gameSchema],
 });
 
-export const Season = mongoose.model('Season', seasonSchema);
+export { seasonSchema };

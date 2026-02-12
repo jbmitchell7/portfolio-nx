@@ -1,33 +1,5 @@
 import mongoose from 'mongoose';
 
-enum PitcherArm {
-  LEFT = 'LEFT',
-  RIGHT = 'RIGHT',
-}
-
-enum LaunchType {
-  LINE_DRIVE = 'LINE_DRIVE',
-  GROUND_BALL = 'GROUND_BALL',
-  FLY_BALL = 'FLY_BALL',
-  BUNT = 'BUNT',
-}
-
-enum Contact {
-  HARD = 'HARD',
-  SOFT = 'SOFT',
-  MEDIUM = 'MEDIUM',
-}
-
-enum PitchType {
-  FASTBALL = 'FASTBALL',
-  CURVEBALL = 'CURVEBALL',
-  SLIDER = 'SLIDER',
-  CHANGEUP = 'CHANGEUP',
-  KNUCKLEBALL = 'KNUCKLEBALL',
-  SPLITTER = 'SPLITTER',
-  OTHER = 'OTHER',
-}
-
 const atBatSchema = new mongoose.Schema({
   gamePANumber: {
     type: Number,
@@ -44,10 +16,11 @@ const atBatSchema = new mongoose.Schema({
     min: 1,
   },
   pitchType: {
-    type: PitchType,
+    type: String,
+    enum: ['FASTBALL', 'CURVEBALL', 'SLIDER', 'CHANGEUP', 'KNUCKLEBALL', 'SPLITTER', 'OTHER'],
     required: true,
     uppercase: true,
-    default: PitchType.FASTBALL
+    default: 'FASTBALL'
   },
   runners: {
     first: {
@@ -67,18 +40,21 @@ const atBatSchema = new mongoose.Schema({
     },
   },
   pitcherArm: {
-    type: PitcherArm,
+    type: String,
+    enum: ['LEFT', 'RIGHT'],
     required: true,
     uppercase: true,
-    default: PitcherArm.RIGHT,
+    default: 'RIGHT',
   },
   launchType: {
-    type: LaunchType,
+    type: String,
+    enum: ['LINE_DRIVE', 'GROUND_BALL', 'FLY_BALL', 'BUNT'],
     required: false,
     uppercase: true,
   },
   contact: {
-    type: Contact,
+    type: String,
+    enum: ['HARD', 'SOFT', 'MEDIUM'],
     required: false,
     uppercase: true,
   },
@@ -101,4 +77,4 @@ const atBatSchema = new mongoose.Schema({
   },
 });
 
-export const AtBat = mongoose.model('AtBat', atBatSchema);
+export { atBatSchema };

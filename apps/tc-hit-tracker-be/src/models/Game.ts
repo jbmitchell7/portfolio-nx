@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
-
-enum Location {
-  HOME = 'HOME',
-  AWAY = 'AWAY'
-}
+import { atBatSchema } from "./AtBat";
 
 const gameSchema = new mongoose.Schema({
   gameNumber: {
@@ -12,14 +8,11 @@ const gameSchema = new mongoose.Schema({
     min: 1,
   },
   location: {
-    type: Location,
+    type: String,
+    enum: ['HOME', 'AWAY'],
     required: true
   },
-  atBats: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'AtBat',
-    required: true
-  }], 
+  atBats: [atBatSchema], 
 });
 
-export const Game = mongoose.model('Game', gameSchema);
+export { gameSchema };
