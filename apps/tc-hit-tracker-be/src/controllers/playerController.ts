@@ -30,7 +30,7 @@ router.post('/:username/:year/:gameNumber', async (req, res) => {
     const atBatData = req.body;
 
     // Find player by name
-    const playerDoc = await playerModel.findOne({ name: username });
+    const playerDoc = await playerModel.findOne({ username });
     if (!playerDoc) {
       return res.status(404).json({ error: 'Player not found' });
     }
