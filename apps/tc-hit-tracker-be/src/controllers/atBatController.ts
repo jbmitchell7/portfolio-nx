@@ -1,25 +1,43 @@
 import express from 'express';
-import { AtBat } from '../models/AtBat';
-import { Game } from '../models/Game';
+import { Player } from '../models/Player';
 
 const router = express.Router();
-const atBatModel = AtBat;
-const gameModel = Game;
+const playerModel = Player;
 
 // post at-bat
-router.post('/:gameId', async (req, res) => {
+router.post('/:player/:year/:gameNumber', async (req, res) => {
   try {
-    const { gameId } = req.params;
+    const { player: playerName, year, gameNumber } = req.params;
     const atBatData = req.body;
 
-    const game = await gameModel.findOne({ id: gameId });
-    if (!game) {
-      return res.status(404).json({ error: 'Game not found' });
+    // Find player by name
+    const playerDoc = await playerModel.findOne({ name: playerName });
+    if (!playerDoc) {
+      return res.status(404).json({ error: 'Player not found' });
     }
 
-    await atBatModel.create(atBatData);
-    await game.updateOne({ id: gameId }, { $push: { atBats: atBatData } });
-    res.status(201).json({ message: 'At-bat created successfully', data: atBatData });
+    // Find season within player's seasons
+    const season = playerDoc.seasons.find(s => s.year === parseInt(year));
+    if (!season) {
+      return res.status(404).json({ error: `Season ${year} not found for player ${playerName}` });
+    }
+
+    // Find game within season's games
+    const game = season.games.find(g => g.gameNumber === parseInt(gameNumber));
+    if (!game) {
+      return res.status(404).json({ error: `Game ${gameNumber} not found in ${year} season` });
+    }
+
+    // Add at-bat to game's atBats array
+    game.atBats.push(atBatData);
+
+    // Save the player document (which updates all nested data)
+    await playerDoc.save();
+
+    res.status(201).json({ 
+      message: 'At-bat created successfully', 
+      data: atBatData 
+    });
     
   } catch (error) {
     console.error(error);
