@@ -4,7 +4,26 @@ import { Player } from '../models/Player';
 const router = express.Router();
 const playerModel = Player;
 
-// post at-bat
+// get player by username
+router.get('/:username', async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    // Find player by name
+    const playerDoc = await playerModel.findOne({ username });
+    if (!playerDoc) {
+      return res.status(404).json({ error: 'Player not found' });
+    }
+
+    res.status(201).json(playerDoc);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to get player' });
+  }
+});
+
+// add at-bat to game
 router.post('/:username/:year/:gameNumber', async (req, res) => {
   try {
     const { username, year, gameNumber } = req.params;
@@ -44,3 +63,5 @@ router.post('/:username/:year/:gameNumber', async (req, res) => {
     res.status(500).json({ error: 'Failed to save at-bat' });
   }
 });
+
+export default router;
