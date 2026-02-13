@@ -5,21 +5,21 @@ const router = express.Router();
 const playerModel = Player;
 
 // post at-bat
-router.post('/:player/:year/:gameNumber', async (req, res) => {
+router.post('/:username/:year/:gameNumber', async (req, res) => {
   try {
-    const { player: playerName, year, gameNumber } = req.params;
+    const { username, year, gameNumber } = req.params;
     const atBatData = req.body;
 
     // Find player by name
-    const playerDoc = await playerModel.findOne({ name: playerName });
+    const playerDoc = await playerModel.findOne({ name: username });
     if (!playerDoc) {
       return res.status(404).json({ error: 'Player not found' });
     }
 
     // Find season within player's seasons
-    const season = playerDoc.seasons.find(s => s.year === parseInt(year));
+    const season = playerDoc.seasons[year];
     if (!season) {
-      return res.status(404).json({ error: `Season ${year} not found for player ${playerName}` });
+      return res.status(404).json({ error: `Season ${year} not found for player ${username}` });
     }
 
     // Find game within season's games

@@ -1,7 +1,13 @@
 import mongoose from "mongoose";
 import { atBatSchema } from "./AtBat";
+import { opponentSchema } from "./Opponent";
 
 const gameSchema = new mongoose.Schema({
+  isPlayoff: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   gameNumber: {
     type: Number,
     required: true,
@@ -12,6 +18,7 @@ const gameSchema = new mongoose.Schema({
     enum: ['HOME', 'AWAY'],
     required: true
   },
+  opponent: [opponentSchema],
   atBats: [atBatSchema], 
 });
 

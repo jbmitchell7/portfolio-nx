@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const atBatSchema = new mongoose.Schema({
-  gamePANumber: {
+  plateAppearance: {
     type: Number,
     required: true,
     min: 1,
@@ -15,7 +15,7 @@ const atBatSchema = new mongoose.Schema({
     required: true,
     min: 1,
   },
-  pitchType: {
+  finalPitchType: {
     type: String,
     enum: ['FASTBALL', 'CURVEBALL', 'SLIDER', 'CHANGEUP', 'KNUCKLEBALL', 'SPLITTER', 'OTHER'],
     required: true,
@@ -64,6 +64,21 @@ const atBatSchema = new mongoose.Schema({
     default: false,
   },
   sacrifice: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  walk: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  strikeout: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  hit: {
     type: Boolean,
     required: false,
     default: false,

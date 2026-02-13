@@ -1,0 +1,207 @@
+[
+  {
+    "username": "mtrout",
+    "password": "hashedPassword123",
+    "name": "Mike Trout",
+    "birthdate": "1991-08-27",
+    "handedness": "RIGHT",
+    "seasons": {
+      "2023": {
+        "league": "MLB",
+        "team": "Los Angeles Angels",
+        "class": "Major League",
+        "games": [
+          {
+            "isPlayoff": false,
+            "gameNumber": 1,
+            "location": "HOME",
+            "opponent": [
+              {
+                "name": "Houston Astros",
+                "class": "Major League",
+                "inConference": false
+              }
+            ],
+            "atBats": [
+              {
+                "plateAppearance": 1,
+                "result": "SINGLE",
+                "numberOfPitches": 2,
+                "finalPitchType": "FASTBALL",
+                "runners": {
+                  "first": false,
+                  "second": false,
+                  "third": false
+                },
+                "pitcherArm": "RIGHT",
+                "launchType": "LINE_DRIVE",
+                "contact": "HARD",
+                "doublePlay": false,
+                "sacrifice": false,
+                "walk": false,
+                "strikeout": false,
+                "hit": true,
+                "runsBattedIn": 0
+              },
+              {
+                "plateAppearance": 2,
+                "result": "HOME_RUN",
+                "numberOfPitches": 1,
+                "finalPitchType": "SLIDER",
+                "runners": {
+                  "first": true,
+                  "second": false,
+                  "third": false
+                },
+                "pitcherArm": "LEFT",
+                "launchType": "FLY_BALL",
+                "contact": "HARD",
+                "doublePlay": false,
+                "sacrifice": false,
+                "walk": false,
+                "strikeout": false,
+                "hit": true,
+                "runsBattedIn": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "username": "mbetts",
+    "password": "hashedPassword456",
+    "name": "Mookie Betts",
+    "birthdate": "1992-10-07",
+    "handedness": "RIGHT",
+    "seasons": {
+      "2023": {
+        "league": "MLB",
+        "team": "Los Angeles Dodgers",
+        "class": "Major League",
+        "games": [
+          {
+            "isPlayoff": false,
+            "gameNumber": 1,
+            "location": "AWAY",
+            "opponent": [
+              {
+                "name": "San Diego Padres",
+                "class": "Major League",
+                "inConference": false
+              }
+            ],
+            "atBats": [
+              {
+                "plateAppearance": 1,
+                "result": "WALK",
+                "numberOfPitches": 5,
+                "finalPitchType": "CHANGEUP",
+                "runners": {
+                  "first": false,
+                  "second": false,
+                  "third": false
+                },
+                "pitcherArm": "RIGHT",
+                "doublePlay": false,
+                "sacrifice": false,
+                "walk": true,
+                "strikeout": false,
+                "hit": false,
+                "runsBattedIn": 0
+              },
+              {
+                "plateAppearance": 2,
+                "result": "DOUBLE",
+                "numberOfPitches": 3,
+                "finalPitchType": "FASTBALL",
+                "runners": {
+                  "first": true,
+                  "second": false,
+                  "third": false
+                },
+                "pitcherArm": "RIGHT",
+                "launchType": "LINE_DRIVE",
+                "contact": "HARD",
+                "doublePlay": false,
+                "sacrifice": false,
+                "walk": false,
+                "strikeout": false,
+                "hit": true,
+                "runsBattedIn": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "username": "jsoto",
+    "password": "hashedPassword789",
+    "name": "Juan Soto",
+    "birthdate": "1998-10-25",
+    "handedness": "LEFT",
+    "seasons": {
+      "2023": {
+        "league": "MLB",
+        "team": "New York Mets",
+        "games": [
+          {
+            "isPlayoff": false,
+            "gameNumber": 2,
+            "location": "HOME",
+            "opponent": [
+              {
+                "name": "Atlanta Braves",
+                "class": "Major League",
+                "inConference": false
+              }
+            ],
+            "atBats": [
+              {
+                "plateAppearance": 1,
+                "result": "STRIKEOUT",
+                "numberOfPitches": 4,
+                "finalPitchType": "CURVEBALL",
+                "runners": {
+                  "first": false,
+                  "second": false,
+                  "third": false
+                },
+                "pitcherArm": "RIGHT",
+                "doublePlay": false,
+                "sacrifice": false,
+                "walk": false,
+                "strikeout": true,
+                "hit": false,
+                "runsBattedIn": 0
+              },
+              {
+                "plateAppearance": 2,
+                "result": "SINGLE",
+                "numberOfPitches": 2,
+                "finalPitchType": "FASTBALL",
+                "runners": {
+                  "first": false,
+                  "second": true,
+                  "third": false
+                },
+                "pitcherArm": "LEFT",
+                "launchType": "GROUND_BALL",
+                "contact": "MEDIUM",
+                "doublePlay": false,
+                "sacrifice": false,
+                "walk": false,
+                "strikeout": false,
+                "hit": true,
+                "runsBattedIn": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+]
