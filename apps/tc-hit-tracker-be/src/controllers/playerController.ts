@@ -36,7 +36,7 @@ router.post('/:username/:year/:gameNumber', async (req, res) => {
     }
 
     // Find season within player's seasons
-    const season = playerDoc.seasons[year];
+    const season = playerDoc.seasons.get(year);
     if (!season) {
       return res.status(404).json({ error: `Season ${year} not found for player ${username}` });
     }

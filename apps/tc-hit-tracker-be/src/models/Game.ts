@@ -18,7 +18,7 @@ const gameSchema = new mongoose.Schema({
     enum: ['HOME', 'AWAY'],
     required: true
   },
-  opponent: [opponentSchema],
+  opponent: opponentSchema,
   atBats: [atBatSchema], 
 });
 
