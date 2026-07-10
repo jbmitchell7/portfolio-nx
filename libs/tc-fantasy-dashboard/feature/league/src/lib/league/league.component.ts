@@ -10,7 +10,6 @@ import { LeagueInitService } from '@tc-fantasy-dashboard/shared/services';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { IconAttributionComponent } from '@tc-fantasy-dashboard/shared/components';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'fd-league',
@@ -29,7 +28,6 @@ export class LeagueComponent implements OnInit, OnDestroy {
   readonly #leagueInitService = inject(LeagueInitService);
   readonly #confirmationService = inject(ConfirmationService);
   readonly #messageService = inject(MessageService);
-  readonly #clipboard = inject(Clipboard);
   #sub!: Subscription;
 
   menuItems!: MenuItem[];
@@ -172,7 +170,7 @@ export class LeagueComponent implements OnInit, OnDestroy {
   }
 
   #copyLeagueId(leagueId: string): void {
-    this.#clipboard.copy(leagueId);
+    navigator.clipboard.writeText(leagueId)
     this.#messageService.add({
       severity: 'success',
       summary: 'League ID Copied',
