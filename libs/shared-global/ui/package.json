@@ -4,7 +4,7 @@
   "peerDependencies": {
     "@angular/common": "^20.3.9",
     "@angular/core": "^20.3.9",
-    "primeng": "^19.0.8"
+    "primeng": "^20.4.0"
   },
   "sideEffects": false
 }
